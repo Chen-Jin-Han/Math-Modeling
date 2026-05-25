@@ -23,10 +23,6 @@ python -X utf8 q4_data_collection_closure.py
 python -X utf8 model_analysis_report.py
 ```
 
-## Output Policy
-
-The latest code only writes strict result data tables required by the problem. It does not write summary Markdown files, literature notes, or figures.
-
 ## Data
 
 Raw contest datasets are not committed because several files are larger than normal GitHub limits. To run the scripts, place the dataset folder locally at:
