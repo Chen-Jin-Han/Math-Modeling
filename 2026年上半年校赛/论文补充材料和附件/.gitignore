@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+internal_cache/
+code_backup_before_output_trim_*/
+最终版.zip
+B题：附件 数据集/
+B题：附件 数据集.rar

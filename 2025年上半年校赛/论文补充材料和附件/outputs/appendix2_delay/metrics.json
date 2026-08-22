@@ -1,0 +1,7 @@
+{
+  "actual_rmse_m": 8.186295968635417,
+  "actual_r2": 0.9999982157135529,
+  "optimized_rmse_m": 8.18409747794909,
+  "optimized_r2": 0.999998216671791,
+  "mean_optimized_delay_us": 1.9992553839812657
+}

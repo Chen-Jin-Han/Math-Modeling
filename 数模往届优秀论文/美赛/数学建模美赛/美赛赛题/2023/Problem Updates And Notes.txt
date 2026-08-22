@@ -1,0 +1,6 @@
+Problem C
+Dictionary data, including word or letter frequency, is allowed.
+The attached data file, like most real-world data sets, may contain a few data entry errors.
+Data cleaning is part of the Modeling process for data insights. 
+Teams that believe they have found an error should address it as they see fit. 
+In line 18, for contest number 545, the word listed is "rprobe". The word should be "probe"

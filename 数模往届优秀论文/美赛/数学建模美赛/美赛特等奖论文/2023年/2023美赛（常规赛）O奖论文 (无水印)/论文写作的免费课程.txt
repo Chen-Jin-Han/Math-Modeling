@@ -1,0 +1,41 @@
+观看地址（b站视频链接）：https://www.bilibili.com/video/BV1Na411w7c2
+
+目录：
+01 前言介绍
+02 论文标题
+03 摘要的重要性
+04 摘要开头段的写法
+05 摘要中间段的写法
+06 摘要结尾段的写法
+07 摘要中常见的废话
+08 看论文摘要的作业
+09 关键词的写法
+10 问题重述的写法
+11 问题分析的写法
+12 模型假设的写法上
+13 模型假设的写法下
+14 符号说明的写法
+15 少见的模型准备部分
+16 模型的建立与求解的写法上
+17 模型的建立与求解的写法下
+18 灵敏度分析
+19 模型检验和误差分析
+20 模型的评价改进和推广
+21 参考文献的写法
+22 附录的写法
+23 美赛论文写作前言
+24 2021美赛参赛规则和报名事项
+25 美赛Summary(摘要)
+26 美赛Title&Keywords(标题和关键词)
+27 美赛Contents(目录)
+28 美赛Introduction(引言)
+29 小技巧：怎样高效的去看美赛论文
+30 美赛Assumptions and Justifications(模型假设和合理性论证)
+31 美赛Notations and Glossary(符号说明和术语汇编)
+32 美赛Models and Solutions(模型的建立与求解)
+33 美赛Data Description(数据描述)
+34 美赛Sensitivity Analysis and Error Analysis(灵敏度分析和误差分析)
+35 美赛Model Evaluation and Further Discussion(模型评价和进一步的讨论)
+36 美赛Conclusion(结论)
+37 美赛References and Appendices(参考文献和附录)
+38 美赛Article, Letter and Memo(文章、书信和备忘录)
