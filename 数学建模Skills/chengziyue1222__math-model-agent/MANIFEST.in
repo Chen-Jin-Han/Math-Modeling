@@ -1,0 +1,17 @@
+include LICENSE
+include README.md
+include requirements.txt
+include coverage-policy.json
+recursive-include skills *
+recursive-include benchmarks *.yaml *.json
+recursive-include schemas *.json
+recursive-include legacy *.md *.yaml
+recursive-include patterns *.md
+recursive-include template *.tex
+recursive-include scripts *.py
+
+# Never ship interpreter caches or local build metadata in the sdist.
+global-exclude *.py[cod]
+global-exclude __pycache__
+prune code/math_model_agent.egg-info
+prune */__pycache__

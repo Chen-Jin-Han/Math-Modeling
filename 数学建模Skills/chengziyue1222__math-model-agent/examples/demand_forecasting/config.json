@@ -1,0 +1,6 @@
+{
+  "train_months": 24,
+  "forecast_horizon": 12,
+  "primary_metric": "mae",
+  "model_version": "1.0.0"
+}

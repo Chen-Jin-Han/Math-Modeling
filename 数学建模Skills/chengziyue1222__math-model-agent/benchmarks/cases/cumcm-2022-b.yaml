@@ -1,0 +1,12 @@
+schema_version: 1
+id: cumcm-2022-b
+competition: CUMCM
+year: 2022
+problem_code: B
+title: 无人机遂行编队飞行中的纯方位无源定位
+official_source: https://www.mcm.edu.cn/html_cn/node/388239ded4b057d37b7b8e51e33fe903.html
+archetypes: [geometry, localization, iterative-control]
+capabilities: [bearing-only-localization, nonlinear-solve, formation-adjustment]
+baseline: 基于理想圆周队形和两条方位线交会的几何估计
+validation_targets: [角度周期性, 不可观测构型, 噪声敏感性, 迭代收敛]
+known_failure_modes: [角度单位混用, 忽略镜像解与退化解, 只验证最终队形不验证调整过程]

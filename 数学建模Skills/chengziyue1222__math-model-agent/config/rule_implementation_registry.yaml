@@ -1,0 +1,252 @@
+# Evidence registry for real implementations only. Omitted rules are not implemented.
+rules:
+  - rule_id: LAYOUT-PAGE-001
+    status: implemented
+    implementation_type: document_validator
+    implementation_symbol: inspect_pdf_layout
+    implementation_file: code/algorithms/document_validation.py
+    test_symbol: test_pdf_layout_extracts_page_and_font_evidence
+    test_file: code/tests/test_document_validation.py
+    runtime_entrypoint: scripts/production_pipeline.py demo
+    evidence: pytest + integration PDF preflight JSON
+    status_reason: Extracts A4 dimensions and rotation from each PDF page.
+  - rule_id: LAYOUT-MARGIN-001
+    status: partially_implemented
+    implementation_type: document_validator
+    implementation_symbol: inspect_pdf_layout
+    implementation_file: code/algorithms/document_validation.py
+    test_symbol: test_pdf_layout_extracts_page_and_font_evidence
+    test_file: code/tests/test_document_validation.py
+    runtime_entrypoint: scripts/production_pipeline.py demo
+    evidence: text-span bounding boxes; graphics require manual review
+    status_reason: Text margins are measured; non-text drawing overflow remains manual review.
+  - rule_id: STRUCT-ABSTRACT-001
+    status: implemented
+    implementation_type: document_validator
+    implementation_symbol: validate_paper_structure
+    implementation_file: code/algorithms/document_validation.py
+    test_symbol: test_structure_requires_sections_and_respects_dependency_trigger
+    test_file: code/tests/test_document_validation.py
+    runtime_entrypoint: scripts/validate_production_document.py
+    evidence: pytest structural fixture
+    status_reason: Checks abstract presence and optional one-page evidence.
+  - rule_id: STRUCT-KEYWORD-001
+    status: partially_implemented
+    implementation_type: document_validator
+    implementation_symbol: validate_paper_structure
+    implementation_file: code/algorithms/document_validation.py
+    test_symbol: test_structure_requires_sections_and_respects_dependency_trigger
+    test_file: code/tests/test_document_validation.py
+    runtime_entrypoint: scripts/validate_production_document.py
+    evidence: pytest structural fixture
+    status_reason: Detects keyword field; count and semantic ordering remain pending.
+  - rule_id: STRUCT-RESTATEMENT-001
+    status: implemented
+    implementation_type: document_validator
+    implementation_symbol: validate_paper_structure
+    implementation_file: code/algorithms/document_validation.py
+    test_symbol: test_structure_requires_sections_and_respects_dependency_trigger
+    test_file: code/tests/test_document_validation.py
+    runtime_entrypoint: scripts/validate_production_document.py
+    evidence: pytest structural fixture
+    status_reason: Checks a dedicated restatement section.
+  - rule_id: STRUCT-ANALYSIS-001
+    status: implemented
+    implementation_type: document_validator
+    implementation_symbol: validate_paper_structure
+    implementation_file: code/algorithms/document_validation.py
+    test_symbol: test_structure_requires_sections_and_respects_dependency_trigger
+    test_file: code/tests/test_document_validation.py
+    runtime_entrypoint: scripts/validate_production_document.py
+    evidence: pytest structural fixture
+    status_reason: Checks a dedicated analysis section.
+  - rule_id: STRUCT-ASSUMPTION-001
+    status: implemented
+    implementation_type: document_validator
+    implementation_symbol: validate_paper_structure
+    implementation_file: code/algorithms/document_validation.py
+    test_symbol: test_structure_requires_sections_and_respects_dependency_trigger
+    test_file: code/tests/test_document_validation.py
+    runtime_entrypoint: scripts/validate_production_document.py
+    evidence: pytest structural fixture
+    status_reason: Checks an assumptions section.
+  - rule_id: STRUCT-SYMBOL-001
+    status: implemented
+    implementation_type: document_validator
+    implementation_symbol: validate_paper_structure
+    implementation_file: code/algorithms/document_validation.py
+    test_symbol: test_structure_requires_sections_and_respects_dependency_trigger
+    test_file: code/tests/test_document_validation.py
+    runtime_entrypoint: scripts/validate_production_document.py
+    evidence: pytest structural fixture
+    status_reason: Checks a notation section.
+  - rule_id: STRUCT-UNIFIED-001
+    status: implemented
+    implementation_type: workflow_state
+    implementation_symbol: validate_paper_structure
+    implementation_file: code/algorithms/document_validation.py
+    test_symbol: test_structure_requires_sections_and_respects_dependency_trigger
+    test_file: code/tests/test_document_validation.py
+    runtime_entrypoint: scripts/validate_production_document.py
+    evidence: dependency_analysis.shared_kernel_required gate
+    status_reason: Requires a unified section only when dependency analysis triggers it.
+  - rule_id: STRUCT-VALIDATION-001
+    status: implemented
+    implementation_type: document_validator
+    implementation_symbol: validate_paper_structure
+    implementation_file: code/algorithms/document_validation.py
+    test_symbol: test_structure_requires_sections_and_respects_dependency_trigger
+    test_file: code/tests/test_document_validation.py
+    runtime_entrypoint: scripts/validate_production_document.py
+    evidence: pytest structural fixture
+    status_reason: Checks a dedicated validation section.
+  - rule_id: STRUCT-EVALUATION-001
+    status: implemented
+    implementation_type: document_validator
+    implementation_symbol: validate_paper_structure
+    implementation_file: code/algorithms/document_validation.py
+    test_symbol: test_structure_requires_sections_and_respects_dependency_trigger
+    test_file: code/tests/test_document_validation.py
+    runtime_entrypoint: scripts/validate_production_document.py
+    evidence: pytest structural fixture
+    status_reason: Checks a dedicated evaluation section.
+  - rule_id: STRUCT-REF-001
+    status: implemented
+    implementation_type: document_validator
+    implementation_symbol: validate_paper_structure
+    implementation_file: code/algorithms/document_validation.py
+    test_symbol: test_structure_requires_sections_and_respects_dependency_trigger
+    test_file: code/tests/test_document_validation.py
+    runtime_entrypoint: scripts/validate_production_document.py
+    evidence: pytest structural fixture
+    status_reason: Checks a references section.
+  - rule_id: STRUCT-APPENDIX-001
+    status: implemented
+    implementation_type: document_validator
+    implementation_symbol: validate_paper_structure
+    implementation_file: code/algorithms/document_validation.py
+    test_symbol: test_structure_requires_sections_and_respects_dependency_trigger
+    test_file: code/tests/test_document_validation.py
+    runtime_entrypoint: scripts/validate_production_document.py
+    evidence: pytest structural fixture
+    status_reason: Checks an appendix section.
+  - rule_id: FIG-ROUTE-001
+    status: implemented
+    implementation_type: plotting_utility
+    implementation_symbol: select_figure_grammar
+    implementation_file: code/algorithms/document_validation.py
+    test_symbol: test_figure_grammar_selects_only_matching_signal
+    test_file: code/tests/test_document_validation.py
+    runtime_entrypoint: scripts/validate_production_document.py
+    evidence: grammar selection test
+    status_reason: Consumes canonical figure grammar based on declared signals.
+  - rule_id: TABLE-STYLE-001
+    status: implemented
+    implementation_type: table_utility
+    implementation_symbol: render_three_line_table
+    implementation_file: code/algorithms/document_validation.py
+    test_symbol: test_three_line_table_is_generated_from_structured_rows
+    test_file: code/tests/test_document_validation.py
+    runtime_entrypoint: scripts/production_pipeline.py demo
+    evidence: generated booktabs table fixture
+    status_reason: Emits a caption-above, no-vertical-rule booktabs table.
+  - rule_id: NUM-PRECISION-001
+    status: implemented
+    implementation_type: code_validator
+    implementation_symbol: validate_cross_artifact_values
+    implementation_file: code/algorithms/document_validation.py
+    test_symbol: test_cross_artifact_values_allow_declared_rounding
+    test_file: code/tests/test_document_validation.py
+    runtime_entrypoint: scripts/validate_production_document.py
+    evidence: exact/rounded pass and mismatch failure fixture
+    status_reason: Compares raw source values to declared rounded displays.
+  - rule_id: REJECT-001
+    status: implemented
+    implementation_type: code_validator
+    implementation_symbol: validate_cross_artifact_values
+    implementation_file: code/algorithms/document_validation.py
+    test_symbol: test_cross_artifact_values_allow_declared_rounding
+    test_file: code/tests/test_document_validation.py
+    runtime_entrypoint: scripts/validate_production_document.py
+    evidence: mismatch failure fixture
+    status_reason: Blocks incompatible values for a registered quantity_id.
+  - rule_id: TEST-PDF-001
+    status: implemented
+    implementation_type: pdf_preflight
+    implementation_symbol: inspect_pdf_layout
+    implementation_file: code/algorithms/document_validation.py
+    test_symbol: test_pdf_layout_extracts_page_and_font_evidence
+    test_file: code/tests/test_document_validation.py
+    runtime_entrypoint: scripts/validate_production_document.py
+    evidence: PDF A4 metadata fixture
+    status_reason: Validates A4 portrait pages from PDF metadata.
+  - rule_id: FIG-GRAMMAR-001
+    status: implemented
+    implementation_type: code_validator
+    implementation_symbol: validate_figure_registry
+    implementation_file: code/algorithms/production_guards.py
+    test_symbol: test_figure_and_table_contracts_are_checked
+    test_file: code/tests/test_production_guards.py
+    runtime_entrypoint: scripts/production_pipeline.py demo
+    evidence: registry contract fixture
+    status_reason: Requires claim, evidence role, source artifact and produced figure.
+  - rule_id: TABLE-SOURCE-001
+    status: implemented
+    implementation_type: code_validator
+    implementation_symbol: validate_table_registry
+    implementation_file: code/algorithms/production_guards.py
+    test_symbol: test_figure_and_table_contracts_are_checked
+    test_file: code/tests/test_production_guards.py
+    runtime_entrypoint: scripts/production_pipeline.py demo
+    evidence: missing-source failure fixture
+    status_reason: Requires every registered table to identify a structured source artifact.
+  - rule_id: TABLE-NUM-001
+    status: implemented
+    implementation_type: code_validator
+    implementation_symbol: validate_table_registry
+    implementation_file: code/algorithms/production_guards.py
+    test_symbol: test_figure_and_table_contracts_are_checked
+    test_file: code/tests/test_production_guards.py
+    runtime_entrypoint: scripts/production_pipeline.py demo
+    evidence: shared decimal policy implementation
+    status_reason: Detects mixed display precision within a variable.
+  - rule_id: VAL-GATE-006
+    status: implemented
+    implementation_type: code_validator
+    implementation_symbol: validate_artifact_registry
+    implementation_file: code/algorithms/production_guards.py
+    test_symbol: test_registry_rejects_unverified_and_conflicting_results
+    test_file: code/tests/test_production_guards.py
+    runtime_entrypoint: scripts/production_pipeline.py demo
+    evidence: unverified-result failure fixture
+    status_reason: Prevents results without verified status from publication.
+  - rule_id: VAL-GATE-012
+    status: implemented
+    implementation_type: code_validator
+    implementation_symbol: validate_artifact_registry
+    implementation_file: code/algorithms/production_guards.py
+    test_symbol: test_registry_rejects_unverified_and_conflicting_results
+    test_file: code/tests/test_production_guards.py
+    runtime_entrypoint: scripts/production_pipeline.py demo
+    evidence: hash and conflicting-value failure fixture
+    status_reason: Verifies registered hashes and detects conflicting published values.
+  - rule_id: WF-STATE-001
+    status: implemented
+    implementation_type: workflow_state
+    implementation_symbol: validate_transition
+    implementation_file: code/algorithms/production_guards.py
+    test_symbol: test_unsupported_strong_claim_is_warning_and_workflow_cannot_skip
+    test_file: code/tests/test_production_guards.py
+    runtime_entrypoint: scripts/production_pipeline.py demo
+    evidence: skipped-state failure fixture
+    status_reason: Blocks nonsequential configured state transitions.
+  - rule_id: WRITE-SIGNIFICANT-001
+    status: partially_implemented
+    implementation_type: document_validator
+    implementation_symbol: validate_writing
+    implementation_file: code/algorithms/production_guards.py
+    test_symbol: test_unsupported_strong_claim_is_warning_and_workflow_cannot_skip
+    test_file: code/tests/test_production_guards.py
+    runtime_entrypoint: scripts/validate_production_document.py
+    evidence: nearby-claim heuristic fixture
+    status_reason: Warns on unsupported strong claims; semantic evidence adequacy needs human review.

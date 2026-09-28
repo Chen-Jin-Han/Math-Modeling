@@ -1,0 +1,4 @@
+interface:
+  display_name: "建模科研绘图"
+  short_description: "为建模结果、验证、灵敏度和决策结论生成可追溯图表"
+  default_prompt: "使用 $make-model-figures 为这些数学建模结果建立证据链和图表契约，生成并审查论文图表。"

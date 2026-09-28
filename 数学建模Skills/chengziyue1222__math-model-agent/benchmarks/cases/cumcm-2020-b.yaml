@@ -1,0 +1,12 @@
+schema_version: 1
+id: cumcm-2020-b
+competition: CUMCM
+year: 2020
+problem_code: B
+title: 穿越沙漠
+official_source: https://www.mcm.edu.cn/html_cn/node/10405905647c52abfd6377c0311632b5.html
+archetypes: [dynamic-decision, routing, robustness]
+capabilities: [dynamic-programming, resource-constraints, scenario-analysis]
+baseline: 每日按最短可行路径移动的确定性贪心策略
+validation_targets: [物资守恒, 资金守恒, 天气情景覆盖, 路径可行性]
+known_failure_modes: [忽略负重与消耗耦合, 使用未来天气信息, 只报告单一路径不做情景稳健性]

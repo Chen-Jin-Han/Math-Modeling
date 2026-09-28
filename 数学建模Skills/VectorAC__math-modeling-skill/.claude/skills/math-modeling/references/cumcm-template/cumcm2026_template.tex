@@ -1,0 +1,626 @@
+% =========================================================
+%  全国大学生数学建模竞赛论文模板
+%  文档类：cumcmthesis（需安装或 Overleaf 导入）
+%
+%  编译方式：xelatex（必须）
+%    xelatex cumcm2026_template.tex   % 第 1 次
+%    xelatex cumcm2026_template.tex   % 第 2 次（消交叉引用警告）
+%  推荐：latexmk -xelatex cumcm2026_template.tex
+%
+%  2026 修订稿电子版提交要求：
+%    - 第 1 页必须为摘要专用页（题名 + 摘要 + 关键词，≤1 页）
+%    - 不需要目录、不要承诺书/编号页（加 withoutpreface 选项）
+%    - 页码从摘要专用页起编：页脚中部、阿拉伯数字从 1 开始连续编号
+%    - 提交 PDF 为文本型（非图片合成）、≤20MB；正文（含 AI 声明+参考文献）≤30 页
+% =========================================================
+
+% 为 xcolor 启用 table 选项（\rowcolor）
+\PassOptionsToPackage{table}{xcolor}
+\documentclass[withoutpreface,bwprint]{cumcmthesis}
+
+% 打印版（含封面，需手动贴承诺书）
+% \documentclass{cumcmthesis}
+
+% ─── 额外宏包（cumcmthesis 已内置大多数常用宏包）───────────
+\usepackage{bookmark}
+\usepackage{listings}
+
+% ─── listings 全局样式（Python 语法高亮）───────────────────
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue!70!black},
+    commentstyle=\color{green!50!black},
+    stringstyle=\color{red!60!black},
+    numbers=left, numberstyle=\tiny\color{gray},
+    numbersep=8pt, breaklines=true,
+    columns=flexible, aboveskip=0pt, belowskip=0pt,
+    frame=none, tabsize=4,
+}
+
+% ─── longtable 三线表（可跨页，水平居中）──────────────
+\setlength{\LTleft}{0pt plus 1fill}
+\setlength{\LTright}{0pt plus 1fill}
+
+% ─── 公式间距统一 ───────────────────────────────────────
+% 公式-文字、文字-文字、公式-公式的间距保持一致：
+% 全部等于一行行距（\baselineskip）。如需微调，改这里即可。
+\setlength{\abovedisplayskip}{\baselineskip}
+\setlength{\belowdisplayskip}{\baselineskip}
+\setlength{\abovedisplayshortskip}{\baselineskip}
+\setlength{\belowdisplayshortskip}{\baselineskip}
+
+% ─── 排版约定 ──────────────────────────────────────────
+% 1. \cref{} 前不要加"图/表/假设"前缀（\cref 自动带标签词，会重复）
+% 2. 中文引号一律用 “”（U+201C/U+201D），不用英式直引号 "（编译后同向）
+% 3. 符号说明直接三线表、无说明文字，且不加 \caption（不参与表编号）
+% 4. 每张三线表加 \setlength{\tabcolsep}{...}（默认 6pt，方便调宽度）
+
+% ─── \scite 命令（CUMCM 上标引用格式）─────────────────────
+\newcommand{\scite}[1]{\textsuperscript{[#1]}}
+
+% ─── 论文基本信息 ──────────────────────────────────────────
+% 注意：电子版（withoutpreface）不渲染下方成员/学校/日期——匿名评审；
+%      \title 会显示在摘要页顶部（2026 规范第三条：摘要页含题名）
+% 打印版专用：下方为示例值，打印前必须替换（否则承诺书出现"成员甲/2025"等假信息）
+\title{【在此填写论文题目】}
+\tihao{A}                      % 题号：A / B / C / D / E
+\baominghao{0000}              % 报名号（12 位）
+\schoolname{XX大学}
+\membera{成员甲}
+\memberb{成员乙}
+\memberc{成员丙}
+\supervisor{指导教师}
+\yearinput{2026}
+\monthinput{09}
+\dayinput{10}
+
+% =========================================================
+\begin{document}
+
+% ─── 首页结构（2026 修订稿第三条 + 第十条）──────────────────
+% 电子版（withoutpreface）：第一页必须为摘要专用页——题名 + 摘要 + 关键词，
+%   页码从该页起编（页脚中部、阿拉伯数字从 1 开始）。
+%   cls 的 \maketitle 在无前言模式下会产生前置空白页/独立标题页，因此电子版置空；
+%   题名改由下方手排在摘要页顶部。
+% 打印版（无 withoutpreface）：保留 cls 原生 \maketitle（承诺书 + 编号页 + 题名页）。
+\if@mcm@preface
+\maketitle
+\else
+\renewcommand{\maketitle}{}      % 电子版：禁用 cls 标题页/空页路径
+\maketitle
+\setcounter{page}{1}             % 摘要专用页 = 第 1 页（2026 规范第三条）
+\makeatletter
+{\centering\zihao{3}\bfseries\songti\@title\par\vskip1ex}   % 摘要页须含题名（\@title 需 makeatletter）
+\makeatother
+\fi
+
+% ─── 摘要 ─────────────────────────────────────────────────
+\begin{abstract}
+
+    【简述问题背景与现实意义。1~2 句点明要解决的核心问题。】
+
+    针对问题一，建立了【模型名】模型，采用【算法】求解，得到【量化结果与对比基准】。
+
+    针对问题二，基于问题一的结果，进一步建立了【模型名】模型，通过【方法】分析，得到【量化结果】。
+
+    针对问题三，综合考虑【新增因素】，建立了【模型名】模型，利用【算法】求解，得到【量化结果】。
+
+    灵敏度分析表明，模型对关键参数具有良好的鲁棒性。【补充灵敏度具体数值。】
+
+    \keywords{数学模型 \quad XXX模型 \quad YYY方法 \quad ZZZ算法}
+\end{abstract}
+
+% 目录——2026 规范第四条：不得包含目录，勿启用
+% \tableofcontents
+
+% =========================================================
+\section{问题重述}
+% =========================================================
+
+\subsection{问题背景}
+
+【描述题目背景，1~2 段，简明扼要，不要大段复制题目原文。说明该问题的现实意义和研究的必要性。】
+
+\subsection{问题提出}
+
+根据题目要求，需要解决以下问题：
+
+\begin{enumerate}
+    \item \textbf{问题一}：【简述问题一的核心任务，体现自己的理解。】
+    \item \textbf{问题二}：【在问题一基础上，新增了什么条件或要求。】
+    \item \textbf{问题三}：【进一步拓展或深化的问题。】
+\end{enumerate}
+
+% =========================================================
+\section{问题分析}
+% =========================================================
+
+\subsection{问题一的分析}
+
+【针对问题一的特点，分析需要用什么思路来建模。说明关键变量、约束条件、数据特征，以及为什么选择某种方法。】
+
+\subsection{问题二的分析}
+
+【在问题一的基础上，分析新增因素带来的建模挑战和改进方向。】
+
+\subsection{问题三的分析}
+
+【分析问题的复杂性，说明需要引入什么新方法或视角。每段末尾点明所用模型的核心思想。】
+
+% =========================================================
+\section{模型假设}
+% =========================================================
+
+为使模型易于建立与分析，在不失一般性的前提下，作出以下假设：
+
+\begin{assumption}
+    【假设一】假设……，理由是……
+\end{assumption}
+
+\begin{assumption}
+    【假设二】假设……，理由是……
+\end{assumption}
+
+\begin{assumption}
+    【假设三】假设……，理由是……
+\end{assumption}
+
+% =========================================================
+\section{符号说明}
+% =========================================================
+
+% 符号说明：直接三线表、无说明文字；不加 \caption（不参与表编号）
+{\renewcommand{\arraystretch}{1.38}
+\setlength{\tabcolsep}{6pt}
+\begin{longtable}{ccl}
+    \toprule[1.5pt]
+    符号       & 单位 & 说明     \\
+    \midrule[1pt]
+    \endfirsthead
+    \endhead
+    \bottomrule[1.5pt]
+    \endlastfoot
+    $x$      & —  & 【变量说明】 \\
+    $t$      & s  & 时间     \\
+    $\alpha$ & —  & 【参数说明】 \\
+    $f(x)$   & —  & 目标函数   \\
+\end{longtable}}
+
+% =========================================================
+\section{模型准备}
+% =========================================================
+
+\subsection{数据整理与处理}
+
+【说明数据来源、格式、规模。缺失值处理、异常值识别、归一化/标准化方法。】
+
+\begin{figure}[H]
+    \centering
+    % \includegraphics[width=0.7\textwidth]{figures/data_distribution.pdf}
+    \fbox{\parbox{0.7\textwidth}{\centering\vspace{2cm}【在此插入数据分布图】\vspace{2cm}}}
+    \caption{数据分布情况}
+    \label{fig:data_dist}
+\end{figure}
+
+\subsection{可视化分析}
+
+【对数据进行初步可视化，分析数据特征（分布、相关性、趋势等），为模型选择提供依据。展示关键发现。】
+如 \cref{fig:correlation} 所示，【变量A】与【变量B】呈现【正/负】相关，说明……
+
+\begin{figure}[H]
+    \centering
+    % \includegraphics[width=0.6\textwidth]{figures/correlation.pdf}
+    \fbox{\parbox{0.6\textwidth}{\centering\vspace{2cm}【在此插入相关性分析图】\vspace{2cm}}}
+    \caption{相关性分析}
+    \label{fig:correlation}
+\end{figure}
+
+\subsection{技术路线}
+
+本文的整体建模流程如 \cref{fig:flowchart} 所示。
+
+\begin{figure}[H]
+    \centering
+    % \includegraphics[width=0.85\textwidth]{figures/flowchart.pdf}
+    \fbox{\parbox{0.85\textwidth}{\centering\vspace{3cm}【在此插入技术路线图/流程图】\vspace{3cm}}}
+    \caption{技术路线图}
+    \label{fig:flowchart}
+\end{figure}
+
+% =========================================================
+\section{问题一的模型建立及求解}
+% =========================================================
+
+\subsection{模型建立}
+
+【阐述建模思路。首先定义变量，然后建立目标函数和约束条件。相关研究见文献\scite{1}。】
+
+设【变量定义】……，则问题可转化为如下优化模型：
+
+\begin{equation}
+    \min_{x \in \mathbb{R}^n} \quad f(x) = \sum_{i=1}^{n} w_i \cdot g_i(x)
+    \label{eq:obj1}
+\end{equation}
+
+约束条件为：
+
+\begin{equation}
+    \text{s.t.} \quad
+    \begin{cases}
+        h_1(x) \leq 0 \\
+        h_2(x) = 0    \\
+        x \geq 0
+    \end{cases}
+    \label{eq:con1}
+\end{equation}
+
+其中，\cref{eq:obj1} 表示……，$w_i$ 为权重系数，$g_i(x)$ 为第 $i$ 项指标函数。
+\cref{eq:con1} 中各约束分别表示……
+
+\subsection{模型求解}
+
+采用【算法名】对上述模型进行求解。步骤如下：
+
+\begin{enumerate}
+    \item 步骤一：【数据处理/初始化】
+    \item 步骤二：【核心迭代/寻优过程】
+    \item 步骤三：【结果输出/后处理】
+\end{enumerate}
+
+【可在此处插入求解流程图，算法实现代码见附录。】
+
+\subsection{结果分析}
+
+求解结果如 \cref{tab:result1} 所示，\cref{fig:result1} 展示了【关键对比/趋势】。
+
+{\renewcommand{\arraystretch}{1.38}
+\setlength{\tabcolsep}{6pt}
+\begin{longtable}{ccccc}
+    \caption{问题一计算结果}\label{tab:result1}\\
+    \toprule[1.5pt]
+    参数       & 方案 1 & 方案 2 & 方案 3 & 最优  \\
+    \midrule[1pt]
+    \endfirsthead
+    \endhead
+    \bottomrule[1.5pt]
+    \endlastfoot
+    $\alpha$ & 0.1  & 0.3  & 0.5  & 0.3 \\
+    目标值      & 12.5 & 8.7  & 10.2 & 8.7 \\
+    耗时 (s)   & 1.2  & 2.3  & 1.8  & 2.3 \\
+\end{longtable}}
+
+\begin{figure}[H]
+    \centering
+    % \includegraphics[width=0.7\textwidth]{figures/result1.pdf}
+    \fbox{\parbox{0.7\textwidth}{\centering\vspace{3cm}【在此插入结果图】\vspace{3cm}}}
+    \caption{问题一结果图示}
+    \label{fig:result1}
+\end{figure}
+
+由 \cref{tab:result1} 可以看出……。\cref{fig:result1} 表明……
+【量化分析结果的意义，与基准方案对比，给出具体改善幅度。】
+
+% =========================================================
+\section{问题二的模型建立及求解}
+% =========================================================
+
+\subsection{模型建立}
+
+在问题一的基础上，考虑【新增因素】，对模型进行扩展。
+
+\begin{equation}
+    J = \int_0^T f\!\left(x(t),\, u(t)\right)\,\mathrm{d}t
+    \label{eq:obj2}
+\end{equation}
+
+【详细定义变量和约束……】
+
+\subsection{模型求解}
+
+采用【算法/方法】进行求解。核心思路是……
+
+\begin{enumerate}
+    \item 【第一步】
+    \item 【第二步】
+    \item 【第三步】
+\end{enumerate}
+
+【求解实现代码见附录。】
+
+\subsection{结果分析}
+
+求解结果如 \cref{tab:result2} 所示。
+
+{\renewcommand{\arraystretch}{1.38}
+\setlength{\tabcolsep}{6pt}
+\begin{longtable}{ccc}
+    \caption{问题二计算结果}\label{tab:result2}\\
+    \toprule[1.5pt]
+    指标  & 基准方案 & 优化方案       \\
+    \midrule[1pt]
+    \endfirsthead
+    \endhead
+    \bottomrule[1.5pt]
+    \endlastfoot
+    指标A & XX   & YY（改善ZZ\%） \\
+    指标B & XX   & YY（改善ZZ\%） \\
+\end{longtable}}
+
+【对结果进行量化分析，说明优化效果和原因。】
+
+% =========================================================
+\section{问题三的模型建立及求解}
+% =========================================================
+
+\subsection{模型建立}
+
+【问题三的建模描述，说明与前两问的区别和联系。】
+
+\begin{equation}
+    \max_{x,y} \quad F(x,y) = \lambda_1 f_1(x) + \lambda_2 f_2(y)
+    \label{eq:obj3}
+\end{equation}
+
+满足约束：
+\begin{equation}
+    \text{s.t.} \quad
+    \begin{cases}
+        g_1(x,y) \leq 0 \\
+        g_2(x) \leq C   \\
+        y \in \{0,1\}
+    \end{cases}
+    \label{eq:con3}
+\end{equation}
+
+其中 $\lambda_1 + \lambda_2 = 1$ 为权重系数……
+
+\subsection{模型求解}
+
+【说明求解方法，如果是多目标优化则说明权重设定或 Pareto 方法。】
+
+\subsection{结果分析}
+
+求解结果如表 \cref{tab:result3} 所示。
+
+{\renewcommand{\arraystretch}{1.38}
+\setlength{\tabcolsep}{6pt}
+\begin{longtable}{lccc}
+    \caption{问题三对比结果}\label{tab:result3}\\
+    \toprule[1.5pt]
+    方案   & 效率指标 & 成本指标 & 综合评价 \\
+    \midrule[1pt]
+    \endfirsthead
+    \endhead
+    \bottomrule[1.5pt]
+    \endlastfoot
+    方案A  & X1   & Y1   & Z1   \\
+    方案B  & X2   & Y2   & Z2   \\
+    推荐方案 & X*   & Y*   & Z*   \\
+\end{longtable}}
+
+\begin{figure}[H]
+    \centering
+    % \includegraphics[width=0.7\textwidth]{figures/result3.pdf}
+    \fbox{\parbox{0.7\textwidth}{\centering\vspace{3cm}【在此插入多目标对比图/Pareto前沿图】\vspace{3cm}}}
+    \caption{多目标优化结果对比}
+    \label{fig:result3}
+\end{figure}
+
+【分析结果，解释为什么推荐方案最优，给出量化依据。】
+
+% =========================================================
+\section{模型测试与分析}
+% =========================================================
+
+\subsection{参数灵敏度分析}
+
+为检验模型对关键参数的稳定性，对参数 $\alpha$ 进行灵敏度分析。
+保持其他参数不变，令 $\alpha$ 在基准值 $\alpha_0 = 0.3$ 的
+$\pm 20\%$ 范围内变化，观察目标函数值的变化，结果如图 \cref{fig:sensitivity} 所示。
+
+\begin{figure}[H]
+    \centering
+    % \includegraphics[width=0.65\textwidth]{figures/sensitivity.pdf}
+    \fbox{\parbox{0.65\textwidth}{\centering\vspace{3cm}【在此插入灵敏度分析图】\vspace{3cm}}}
+    \caption{参数灵敏度分析}
+    \label{fig:sensitivity}
+\end{figure}
+
+由图可知，当 $\alpha$ 在 $[0.24,\, 0.36]$ 范围内变化时，
+目标函数值变化幅度不超过 $X\%$，说明模型对该参数具有较好的鲁棒性。
+
+\subsection{权重灵敏度分析}
+
+【若模型涉及主观权重（如 AHP、TOPSIS、加权多目标），需同时做权重灵敏度分析。】
+
+当权重 $w$ 在 $[0.3, 0.7]$ 范围内变化时，最优方案排序保持稳定/发生以下变化……
+【说明结果是否对权重的选择敏感。】
+
+\subsection{模型稳健性分析}
+
+【可选：通过情景构造（如需求扰动、能力下降、参数组合变动）进一步验证模型的适应性。】
+
+% =========================================================
+\section{模型评价与总结}
+% =========================================================
+
+\subsection{模型的优点}
+
+\begin{enumerate}
+    \item \textbf{【优点一】}：【具体说明，尽量量化。】
+    \item \textbf{【优点二】}：【如：模型融合了XXX和YYY的优点，兼顾了解释性和精度。】
+    \item \textbf{【优点三】}：【如：灵敏度分析表明结论在参数合理范围内保持稳健。】
+\end{enumerate}
+
+\subsection{模型的改进}
+
+\begin{enumerate}
+    \item \textbf{【改进一】}：【当前模型的局限性是什么，未来如何改进。】
+    \item \textbf{【改进二】}：【如：当前假设简化了XXX，未来可考虑XXX。】
+\end{enumerate}
+
+\subsection{模型的推广}
+
+【说明模型可以迁移到哪些其他领域或问题类型。】
+
+% =========================================================
+%  AI 工具使用声明（2026 年试行规定，2026-09-01 起施行）
+%  ◇ 必须位于参考文献【之前】，二选一，本队固定为已使用版本（见下）
+%  ◇ 支撑材料必须附《AI工具使用详情.pdf》（见 ai-usage-detail-template.tex）
+%     ——缺此文件按违规处理，故意隐瞒/虚假声明可被取消评奖资格
+%  ◇ 若确未使用 AI，替换为：
+%  \section*{AI工具使用声明}
+%  本参赛队在竞赛过程中未使用任何AI工具。
+%  正文声明与支撑材料详情需保持一致
+\CumcmAIUsed{语言润色、代码调试、文献整理}
+% =========================================================
+%  参考文献
+%  引用方式：\scite{编号} 如 \scite{1}、\scite{2,3}、\scite{4-6}
+% =========================================================
+\begin{thebibliography}{99}
+
+    \bibitem{ref-book}
+    作者名. \textit{文献标题}\allowbreak[M]. 出版社, 出版地, 年份.
+
+    \bibitem{ref-journal}
+    Author A, Author B. Title of the article\allowbreak[J]. \textit{Journal Name}, Year, Vol(Issue): Pages.
+
+    \bibitem{ref-standard}
+    全国大学生数学建模竞赛论文格式规范（2026 年修订稿）\allowbreak[S]. 全国大学生数学建模竞赛组委会, 2026.
+
+    \bibitem{ref-url}
+    作者名. 网页标题\allowbreak[EB/OL]. \url{https://example.com}, 访问日期.
+
+\end{thebibliography}
+
+\newpage
+% =========================================================
+\section*{附录}
+% =========================================================
+% ⚠ 下方 appendix1-3.py 为旧题示例代码（历届模拟残留），仅演示 filecontents 用法——
+%   正式比赛必须替换为本届源程序（与正文模型/数据一致），并同步更新上方支撑材料清单
+% ─── 将代码写入外部文件（供 \lstinputlisting 读取）───────
+\begin{filecontents*}[overwrite]{appendix1.py}
+import numpy as np
+import pandas as pd
+
+# ==========================
+# 1. 基础数据输入
+# ==========================
+# 突水点涌水量 (m^3/min)
+Q = 30.0
+# 巷道宽度 (m)
+W = 4.0
+# 巷道高度 (m)
+H = 3.0
+
+def calc_flow_time(length, flow_rate, area=0.4):
+    """计算巷道过水耗时"""
+    volume = area * length
+    return volume / flow_rate
+
+# 单巷道过水时间计算
+tunnel_length = 150.0
+t = calc_flow_time(tunnel_length, Q)
+print(f"巷道过水耗时: {t:.2f} min")
+\end{filecontents*}
+\begin{filecontents*}[overwrite]{appendix2.py}
+import heapq
+
+def dynamic_dijkstra(graph, start, end, water_time):
+    """动态 Dijkstra（考虑水位变化）"""
+    dist = {node: float('inf') for node in graph}
+    prev = {node: None for node in graph}
+    dist[start] = 0.0
+    pq = [(0.0, start)]
+
+    while pq:
+        d, u = heapq.heappop(pq)
+        if u == end:
+            break
+        for v, length, tid in graph[u]:
+            if tid in water_time:
+                speed = 2.0 if d >= water_time[tid] else 4.0
+            else:
+                speed = 4.0
+            nd = d + length / speed
+            if nd < dist[v]:
+                dist[v] = nd
+                prev[v] = u
+                heapq.heappush(pq, (nd, v))
+
+    path, node = [], end
+    while node is not None:
+        path.append(node)
+        node = prev[node]
+    path.reverse()
+    return dist[end], path
+\end{filecontents*}
+\begin{filecontents*}[overwrite]{appendix3.py}
+import matplotlib.pyplot as plt
+import numpy as np
+
+COLOR_BLUE = '#1f4e79'
+COLOR_ORANGE = '#ed7d31'
+
+def plot_sensitivity(param_name, param_values, obj_values):
+    """绘制参数灵敏度分析曲线"""
+    plt.figure(figsize=(8, 5))
+    plt.plot(param_values, obj_values,
+             color=COLOR_BLUE, marker='o', linewidth=2)
+    plt.axhline(y=obj_values[0], color='gray',
+                linestyle='--', alpha=0.7, label='基准值')
+    plt.xlabel(param_name)
+    plt.ylabel('目标函数值')
+    plt.title(f'{param_name} 灵敏度分析')
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+    plt.tight_layout()
+    plt.savefig('fig_sensitivity.pdf', dpi=300)
+\end{filecontents*}
+
+\begin{appendices}
+    % 规范第五条：附录内容应含支撑材料文件列表，建议置附录首页（便于评审定位核验）
+    \section{支撑材料文件列表}
+
+    本论文支撑材料清单如下，全部文件随论文一并提交。
+
+    {\renewcommand{\arraystretch}{1.38}
+    \setlength{\tabcolsep}{6pt}
+    \begin{longtable}{cllc}
+        \caption{支撑材料文件列表}\\
+        \toprule[1.5pt]
+        序号 & 文件名 & 说明 & 类型 \\
+        \midrule[1pt]
+        \endfirsthead
+        \endhead
+        \bottomrule[1.5pt]
+        \endlastfoot
+        1 & appendix1.py & 问题一求解程序 & 源程序 \\
+        2 & appendix2.py & 问题二求解程序 & 源程序 \\
+        3 & appendix3.py & 问题三求解程序 & 源程序 \\
+        4 & 【data/xxx.csv】 & 【原始数据】 & 数据文件 \\
+        5 & AI工具使用详情.pdf & AI 工具使用详情（2026 试行规定必带；文件名固定，不得含姓名/学校/赛区） & 支撑材料 \\
+    \end{longtable}}
+
+    \section{源程序代码}
+
+    本部分给出建模所用到的全部完整、可运行的源程序代码。
+
+    \subsection{第一问求解程序}
+    \lstinputlisting[frame=tb, framerule=0.8pt, rulecolor=\color{gray!50}]{appendix1.py}
+
+    \subsection{第二问求解程序}
+    \lstinputlisting[frame=tb, framerule=0.8pt, rulecolor=\color{gray!50}]{appendix2.py}
+
+    \subsection{第三问求解程序}
+    \lstinputlisting[frame=tb, framerule=0.8pt, rulecolor=\color{gray!50}]{appendix3.py}
+
+    \section{补充数据}
+
+    【在此放原始数据表格或中间计算结果。】
+
+\end{appendices}
+
+\end{document}

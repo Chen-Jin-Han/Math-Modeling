@@ -1,0 +1,158 @@
+{
+  "name": "ez-math-model",
+  "display_name": "EZ Math Model",
+  "version": "1.2.0",
+  "description": "数学建模一站式 skill：拆题、建模、求解、出图、写论文、质量门、打包。",
+  "license": "MIT",
+  "author": {
+    "name": "woodfishhhh",
+    "email": "3053932588@qq.com"
+  },
+  "repository": "https://github.com/woodfishhhh/EZ_math_model",
+  "homepage": "https://github.com/woodfishhhh/EZ_math_model#readme",
+  "language_default": "zh",
+  "python_min_version": "3.10",
+  "entrypoint": "skills/ez-math-model/SKILL.md",
+  "readme": {
+    "zh-CN": "README.md",
+    "en": "README.en.md"
+  },
+  "star_map": "STAR_MAP.md",
+  "marketplace": {
+    "metadata": "marketplace.json",
+    "package": "package.json",
+    "targets": ["Codex", "Claude Code", "Agent Skills"],
+    "categories": ["Education", "Data Science", "Research", "Writing"],
+    "tags": ["mathematical modeling", "CUMCM", "MCM", "ICM", "Python", "academic writing", "PaperOrchestra"]
+  },
+  "pipeline": [
+    "skills/ez-math-model/pipeline/00-environment-setup.md",
+    "skills/ez-math-model/pipeline/01-problem-intake.md",
+    "skills/ez-math-model/pipeline/02-modeling-plan.md",
+    "skills/ez-math-model/pipeline/03-coding-solve.md",
+    "skills/ez-math-model/pipeline/04-paper-writing.md",
+    "skills/ez-math-model/pipeline/05-quality-audit.md",
+    "skills/ez-math-model/pipeline/06-packaging-output.md"
+  ],
+  "prompts": {
+    "shared": "skills/ez-math-model/prompts/shared.md",
+    "coordinator": "skills/ez-math-model/prompts/coordinator.md",
+    "modeler": "skills/ez-math-model/prompts/modeler.md",
+    "coder": "skills/ez-math-model/prompts/coder.md",
+    "writer": "skills/ez-math-model/prompts/writer.md"
+  },
+  "templates": {
+    "paper_zh": "skills/ez-math-model/templates/paper_zh.md",
+    "paper_en": "skills/ez-math-model/templates/paper_en.md",
+    "chapter_outline": "skills/ez-math-model/templates/chapter_outline.toml",
+    "workdir_readme": "skills/ez-math-model/templates/readme_workdir.md"
+  },
+  "references": {
+    "project_root_protocol": "skills/ez-math-model/references/project-root-protocol.md",
+    "setup_policy": "skills/ez-math-model/references/setup-policy.md",
+    "run_mode_protocol": "skills/ez-math-model/references/run-mode-protocol.md",
+    "workdir_protocol": "skills/ez-math-model/references/workdir-protocol.md",
+    "chart_quality_gate": "skills/ez-math-model/references/chart-quality-gate.md",
+    "artifact_manifest": "skills/ez-math-model/references/artifact-manifest.md",
+    "algorithms_index": "skills/ez-math-model/references/algorithms/README.md",
+    "external_tools_catalog": "skills/ez-math-model/references/external-tools-catalog.md",
+    "fault_tolerance": "skills/ez-math-model/references/fault-tolerance.md",
+    "agent_mode": "skills/ez-math-model/references/agent-mode.md",
+    "exemplar_papers_index": "skills/ez-math-model/references/exemplar-papers/README.md",
+    "roles": {
+      "modeler": "skills/ez-math-model/references/roles/modeler-guide.md",
+      "coder": "skills/ez-math-model/references/roles/coder-guide.md",
+      "writer": "skills/ez-math-model/references/roles/writer-guide.md"
+    }
+  },
+  "tools": {
+    "brainstorming": "skills/ez-math-model/tools/brainstorming/SKILL.md",
+    "dataset": "skills/ez-math-model/tools/dataset/SKILL.md",
+    "dispatching_parallel_agents": "skills/ez-math-model/tools/dispatching-parallel-agents/SKILL.md",
+    "docx": "skills/ez-math-model/tools/docx/SKILL.md",
+    "external_context": "skills/ez-math-model/tools/external-context/SKILL.md",
+    "humanizer": "skills/ez-math-model/tools/humanizer/SKILL.md",
+    "mineru": "skills/ez-math-model/tools/mineru/SKILL.md",
+    "paper_orchestra": "skills/ez-math-model/tools/paper-orchestra/SKILL.md",
+    "paper_search": "skills/ez-math-model/tools/paper_search/SKILL.md",
+    "pdf": "skills/ez-math-model/tools/pdf/SKILL.md",
+    "scholar": "skills/ez-math-model/tools/scholar/SKILL.md",
+    "scientific_slides": "skills/ez-math-model/tools/scientific-slides/SKILL.md",
+    "simplify": "skills/ez-math-model/tools/simplify/SKILL.md",
+    "subagent_driven_development": "skills/ez-math-model/tools/subagent-driven-development/SKILL.md",
+    "systematic_debugging": "skills/ez-math-model/tools/systematic-debugging/SKILL.md",
+    "user_corpus_explorer": "skills/ez-math-model/tools/user-corpus-explorer/SKILL.md",
+    "verification_before_completion": "skills/ez-math-model/tools/verification-before-completion/SKILL.md",
+    "webcrawl": "skills/ez-math-model/tools/webcrawl/SKILL.md",
+    "xlsx": "skills/ez-math-model/tools/xlsx/SKILL.md"
+  },
+  "scripts": {
+    "install": {
+      "fetch_zhanwen_ps1": "skills/ez-math-model/scripts/install/fetch_zhanwen.ps1",
+      "fetch_zhanwen_sh": "skills/ez-math-model/scripts/install/fetch_zhanwen.sh",
+      "verify_environment_ps1": "skills/ez-math-model/scripts/install/verify_environment.ps1",
+      "discover_tools_ps1": "skills/ez-math-model/scripts/install/discover_tools.ps1"
+    },
+    "runtime": {
+      "init_workdir_ps1": "skills/ez-math-model/scripts/runtime/init_workdir.ps1",
+      "audit_quality_py": "skills/ez-math-model/scripts/runtime/audit_quality.py",
+      "export_paper_ps1": "skills/ez-math-model/scripts/runtime/export_paper.ps1",
+      "audit_export_py": "skills/ez-math-model/scripts/runtime/audit_export.py",
+      "match_thesis_py": "skills/ez-math-model/scripts/runtime/match_thesis.py",
+      "pack_deliverable_ps1": "skills/ez-math-model/scripts/runtime/pack_deliverable.ps1"
+    }
+  },
+  "external": {
+    "zhanwen_mathmodel": {
+      "upstream": "https://github.com/zhanwen/MathModel",
+      "local_dir": "skills/ez-math-model/external/zhanwen-mathmodel",
+      "fetch_strategy": "git clone --depth 1 --filter=blob:none --sparse",
+      "sparse_paths": [
+        "国赛论文/",
+        "国赛试题/",
+        "美赛论文/",
+        "2024年数模悉知&论文模版/",
+        "2025年数模悉知&论文模版/",
+        "2024年最终获奖名单/",
+        "数学建模Latex模版/",
+        "README.md"
+      ],
+      "marker_files": {
+        "complete": "skills/ez-math-model/external/zhanwen-mathmodel/.complete",
+        "failed": "skills/ez-math-model/external/zhanwen-mathmodel/.failed",
+        "skip": "skills/ez-math-model/external/zhanwen-mathmodel/.skip"
+      },
+      "license_note": "上游内容版权归原作者所有，仅供本机学术参考；不复制不分发不入库。"
+    },
+    "paper_orchestra": {
+      "upstream": "https://github.com/Ar9av/PaperOrchestra",
+      "local_dir": "skills/ez-math-model/external/paper-orchestra",
+      "adapter": "skills/ez-math-model/tools/paper-orchestra/SKILL.md",
+      "entrypoint": "skills/ez-math-model/external/paper-orchestra/skills/paper-orchestra/SKILL.md",
+      "used_by": "writer",
+      "mode": "default PaperOrchestra-first writer route with EZMM Markdown compatibility output",
+      "license_note": "MIT; keep upstream LICENSE and CITATION.cff and cite PaperOrchestra when its workflow shapes the final paper."
+    },
+    "tools_decisions": {
+      "local_dir": "skills/ez-math-model/external/tools",
+      "marker_files": {
+        "setup_state": "skills/ez-math-model/external/tools/setup_state.json",
+        "decided": "skills/ez-math-model/external/tools/.tools_decided",
+        "domain_pattern": "skills/ez-math-model/external/tools/<domain>.{free,skip,yes}",
+        "agent_mode_pattern": "skills/ez-math-model/external/tools/agent_mode.{single,multi,hybrid}",
+        "inherited_skills_pattern": "skills/ez-math-model/external/tools/inherited_skills.{yes,recommended,skip}"
+      },
+      "domains": ["pdf", "scholar", "dataset", "webcrawl", "corpus", "agent_mode", "inherited_skills"]
+    },
+    "user_corpus": {
+      "local_dir": "skills/ez-math-model/external/user-corpus",
+      "explorer_doc": "skills/ez-math-model/tools/user-corpus-explorer/SKILL.md",
+      "runtime_outputs": {
+        "agents_md": "skills/ez-math-model/external/user-corpus/AGENTS.md",
+        "cache": "skills/ez-math-model/external/user-corpus/.corpus_index.json"
+      },
+      "note": "用户自带参考资料，由 corpus explorer subagent 在 pipeline 01 末尾扫描产出 AGENTS.md。runtime_outputs 是运行时才产出的文件，不在仓库初始静态资产中。"
+    }
+  },
+  "env_example": "skills/ez-math-model/.env.example"
+}

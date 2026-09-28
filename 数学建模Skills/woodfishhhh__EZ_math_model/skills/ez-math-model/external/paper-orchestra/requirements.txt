@@ -1,0 +1,9 @@
+# Deterministic helpers only. No LLM SDKs. No network clients.
+# All web search, LLM calls, and Semantic Scholar fetches are delegated to the
+# host coding agent — this repo ships zero API integrations.
+
+jsonschema>=4.0        # outline schema validation
+python-Levenshtein>=0.21  # fuzzy title match for citation verification
+reportlab>=4.0         # fallback PDF builder (academic-paper style)
+matplotlib>=3.7        # plotting agent renderer helper patterns
+pypdf>=4.0             # optional: PDF ingestion for paper-writing-bench

@@ -1,0 +1,12 @@
+schema_version: 1
+id: cumcm-2021-a
+competition: CUMCM
+year: 2021
+problem_code: A
+title: FAST主动反射面的形状调节
+official_source: https://www.mcm.edu.cn/html_cn/node/90d223833c1eb50f899aa096a66c6896.html
+archetypes: [geometry, physical-modeling, optimization]
+capabilities: [surface-fitting, coordinate-transform, constrained-displacement]
+baseline: 理想抛物面与球面之间的径向投影近似
+validation_targets: [坐标系一致性, 节点位移上限, 反射几何误差, 有效口径覆盖]
+known_failure_modes: [混用球坐标与直角坐标, 只拟合曲面不检查执行器约束, 缺少几何残差可视化]

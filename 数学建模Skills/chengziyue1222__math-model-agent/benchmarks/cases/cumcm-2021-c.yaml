@@ -1,0 +1,12 @@
+schema_version: 1
+id: cumcm-2021-c
+competition: CUMCM
+year: 2021
+problem_code: C
+title: 生产企业原材料的订购与运输
+official_source: https://www.mcm.edu.cn/html_cn/node/90d223833c1eb50f899aa096a66c6896.html
+archetypes: [operations-research, forecasting, allocation]
+capabilities: [supplier-ranking, demand-planning, transport-allocation]
+baseline: 历史均值需求加安全库存的贪心订购方案
+validation_targets: [供需守恒, 产能约束, 运输损耗, 滚动回测]
+known_failure_modes: [评价模型与优化模型使用不同口径, 忽略供应波动, 只给静态计划不做滚动验证]

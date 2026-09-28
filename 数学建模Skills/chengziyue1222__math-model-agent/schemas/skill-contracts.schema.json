@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Standard Skill Contract Catalogue",
+  "type": "object",
+  "required": ["contract_version", "skills"],
+  "properties": {
+    "contract_version": {"const": "1.3"},
+    "skills": {
+      "type": "object",
+      "minProperties": 8,
+      "additionalProperties": {
+        "type": "object",
+        "required": ["inputs", "outputs"],
+        "properties": {
+          "inputs": {"type": "array", "items": {"type": "string"}},
+          "outputs": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=2.54cm]{geometry}
+\usepackage{booktabs,graphicx,amsmath,hyperref}
+\title{Verified Modeling Integration Demonstration}
+\author{math-model production pipeline}
+\date{\today}
+\begin{document}
+\maketitle
+\begin{abstract}
+This reproducible teaching demonstration executes a constrained numerical model, registers its verified result, and renders a report from that single result source. The computed optimum is \texttt{{{OPTIMUM}}}, while the independent feasibility audit is recorded in the attached validation report. Keywords: reproducibility; validation gate; artifact registry.
+\end{abstract}
+\tableofcontents\newpage
+\section{Problem and model}
+The objective is to minimise $(x-2)^2$ subject to $0\le x\le3$. The solver result is sourced only from the verified JSON artifact; solver tolerance is not described as model error.
+\section{Result and validation}
+The calculated optimum is $x={{{OPTIMUM}}}$ and the residual is ${{{RESIDUAL}}}$. Figure~\ref{fig:objective} shows the full response and a registered source artifact. The validation gate confirms the bound and numerical residual.
+\begin{figure}[h]
+\centering\includegraphics[width=0.72\linewidth]{objective.png}
+\caption{Objective response and the verified minimizer.}\label{fig:objective}
+\end{figure}
+\section{Limitations}
+This is a teaching-scale model, not a competition submission. Visual clipping, font substitution, and caption layout remain explicitly marked for manual review by PDF preflight.
+\appendix
+\section{Reproduction}
+The package manifest records the command, hashes, validation output, and source code path.
+\end{document}

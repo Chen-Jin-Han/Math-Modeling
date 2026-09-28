@@ -1,0 +1,12 @@
+schema_version: 1
+id: cumcm-2021-b
+competition: CUMCM
+year: 2021
+problem_code: B
+title: 乙醇偶合制备C4烯烃
+official_source: https://www.mcm.edu.cn/html_cn/node/90d223833c1eb50f899aa096a66c6896.html
+archetypes: [experimental-data, regression, optimization]
+capabilities: [factor-analysis, response-modeling, multi-objective-optimization]
+baseline: 单因素趋势分析与二次响应面回归
+validation_targets: [重复实验处理, 交互效应, 外推范围, 产率定义一致性]
+known_failure_modes: [把温度效应与催化剂效应混淆, 在数据范围外寻找最优点, 忽略转化率与选择性的乘积关系]

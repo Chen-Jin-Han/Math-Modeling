@@ -1,0 +1,4 @@
+interface:
+  display_name: "建模数据分析"
+  short_description: "清洗竞赛数据，完成探索分析、统计建模和可复现结果输出"
+  default_prompt: "使用 $analyze-model-data 分析这份数学建模数据并产出可复现结果。"

@@ -1,0 +1,4 @@
+interface:
+  display_name: "数学建模论文写作"
+  short_description: "把模型、算法、结果和验证证据组织为完整数学建模论文"
+  default_prompt: "使用 $write-model-paper 根据现有模型与结果撰写数学建模论文。"

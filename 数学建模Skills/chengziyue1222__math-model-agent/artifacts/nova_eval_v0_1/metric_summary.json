@@ -1,0 +1,262 @@
+{
+  "by_fault_type": {
+    "BASELINE_FAILURE": {
+      "fixed-all": {
+        "gate_accuracy": 0.0,
+        "n": 12,
+        "top1_selection_accuracy": 0.0
+      },
+      "fixed-early-stop": {
+        "gate_accuracy": 0.0,
+        "n": 12,
+        "top1_selection_accuracy": 0.0
+      },
+      "nova": {
+        "gate_accuracy": 0.0,
+        "n": 12,
+        "top1_selection_accuracy": 1.0
+      },
+      "surface-metric": {
+        "gate_accuracy": 0.0,
+        "n": 12,
+        "top1_selection_accuracy": 0.0
+      }
+    },
+    "BORDERLINE": {
+      "fixed-all": {
+        "gate_accuracy": 0.5,
+        "n": 12,
+        "top1_selection_accuracy": 1.0
+      },
+      "fixed-early-stop": {
+        "gate_accuracy": 0.5,
+        "n": 12,
+        "top1_selection_accuracy": 1.0
+      },
+      "nova": {
+        "gate_accuracy": 0.5,
+        "n": 12,
+        "top1_selection_accuracy": 1.0
+      },
+      "surface-metric": {
+        "gate_accuracy": 0.5,
+        "n": 12,
+        "top1_selection_accuracy": 0.0
+      }
+    },
+    "CLEAN": {
+      "fixed-all": {
+        "gate_accuracy": 1.0,
+        "n": 12,
+        "top1_selection_accuracy": 0.0
+      },
+      "fixed-early-stop": {
+        "gate_accuracy": 1.0,
+        "n": 12,
+        "top1_selection_accuracy": 0.0
+      },
+      "nova": {
+        "gate_accuracy": 1.0,
+        "n": 12,
+        "top1_selection_accuracy": 1.0
+      },
+      "surface-metric": {
+        "gate_accuracy": 1.0,
+        "n": 12,
+        "top1_selection_accuracy": 0.0
+      }
+    },
+    "FEATURE_LEAKAGE": {
+      "fixed-all": {
+        "gate_accuracy": 1.0,
+        "n": 12,
+        "top1_selection_accuracy": 1.0
+      },
+      "fixed-early-stop": {
+        "gate_accuracy": 1.0,
+        "n": 12,
+        "top1_selection_accuracy": 1.0
+      },
+      "nova": {
+        "gate_accuracy": 1.0,
+        "n": 12,
+        "top1_selection_accuracy": 1.0
+      },
+      "surface-metric": {
+        "gate_accuracy": 0.0,
+        "n": 12,
+        "top1_selection_accuracy": 0.0
+      }
+    },
+    "MULTI_FAULT": {
+      "fixed-all": {
+        "gate_accuracy": 1.0,
+        "n": 12,
+        "top1_selection_accuracy": 1.0
+      },
+      "fixed-early-stop": {
+        "gate_accuracy": 1.0,
+        "n": 12,
+        "top1_selection_accuracy": 1.0
+      },
+      "nova": {
+        "gate_accuracy": 1.0,
+        "n": 12,
+        "top1_selection_accuracy": 1.0
+      },
+      "surface-metric": {
+        "gate_accuracy": 0.0,
+        "n": 12,
+        "top1_selection_accuracy": 0.0
+      }
+    },
+    "PEAK_FAILURE": {
+      "fixed-all": {
+        "gate_accuracy": 1.0,
+        "n": 12,
+        "top1_selection_accuracy": 1.0
+      },
+      "fixed-early-stop": {
+        "gate_accuracy": 1.0,
+        "n": 12,
+        "top1_selection_accuracy": 1.0
+      },
+      "nova": {
+        "gate_accuracy": 1.0,
+        "n": 12,
+        "top1_selection_accuracy": 1.0
+      },
+      "surface-metric": {
+        "gate_accuracy": 0.0,
+        "n": 12,
+        "top1_selection_accuracy": 0.0
+      }
+    },
+    "TIME_SPLIT": {
+      "fixed-all": {
+        "gate_accuracy": 1.0,
+        "n": 12,
+        "top1_selection_accuracy": 1.0
+      },
+      "fixed-early-stop": {
+        "gate_accuracy": 1.0,
+        "n": 12,
+        "top1_selection_accuracy": 1.0
+      },
+      "nova": {
+        "gate_accuracy": 1.0,
+        "n": 12,
+        "top1_selection_accuracy": 1.0
+      },
+      "surface-metric": {
+        "gate_accuracy": 0.0,
+        "n": 12,
+        "top1_selection_accuracy": 0.0
+      }
+    }
+  },
+  "case_count": 84,
+  "strategies": {
+    "fixed-all": {
+      "average_decision_cost": 2.771429,
+      "average_experiment_count": 2.428571,
+      "average_time_to_decisive_evidence": 2.428571,
+      "average_wall_seconds": 0.000631,
+      "confusion_matrix": {
+        "FN": 12,
+        "FP": 6,
+        "TN": 12,
+        "TP": 54
+      },
+      "evidence_traceability_rate": 1.0,
+      "f1": 0.857143,
+      "false_block_rate": 0.0,
+      "fault_detection_rate": 0.818182,
+      "gate_accuracy": 0.785714,
+      "gate_traceability_rate": 1.0,
+      "n": 84,
+      "precision": 0.9,
+      "recall": 0.818182,
+      "selection_efficiency": 0.411765,
+      "selection_regret": "DEFERRED: no independent oracle-cost model in v0.1",
+      "top1_selection_accuracy": 0.714286,
+      "unnecessary_experiment_rate": 0.470588
+    },
+    "fixed-early-stop": {
+      "average_decision_cost": 1.542857,
+      "average_experiment_count": 1.285714,
+      "average_time_to_decisive_evidence": 1.285714,
+      "average_wall_seconds": 0.000355,
+      "confusion_matrix": {
+        "FN": 12,
+        "FP": 6,
+        "TN": 12,
+        "TP": 54
+      },
+      "evidence_traceability_rate": 1.0,
+      "f1": 0.857143,
+      "false_block_rate": 0.0,
+      "fault_detection_rate": 0.818182,
+      "gate_accuracy": 0.785714,
+      "gate_traceability_rate": 1.0,
+      "n": 84,
+      "precision": 0.9,
+      "recall": 0.818182,
+      "selection_efficiency": 0.777778,
+      "selection_regret": "DEFERRED: no independent oracle-cost model in v0.1",
+      "top1_selection_accuracy": 0.714286,
+      "unnecessary_experiment_rate": 0.0
+    },
+    "nova": {
+      "average_decision_cost": 1.542857,
+      "average_experiment_count": 1.285714,
+      "average_time_to_decisive_evidence": 1.285714,
+      "average_wall_seconds": 0.000382,
+      "confusion_matrix": {
+        "FN": 12,
+        "FP": 6,
+        "TN": 12,
+        "TP": 54
+      },
+      "evidence_traceability_rate": 1.0,
+      "f1": 0.857143,
+      "false_block_rate": 0.0,
+      "fault_detection_rate": 0.818182,
+      "gate_accuracy": 0.785714,
+      "gate_traceability_rate": 1.0,
+      "n": 84,
+      "precision": 0.9,
+      "recall": 0.818182,
+      "selection_efficiency": 0.777778,
+      "selection_regret": "DEFERRED: no independent oracle-cost model in v0.1",
+      "top1_selection_accuracy": 1.0,
+      "unnecessary_experiment_rate": 0.0
+    },
+    "surface-metric": {
+      "average_decision_cost": 0.0,
+      "average_experiment_count": 0.0,
+      "average_time_to_decisive_evidence": 0.0,
+      "average_wall_seconds": 1.6e-05,
+      "confusion_matrix": {
+        "FN": 66,
+        "FP": 0,
+        "TN": 18,
+        "TP": 0
+      },
+      "evidence_traceability_rate": 1.0,
+      "f1": 0.0,
+      "false_block_rate": 0.0,
+      "fault_detection_rate": 0.0,
+      "gate_accuracy": 0.214286,
+      "gate_traceability_rate": 0.0,
+      "n": 84,
+      "precision": null,
+      "recall": 0.0,
+      "selection_efficiency": null,
+      "selection_regret": "DEFERRED: no independent oracle-cost model in v0.1",
+      "top1_selection_accuracy": 0.0,
+      "unnecessary_experiment_rate": null
+    }
+  },
+  "strategy_count": 4
+}

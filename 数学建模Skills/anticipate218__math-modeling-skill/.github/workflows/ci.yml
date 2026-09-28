@@ -1,0 +1,207 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: 校验技能结构（frontmatter / 篇幅 / 文件引用 / 索引完整性）
+        run: python scripts/validate_skill.py . --strict
+
+      - name: 自检脚本固件测试
+        run: python scripts/check_paper.py --self-test
+
+      # 安装器是用户碰到的第一个脚本，"装错地方 / 覆盖掉别人的技能" 这类事故
+      # 代价很高，所以它的安全约定必须有固件测试兜住。
+      # 这个自检全程不联网、也不碰真实的技能目录（在临时目录里造假的源包与目标）。
+      - name: 安装器固件测试（安全约定 / ZIP 解包 / 目标解析）
+        run: python scripts/install_skill.py --self-test
+
+      # README 里那句「一句话安装」把 raw 链接当作唯一入口；链接写错或文件没推上去，
+      # 用户复制过去就是一个 404。这里把这条契约钉死在 CI 里。
+      - name: 安装入口文档存在且被 README 引用
+        run: |
+          test -f INSTALL.md
+          grep -q 'raw.githubusercontent.com/anticipate218/math-modeling-skill/main/INSTALL.md' README.md
+          grep -q 'INSTALL.md' SKILL.md
+          echo "INSTALL.md 入口检查通过"
+
+      - name: 算法模块依赖检查（只应依赖 numpy + 标准库）
+        run: |
+          python - <<'PY'
+          import ast, pathlib, sys
+          banned = {"scipy", "sklearn", "pandas", "statsmodels", "torch", "tensorflow",
+                    "cvxpy", "pulp", "sympy", "matplotlib"}
+          bad = []
+          for p in sorted(pathlib.Path("examples/algorithms").glob("*.py")):
+              tree = ast.parse(p.read_text(encoding="utf-8"))
+              for node in ast.walk(tree):
+                  if isinstance(node, ast.Import):
+                      names = [a.name.split(".")[0] for a in node.names]
+                  elif isinstance(node, ast.ImportFrom):
+                      names = [(node.module or "").split(".")[0]]
+                  else:
+                      continue
+                  for n in names:
+                      if n in banned:
+                          bad.append(f"{p}: 引用了被禁止的依赖 {n}")
+          if bad:
+              print("\n".join(bad)); sys.exit(1)
+          print("依赖检查通过：examples/algorithms/ 只用 numpy + 标准库")
+          PY
+
+      - name: 安装 numpy（算法自测 / 配图自检需要）
+        run: python -m pip install --quiet "numpy>=1.24"
+
+      - name: 算法模块自测 + 黄金值比对 + 确定性检查
+        run: python examples/run_algorithms.py
+
+      - name: 配图配色可访问性体检（二色觉 ΔE / 灰度间隔 / 对白底对比度）
+        run: python scripts/check_palette.py --quiet
+
+      - name: 配图数值内核自检（只需 numpy，不出图）
+        run: python scripts/make_figures.py --self-test
+
+      - name: 校验评测用例为合法 JSON
+        run: |
+          python - <<'PY'
+          import json
+          for f in ("evals/evals.json", "evals/trigger-queries.json"):
+              with open(f, encoding="utf-8") as fh:
+                  data = json.load(fh)
+              print(f, "OK")
+          PY
+
+      # 这一步的判据是"某个受管目录名紧跟一个反斜杠"。
+      # 注意：写文档时不要在 *.md 里逐字引用下面这条正则（连"目录名 + 反斜杠"的
+      # 片段也不要抄），否则文档会把自己举报成违规——v1.8.1 的 CHANGELOG 就踩过。
+      # 描述这条检查时请用文字转述，例如"目录名紧跟反斜杠的 Windows 风格路径"。
+      - name: 检查是否有 Windows 风格路径
+        run: |
+          if grep -rnE '(references|scripts|assets|evals|examples)\\' --include='*.md' .; then
+            echo "发现反斜杠路径，请统一为正斜杠"; exit 1
+          fi
+          echo "路径风格检查通过"
+
+  latex:
+    name: LaTeX 模板真编译
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # 先跑不依赖 TeX 的解析逻辑固件测试：这样即使 TeX 安装出问题，
+      # 也能立刻分清是"脚本坏"还是"发行版缺宏包"。
+      - name: 日志解析/字体替换/顺序核对 固件测试（不需要 TeX）
+        run: python scripts/check_latex.py --self-test
+
+      # 完整文档类模板的改写逻辑固件测试（钉字体集 / 屏蔽 Windows 字体探测 /
+      # 顺序核对），同样不依赖 TeX。
+      - name: 完整模板改写逻辑 固件测试（不需要 TeX）
+        run: python scripts/check_latex_full.py --self-test
+
+      # 三个模板用到的宏包：ctex+fandol、geometry/fancyhdr/hyperref、
+      # booktabs/multirow/tabularx/caption/subcaption、tikz/pgfplots、
+      # algorithm/algpseudocode、listings、natbib/lastpage、ulem、berasans、lmodern。
+      #
+      # ⚠️ 下面几个依赖**不在** texlive-latex-base/-recommended/-extra 里，
+      #    Ubuntu 上必须单独点名，漏一个这个作业就红（都是实测踩过的）：
+      #
+      #    * `lmodern.sty` —— 由 Debian 顶层包 `lmodern` 提供（不属于任何 texlive-*）。
+      #      漏了它美赛会 `! LaTeX Error: File `lmodern.sty' not found.` 直接中止。
+      #    * `ulem.sty` —— 在 `texlive-plain-generic` 里。它的 TDS 路径是
+      #      tex/generic/ 而不是 tex/latex/，所以 latex-recommended/-extra 都不含它。
+      #      研赛 `gmcmthesis.cls` 和国赛 `cumcmthesis.cls` 都 `\RequirePackage{ulem}`
+      #      （队员名单的下划线）。
+      #    * `berasans.sty` —— 在 `texlive-fonts-extra` 里（`bera` 字体族）。
+      #      美赛 `mcmthesis.cls` 有 `\RequirePackage[scaled]{berasans}`。
+      #    * TeX Gyre 的 OTF（Debian 包名 `fonts-texgyre`）—— 本仓库给三个 `.cls`
+      #      加的西文回落目标 `TeX Gyre Termes / Heros / Cursor`。runner 上没有
+      #      Times New Roman / Arial / Courier New，所以这一条在 CI 上是**必经分支**，
+      #      不是备选。
+      #    * TeX Gyre 的 TFM（Debian 包名 `tex-gyre`）—— **和上面的 OTF 是两个
+      #      互不相干的包**，只装 `fonts-texgyre` 会漏掉 ts1-qtmr.tfm 这类度量文件。
+      #      美赛 `newtxtext` 把 TS1 编码映射到 TeX Gyre Termes 的度量上，缺了它
+      #      pdflatex 报 `Font TS1/ntxtlf/m/n/12=ts1-qtmr ... Metric (TFM) file not
+      #      found` 并退出码 1。这两个包名长得像，是最容易漏的一个。
+      #
+      #    * `fonts-noto-cjk` + `fonts-liberation` —— 华为杯 2026 严格格式版
+      #      `hwcup2026.cls` 的回落目标。它把 `SimSun`/`SimHei` 落到 **Noto Serif /
+      #      Sans CJK SC**，把 `Times New Roman` 落到 **Liberation Serif**。
+      #      这套模板不带随包字体，所以 CI 上没有这两个包时，无字体回归那一跑会
+      #      直接 `! Package fontspec Error: The font "Noto Serif CJK SC" cannot be
+      #      found` 中止。国赛/研赛的回落目标是 TeX Gyre + ctex 自带的 fandol，
+      #      不需要这两个包；**只有华为杯 2026 这一套需要**。
+      #      注意 `fonts-noto-cjk` 的 Debian 包名里没有 `texlive-` 前缀，也不是
+      #      任何 texlive-* 的依赖，必须单独点名。
+      - name: 安装 TeX Live（xelatex / pdflatex / bibtex）
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq --no-install-recommends \
+            lmodern \
+            fonts-texgyre \
+            tex-gyre \
+            fonts-noto-cjk \
+            fonts-liberation \
+            texlive-latex-base \
+            texlive-latex-recommended \
+            texlive-latex-extra \
+            texlive-plain-generic \
+            texlive-fonts-recommended \
+            texlive-fonts-extra \
+            texlive-pictures \
+            texlive-science \
+            texlive-xetex \
+            texlive-lang-chinese \
+            texlive-bibtex-extra
+          # 逐个点名把"缺宏包"钉在安装这一步：kpsewhich 找不到就立刻失败，
+          # 不必等编译日志里翻 `! LaTeX Error: File ... not found.`
+          kpsewhich lmodern.sty
+          kpsewhich ulem.sty
+          kpsewhich berasans.sty
+          kpsewhich newtxtext.sty
+          kpsewhich texgyretermes-regular.otf
+          kpsewhich ts1-qtmr.tfm
+          # 系统字体不进 kpsewhich，用 fontconfig 点名：华为杯 2026 的回落分支
+          # 依赖这两个家族，缺了就让安装这一步先红，而不是等编译日志。
+          fc-list | grep -qi 'Noto Serif CJK SC' || { echo "缺少 Noto Serif CJK SC"; exit 1; }
+          fc-list | grep -qi 'Noto Sans CJK SC' || { echo "缺少 Noto Sans CJK SC"; exit 1; }
+          fc-list | grep -qi 'Liberation Serif' || { echo "缺少 Liberation Serif"; exit 1; }
+          xelatex --version | head -n 1
+          pdflatex --version | head -n 1
+          bibtex --version | head -n 1
+
+      # 真正把模板编译一遍：xelatex/pdflatex → bibtex → 再两遍，
+      # 然后核对硬错误、未解析引用、字体缺失、交叉引用是否收敛、
+      # 以及"AI 声明 vs 参考文献"的合规顺序。
+      - name: 编译三个模板并体检
+        run: python scripts/check_latex.py --require
+
+      # 完整文档类模板（带 .cls / .sty / figures / 随包字体）再编一遍。
+      # 这一跑同时覆盖两条字体路径：一遍按原样编，一遍「模拟一台没有 Windows
+      # 字体的机器」（删掉随包 .ttf、把 ctex 字体集钉成 fandol、把西文字体探测
+      # 的名字换成一定不存在的名字）。两条都必须编得过，模板才算真的能在
+      # Overleaf / Linux 上用。
+      #
+      # 四套模板的回落目标分两类：
+      #   * 国赛 cumcm / 研赛 gmcm → ctex 的 fandol + TeX Gyre（见上面的安装步骤）
+      #   * 华为杯 2026 hwcup2026 → Noto Serif/Sans CJK SC + Liberation Serif
+      #
+      # 注意：这一步会把随包的中文字体一起拷进临时目录，本仓库主检出里带有
+      # 5 个 Windows 字体（约 44 MB），checkout 会稍慢。
+      - name: 编译完整文档类模板并体检（含无 Windows 字体的回落路径）
+        run: python scripts/check_latex_full.py --require

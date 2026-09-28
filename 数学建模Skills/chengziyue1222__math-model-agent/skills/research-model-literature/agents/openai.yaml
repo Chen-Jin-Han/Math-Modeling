@@ -1,0 +1,4 @@
+interface:
+  display_name: "建模文献研究"
+  short_description: "检索并核验数学建模相关文献，生成可追溯综述与引用清单"
+  default_prompt: "使用 $research-model-literature 为这个建模主题开展可追溯的文献研究。"

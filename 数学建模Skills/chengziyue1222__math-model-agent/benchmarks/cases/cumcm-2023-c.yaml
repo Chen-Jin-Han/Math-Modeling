@@ -1,0 +1,12 @@
+schema_version: 1
+id: cumcm-2023-c
+competition: CUMCM
+year: 2023
+problem_code: C
+title: 蔬菜类商品的自动定价与补货决策
+official_source: https://www.mcm.edu.cn/html_cn/node/c74d72127066f510a5723a94b5323a26.html
+archetypes: [time-series, demand-modeling, decision]
+capabilities: [seasonality, price-elasticity, inventory-optimization]
+baseline: 分品类移动平均需求预测加成本固定加价
+validation_targets: [时间顺序划分, 损耗与缺货成本, 价格需求联动, 滚动回测]
+known_failure_modes: [随机划分时间序列, 把相关性当价格弹性, 预测指标好但经营目标差, 忽略品类替代关系]

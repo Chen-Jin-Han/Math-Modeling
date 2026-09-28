@@ -1,0 +1,2378 @@
+[
+  {
+    "case_id": "CASE-H-0001",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "TIME_SPLIT_AUDIT"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "split_strategy": "random"
+      },
+      "fault_type": "TIME_SPLIT",
+      "faults": [
+        "TIME_SPLIT"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "random"
+    },
+    "partition": "hidden",
+    "seed": 20260813
+  },
+  {
+    "case_id": "CASE-H-0002",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "TIME_SPLIT_AUDIT"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "split_strategy": "random"
+      },
+      "fault_type": "TIME_SPLIT",
+      "faults": [
+        "TIME_SPLIT"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "random"
+    },
+    "partition": "hidden",
+    "seed": 20260914
+  },
+  {
+    "case_id": "CASE-H-0003",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "TIME_SPLIT_AUDIT"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "split_strategy": "random"
+      },
+      "fault_type": "TIME_SPLIT",
+      "faults": [
+        "TIME_SPLIT"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "random"
+    },
+    "partition": "hidden",
+    "seed": 20261015
+  },
+  {
+    "case_id": "CASE-H-0004",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "TIME_SPLIT_AUDIT"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "split_strategy": "random"
+      },
+      "fault_type": "TIME_SPLIT",
+      "faults": [
+        "TIME_SPLIT"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "random"
+    },
+    "partition": "hidden",
+    "seed": 20261116
+  },
+  {
+    "case_id": "CASE-H-0005",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "TIME_SPLIT_AUDIT"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "split_strategy": "random"
+      },
+      "fault_type": "TIME_SPLIT",
+      "faults": [
+        "TIME_SPLIT"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "random"
+    },
+    "partition": "hidden",
+    "seed": 20261217
+  },
+  {
+    "case_id": "CASE-H-0006",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "TIME_SPLIT_AUDIT"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "split_strategy": "random"
+      },
+      "fault_type": "TIME_SPLIT",
+      "faults": [
+        "TIME_SPLIT"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "random"
+    },
+    "partition": "hidden",
+    "seed": 20261318
+  },
+  {
+    "case_id": "CASE-H-0007",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "TIME_SPLIT_AUDIT"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "split_strategy": "random"
+      },
+      "fault_type": "TIME_SPLIT",
+      "faults": [
+        "TIME_SPLIT"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "random"
+    },
+    "partition": "hidden",
+    "seed": 20261419
+  },
+  {
+    "case_id": "CASE-H-0008",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "TIME_SPLIT_AUDIT"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "split_strategy": "random"
+      },
+      "fault_type": "TIME_SPLIT",
+      "faults": [
+        "TIME_SPLIT"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "random"
+    },
+    "partition": "hidden",
+    "seed": 20261520
+  },
+  {
+    "case_id": "CASE-H-0009",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "TIME_SPLIT_AUDIT"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "split_strategy": "random"
+      },
+      "fault_type": "TIME_SPLIT",
+      "faults": [
+        "TIME_SPLIT"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "random"
+    },
+    "partition": "hidden",
+    "seed": 20261621
+  },
+  {
+    "case_id": "CASE-H-0010",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "TIME_SPLIT_AUDIT"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "split_strategy": "random"
+      },
+      "fault_type": "TIME_SPLIT",
+      "faults": [
+        "TIME_SPLIT"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "random"
+    },
+    "partition": "hidden",
+    "seed": 20261722
+  },
+  {
+    "case_id": "CASE-H-0011",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "TIME_SPLIT_AUDIT"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "split_strategy": "random"
+      },
+      "fault_type": "TIME_SPLIT",
+      "faults": [
+        "TIME_SPLIT"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "random"
+    },
+    "partition": "hidden",
+    "seed": 20261823
+  },
+  {
+    "case_id": "CASE-H-0012",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "TIME_SPLIT_AUDIT"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "split_strategy": "random"
+      },
+      "fault_type": "TIME_SPLIT",
+      "faults": [
+        "TIME_SPLIT"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "random"
+    },
+    "partition": "hidden",
+    "seed": 20261924
+  },
+  {
+    "case_id": "CASE-H-0013",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "LEAKAGE_CHALLENGE"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "positive_offset_count": 1
+      },
+      "fault_type": "FEATURE_LEAKAGE",
+      "faults": [
+        "FEATURE_LEAKAGE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        1
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20270813
+  },
+  {
+    "case_id": "CASE-H-0014",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "LEAKAGE_CHALLENGE"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "positive_offset_count": 1
+      },
+      "fault_type": "FEATURE_LEAKAGE",
+      "faults": [
+        "FEATURE_LEAKAGE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        1
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20270914
+  },
+  {
+    "case_id": "CASE-H-0015",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "LEAKAGE_CHALLENGE"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "positive_offset_count": 1
+      },
+      "fault_type": "FEATURE_LEAKAGE",
+      "faults": [
+        "FEATURE_LEAKAGE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        1
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20271015
+  },
+  {
+    "case_id": "CASE-H-0016",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "LEAKAGE_CHALLENGE"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "positive_offset_count": 1
+      },
+      "fault_type": "FEATURE_LEAKAGE",
+      "faults": [
+        "FEATURE_LEAKAGE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        1
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20271116
+  },
+  {
+    "case_id": "CASE-H-0017",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "LEAKAGE_CHALLENGE"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "positive_offset_count": 1
+      },
+      "fault_type": "FEATURE_LEAKAGE",
+      "faults": [
+        "FEATURE_LEAKAGE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        1
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20271217
+  },
+  {
+    "case_id": "CASE-H-0018",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "LEAKAGE_CHALLENGE"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "positive_offset_count": 1
+      },
+      "fault_type": "FEATURE_LEAKAGE",
+      "faults": [
+        "FEATURE_LEAKAGE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        1
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20271318
+  },
+  {
+    "case_id": "CASE-H-0019",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "LEAKAGE_CHALLENGE"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "positive_offset_count": 1
+      },
+      "fault_type": "FEATURE_LEAKAGE",
+      "faults": [
+        "FEATURE_LEAKAGE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        1
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20271419
+  },
+  {
+    "case_id": "CASE-H-0020",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "LEAKAGE_CHALLENGE"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "positive_offset_count": 1
+      },
+      "fault_type": "FEATURE_LEAKAGE",
+      "faults": [
+        "FEATURE_LEAKAGE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        1
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20271520
+  },
+  {
+    "case_id": "CASE-H-0021",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "LEAKAGE_CHALLENGE"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "positive_offset_count": 1
+      },
+      "fault_type": "FEATURE_LEAKAGE",
+      "faults": [
+        "FEATURE_LEAKAGE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        1
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20271621
+  },
+  {
+    "case_id": "CASE-H-0022",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "LEAKAGE_CHALLENGE"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "positive_offset_count": 1
+      },
+      "fault_type": "FEATURE_LEAKAGE",
+      "faults": [
+        "FEATURE_LEAKAGE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        1
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20271722
+  },
+  {
+    "case_id": "CASE-H-0023",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "LEAKAGE_CHALLENGE"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "positive_offset_count": 1
+      },
+      "fault_type": "FEATURE_LEAKAGE",
+      "faults": [
+        "FEATURE_LEAKAGE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        1
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20271823
+  },
+  {
+    "case_id": "CASE-H-0024",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "LEAKAGE_CHALLENGE"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "positive_offset_count": 1
+      },
+      "fault_type": "FEATURE_LEAKAGE",
+      "faults": [
+        "FEATURE_LEAKAGE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        1
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20271924
+  },
+  {
+    "case_id": "CASE-H-0025",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "HIGH_LOAD_SUBSET_EVALUATION"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "peak_error_shift": 12.7
+      },
+      "fault_type": "PEAK_FAILURE",
+      "faults": [
+        "PEAK_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": true,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20280813
+  },
+  {
+    "case_id": "CASE-H-0026",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "HIGH_LOAD_SUBSET_EVALUATION"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "peak_error_shift": 13.6
+      },
+      "fault_type": "PEAK_FAILURE",
+      "faults": [
+        "PEAK_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": true,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20280914
+  },
+  {
+    "case_id": "CASE-H-0027",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "HIGH_LOAD_SUBSET_EVALUATION"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "peak_error_shift": 10.0
+      },
+      "fault_type": "PEAK_FAILURE",
+      "faults": [
+        "PEAK_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": true,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20281015
+  },
+  {
+    "case_id": "CASE-H-0028",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "HIGH_LOAD_SUBSET_EVALUATION"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "peak_error_shift": 10.9
+      },
+      "fault_type": "PEAK_FAILURE",
+      "faults": [
+        "PEAK_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": true,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20281116
+  },
+  {
+    "case_id": "CASE-H-0029",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "HIGH_LOAD_SUBSET_EVALUATION"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "peak_error_shift": 11.8
+      },
+      "fault_type": "PEAK_FAILURE",
+      "faults": [
+        "PEAK_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": true,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20281217
+  },
+  {
+    "case_id": "CASE-H-0030",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "HIGH_LOAD_SUBSET_EVALUATION"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "peak_error_shift": 12.7
+      },
+      "fault_type": "PEAK_FAILURE",
+      "faults": [
+        "PEAK_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": true,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20281318
+  },
+  {
+    "case_id": "CASE-H-0031",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "HIGH_LOAD_SUBSET_EVALUATION"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "peak_error_shift": 13.6
+      },
+      "fault_type": "PEAK_FAILURE",
+      "faults": [
+        "PEAK_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": true,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20281419
+  },
+  {
+    "case_id": "CASE-H-0032",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "HIGH_LOAD_SUBSET_EVALUATION"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "peak_error_shift": 10.0
+      },
+      "fault_type": "PEAK_FAILURE",
+      "faults": [
+        "PEAK_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": true,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20281520
+  },
+  {
+    "case_id": "CASE-H-0033",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "HIGH_LOAD_SUBSET_EVALUATION"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "peak_error_shift": 10.9
+      },
+      "fault_type": "PEAK_FAILURE",
+      "faults": [
+        "PEAK_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": true,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20281621
+  },
+  {
+    "case_id": "CASE-H-0034",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "HIGH_LOAD_SUBSET_EVALUATION"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "peak_error_shift": 11.8
+      },
+      "fault_type": "PEAK_FAILURE",
+      "faults": [
+        "PEAK_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": true,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20281722
+  },
+  {
+    "case_id": "CASE-H-0035",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "HIGH_LOAD_SUBSET_EVALUATION"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "peak_error_shift": 12.7
+      },
+      "fault_type": "PEAK_FAILURE",
+      "faults": [
+        "PEAK_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": true,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20281823
+  },
+  {
+    "case_id": "CASE-H-0036",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "HIGH_LOAD_SUBSET_EVALUATION"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "peak_error_shift": 13.6
+      },
+      "fault_type": "PEAK_FAILURE",
+      "faults": [
+        "PEAK_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": true,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20281924
+  },
+  {
+    "case_id": "CASE-H-0037",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "causal_baseline_margin": "non-positive"
+      },
+      "fault_type": "BASELINE_FAILURE",
+      "faults": [
+        "BASELINE_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20290813
+  },
+  {
+    "case_id": "CASE-H-0038",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "causal_baseline_margin": "non-positive"
+      },
+      "fault_type": "BASELINE_FAILURE",
+      "faults": [
+        "BASELINE_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20290914
+  },
+  {
+    "case_id": "CASE-H-0039",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "causal_baseline_margin": "non-positive"
+      },
+      "fault_type": "BASELINE_FAILURE",
+      "faults": [
+        "BASELINE_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20291015
+  },
+  {
+    "case_id": "CASE-H-0040",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "causal_baseline_margin": "non-positive"
+      },
+      "fault_type": "BASELINE_FAILURE",
+      "faults": [
+        "BASELINE_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20291116
+  },
+  {
+    "case_id": "CASE-H-0041",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "causal_baseline_margin": "non-positive"
+      },
+      "fault_type": "BASELINE_FAILURE",
+      "faults": [
+        "BASELINE_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20291217
+  },
+  {
+    "case_id": "CASE-H-0042",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "causal_baseline_margin": "non-positive"
+      },
+      "fault_type": "BASELINE_FAILURE",
+      "faults": [
+        "BASELINE_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20291318
+  },
+  {
+    "case_id": "CASE-H-0043",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "causal_baseline_margin": "non-positive"
+      },
+      "fault_type": "BASELINE_FAILURE",
+      "faults": [
+        "BASELINE_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20291419
+  },
+  {
+    "case_id": "CASE-H-0044",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "causal_baseline_margin": "non-positive"
+      },
+      "fault_type": "BASELINE_FAILURE",
+      "faults": [
+        "BASELINE_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20291520
+  },
+  {
+    "case_id": "CASE-H-0045",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "causal_baseline_margin": "non-positive"
+      },
+      "fault_type": "BASELINE_FAILURE",
+      "faults": [
+        "BASELINE_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20291621
+  },
+  {
+    "case_id": "CASE-H-0046",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "causal_baseline_margin": "non-positive"
+      },
+      "fault_type": "BASELINE_FAILURE",
+      "faults": [
+        "BASELINE_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20291722
+  },
+  {
+    "case_id": "CASE-H-0047",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "causal_baseline_margin": "non-positive"
+      },
+      "fault_type": "BASELINE_FAILURE",
+      "faults": [
+        "BASELINE_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20291823
+  },
+  {
+    "case_id": "CASE-H-0048",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "causal_baseline_margin": "non-positive"
+      },
+      "fault_type": "BASELINE_FAILURE",
+      "faults": [
+        "BASELINE_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20291924
+  },
+  {
+    "case_id": "CASE-H-0049",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "LEAKAGE_CHALLENGE",
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "causal_baseline_margin": "non-positive",
+        "positive_offset_count": 1
+      },
+      "fault_type": "MULTI_FAULT",
+      "faults": [
+        "FEATURE_LEAKAGE",
+        "BASELINE_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        2
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20300813
+  },
+  {
+    "case_id": "CASE-H-0050",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "LEAKAGE_CHALLENGE",
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "causal_baseline_margin": "non-positive",
+        "positive_offset_count": 1
+      },
+      "fault_type": "MULTI_FAULT",
+      "faults": [
+        "FEATURE_LEAKAGE",
+        "BASELINE_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        2
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20300914
+  },
+  {
+    "case_id": "CASE-H-0051",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "LEAKAGE_CHALLENGE",
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "causal_baseline_margin": "non-positive",
+        "positive_offset_count": 1
+      },
+      "fault_type": "MULTI_FAULT",
+      "faults": [
+        "FEATURE_LEAKAGE",
+        "BASELINE_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        2
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20301015
+  },
+  {
+    "case_id": "CASE-H-0052",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "LEAKAGE_CHALLENGE",
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "causal_baseline_margin": "non-positive",
+        "positive_offset_count": 1
+      },
+      "fault_type": "MULTI_FAULT",
+      "faults": [
+        "FEATURE_LEAKAGE",
+        "BASELINE_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        2
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20301116
+  },
+  {
+    "case_id": "CASE-H-0053",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "LEAKAGE_CHALLENGE",
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "causal_baseline_margin": "non-positive",
+        "positive_offset_count": 1
+      },
+      "fault_type": "MULTI_FAULT",
+      "faults": [
+        "FEATURE_LEAKAGE",
+        "BASELINE_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        2
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20301217
+  },
+  {
+    "case_id": "CASE-H-0054",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "LEAKAGE_CHALLENGE",
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "causal_baseline_margin": "non-positive",
+        "positive_offset_count": 1
+      },
+      "fault_type": "MULTI_FAULT",
+      "faults": [
+        "FEATURE_LEAKAGE",
+        "BASELINE_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        2
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20301318
+  },
+  {
+    "case_id": "CASE-H-0055",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "LEAKAGE_CHALLENGE",
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "causal_baseline_margin": "non-positive",
+        "positive_offset_count": 1
+      },
+      "fault_type": "MULTI_FAULT",
+      "faults": [
+        "FEATURE_LEAKAGE",
+        "BASELINE_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        2
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20301419
+  },
+  {
+    "case_id": "CASE-H-0056",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "LEAKAGE_CHALLENGE",
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "causal_baseline_margin": "non-positive",
+        "positive_offset_count": 1
+      },
+      "fault_type": "MULTI_FAULT",
+      "faults": [
+        "FEATURE_LEAKAGE",
+        "BASELINE_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        2
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20301520
+  },
+  {
+    "case_id": "CASE-H-0057",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "LEAKAGE_CHALLENGE",
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "causal_baseline_margin": "non-positive",
+        "positive_offset_count": 1
+      },
+      "fault_type": "MULTI_FAULT",
+      "faults": [
+        "FEATURE_LEAKAGE",
+        "BASELINE_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        2
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20301621
+  },
+  {
+    "case_id": "CASE-H-0058",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "LEAKAGE_CHALLENGE",
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "causal_baseline_margin": "non-positive",
+        "positive_offset_count": 1
+      },
+      "fault_type": "MULTI_FAULT",
+      "faults": [
+        "FEATURE_LEAKAGE",
+        "BASELINE_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        2
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20301722
+  },
+  {
+    "case_id": "CASE-H-0059",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "LEAKAGE_CHALLENGE",
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "causal_baseline_margin": "non-positive",
+        "positive_offset_count": 1
+      },
+      "fault_type": "MULTI_FAULT",
+      "faults": [
+        "FEATURE_LEAKAGE",
+        "BASELINE_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        2
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20301823
+  },
+  {
+    "case_id": "CASE-H-0060",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "LEAKAGE_CHALLENGE",
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "causal_baseline_margin": "non-positive",
+        "positive_offset_count": 1
+      },
+      "fault_type": "MULTI_FAULT",
+      "faults": [
+        "FEATURE_LEAKAGE",
+        "BASELINE_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        2
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20301924
+  },
+  {
+    "case_id": "CASE-H-0061",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "READY_FOR_REVIEW",
+      "fault_parameters": {},
+      "fault_type": "CLEAN",
+      "faults": [
+        "CLEAN"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20310813
+  },
+  {
+    "case_id": "CASE-H-0062",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "READY_FOR_REVIEW",
+      "fault_parameters": {},
+      "fault_type": "CLEAN",
+      "faults": [
+        "CLEAN"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20310914
+  },
+  {
+    "case_id": "CASE-H-0063",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "READY_FOR_REVIEW",
+      "fault_parameters": {},
+      "fault_type": "CLEAN",
+      "faults": [
+        "CLEAN"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20311015
+  },
+  {
+    "case_id": "CASE-H-0064",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "READY_FOR_REVIEW",
+      "fault_parameters": {},
+      "fault_type": "CLEAN",
+      "faults": [
+        "CLEAN"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20311116
+  },
+  {
+    "case_id": "CASE-H-0065",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "READY_FOR_REVIEW",
+      "fault_parameters": {},
+      "fault_type": "CLEAN",
+      "faults": [
+        "CLEAN"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20311217
+  },
+  {
+    "case_id": "CASE-H-0066",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "READY_FOR_REVIEW",
+      "fault_parameters": {},
+      "fault_type": "CLEAN",
+      "faults": [
+        "CLEAN"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20311318
+  },
+  {
+    "case_id": "CASE-H-0067",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "READY_FOR_REVIEW",
+      "fault_parameters": {},
+      "fault_type": "CLEAN",
+      "faults": [
+        "CLEAN"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20311419
+  },
+  {
+    "case_id": "CASE-H-0068",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "READY_FOR_REVIEW",
+      "fault_parameters": {},
+      "fault_type": "CLEAN",
+      "faults": [
+        "CLEAN"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20311520
+  },
+  {
+    "case_id": "CASE-H-0069",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "READY_FOR_REVIEW",
+      "fault_parameters": {},
+      "fault_type": "CLEAN",
+      "faults": [
+        "CLEAN"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20311621
+  },
+  {
+    "case_id": "CASE-H-0070",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "READY_FOR_REVIEW",
+      "fault_parameters": {},
+      "fault_type": "CLEAN",
+      "faults": [
+        "CLEAN"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20311722
+  },
+  {
+    "case_id": "CASE-H-0071",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "READY_FOR_REVIEW",
+      "fault_parameters": {},
+      "fault_type": "CLEAN",
+      "faults": [
+        "CLEAN"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20311823
+  },
+  {
+    "case_id": "CASE-H-0072",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "READY_FOR_REVIEW",
+      "fault_parameters": {},
+      "fault_type": "CLEAN",
+      "faults": [
+        "CLEAN"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20311924
+  },
+  {
+    "case_id": "CASE-H-0073",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "HIGH_LOAD_SUBSET_EVALUATION"
+      ],
+      "expected_gate": "READY_FOR_REVIEW",
+      "fault_parameters": {
+        "boundary_side": "below",
+        "peak_error_shift": 3.8
+      },
+      "fault_type": "BORDERLINE",
+      "faults": [
+        "BORDERLINE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": true,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20320813
+  },
+  {
+    "case_id": "CASE-H-0074",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "HIGH_LOAD_SUBSET_EVALUATION"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "boundary_side": "above",
+        "peak_error_shift": 4.5
+      },
+      "fault_type": "BORDERLINE",
+      "faults": [
+        "BORDERLINE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": true,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20320914
+  },
+  {
+    "case_id": "CASE-H-0075",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "HIGH_LOAD_SUBSET_EVALUATION"
+      ],
+      "expected_gate": "READY_FOR_REVIEW",
+      "fault_parameters": {
+        "boundary_side": "below",
+        "peak_error_shift": 3.8
+      },
+      "fault_type": "BORDERLINE",
+      "faults": [
+        "BORDERLINE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": true,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20321015
+  },
+  {
+    "case_id": "CASE-H-0076",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "HIGH_LOAD_SUBSET_EVALUATION"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "boundary_side": "above",
+        "peak_error_shift": 4.5
+      },
+      "fault_type": "BORDERLINE",
+      "faults": [
+        "BORDERLINE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": true,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20321116
+  },
+  {
+    "case_id": "CASE-H-0077",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "HIGH_LOAD_SUBSET_EVALUATION"
+      ],
+      "expected_gate": "READY_FOR_REVIEW",
+      "fault_parameters": {
+        "boundary_side": "below",
+        "peak_error_shift": 3.8
+      },
+      "fault_type": "BORDERLINE",
+      "faults": [
+        "BORDERLINE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": true,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20321217
+  },
+  {
+    "case_id": "CASE-H-0078",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "HIGH_LOAD_SUBSET_EVALUATION"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "boundary_side": "above",
+        "peak_error_shift": 4.5
+      },
+      "fault_type": "BORDERLINE",
+      "faults": [
+        "BORDERLINE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": true,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20321318
+  },
+  {
+    "case_id": "CASE-H-0079",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "HIGH_LOAD_SUBSET_EVALUATION"
+      ],
+      "expected_gate": "READY_FOR_REVIEW",
+      "fault_parameters": {
+        "boundary_side": "below",
+        "peak_error_shift": 3.8
+      },
+      "fault_type": "BORDERLINE",
+      "faults": [
+        "BORDERLINE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": true,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20321419
+  },
+  {
+    "case_id": "CASE-H-0080",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "HIGH_LOAD_SUBSET_EVALUATION"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "boundary_side": "above",
+        "peak_error_shift": 4.5
+      },
+      "fault_type": "BORDERLINE",
+      "faults": [
+        "BORDERLINE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": true,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20321520
+  },
+  {
+    "case_id": "CASE-H-0081",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "HIGH_LOAD_SUBSET_EVALUATION"
+      ],
+      "expected_gate": "READY_FOR_REVIEW",
+      "fault_parameters": {
+        "boundary_side": "below",
+        "peak_error_shift": 3.8
+      },
+      "fault_type": "BORDERLINE",
+      "faults": [
+        "BORDERLINE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": true,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20321621
+  },
+  {
+    "case_id": "CASE-H-0082",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "HIGH_LOAD_SUBSET_EVALUATION"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "boundary_side": "above",
+        "peak_error_shift": 4.5
+      },
+      "fault_type": "BORDERLINE",
+      "faults": [
+        "BORDERLINE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": true,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20321722
+  },
+  {
+    "case_id": "CASE-H-0083",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "HIGH_LOAD_SUBSET_EVALUATION"
+      ],
+      "expected_gate": "READY_FOR_REVIEW",
+      "fault_parameters": {
+        "boundary_side": "below",
+        "peak_error_shift": 3.8
+      },
+      "fault_type": "BORDERLINE",
+      "faults": [
+        "BORDERLINE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": true,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20321823
+  },
+  {
+    "case_id": "CASE-H-0084",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "HIGH_LOAD_SUBSET_EVALUATION"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "boundary_side": "above",
+        "peak_error_shift": 4.5
+      },
+      "fault_type": "BORDERLINE",
+      "faults": [
+        "BORDERLINE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": true,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "hidden",
+    "seed": 20321924
+  }
+]

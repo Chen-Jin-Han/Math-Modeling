@@ -1,0 +1,46 @@
+{
+  "model": "balanced-transportation-linear-program",
+  "model_version": "1.0.0",
+  "suppliers": [
+    "S1",
+    "S2",
+    "S3"
+  ],
+  "regions": [
+    "R1",
+    "R2",
+    "R3"
+  ],
+  "allocation": [
+    [
+      5.0,
+      75.0,
+      0.0
+    ],
+    [
+      5.0,
+      0.0,
+      65.0
+    ],
+    [
+      50.0,
+      0.0,
+      0.0
+    ]
+  ],
+  "supply_used": [
+    80.0,
+    70.0,
+    50.0
+  ],
+  "demand_met": [
+    60.0,
+    75.0,
+    65.0
+  ],
+  "metrics": {
+    "optimal_cost": 1060.0,
+    "northwest_corner_cost": 1685.0,
+    "cost_savings_percent": 37.0919881305638
+  }
+}

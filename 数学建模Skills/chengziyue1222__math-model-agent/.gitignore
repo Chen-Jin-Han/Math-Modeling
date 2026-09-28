@@ -1,0 +1,75 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# LaTeX auxiliary files
+*.aux
+*.log
+*.out
+*.pdf
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.bbl
+*.blg
+*.nav
+*.snm
+*.vrb
+*.idx
+*.ilg
+*.ind
+*.bcf
+*.run.xml
+
+# Temporary / build artifacts
+*.tmp
+*.bak
+*.backup
+.pytest_tmp*/
+.test-tmp/
+tmp/
+.coverage
+coverage.xml
+coverage.json
+.pytest_cache/
+.ruff_cache/
+
+# Project temp / archive / build output
+.legacy-final-temp/
+.artifacts/
+artifacts/
+output/
+reports/
+skill_paper_archive_*/
+build/
+.agents/
+.external-review/
+
+# Local CUMCM identity dictionary; contains private team information.
+.cumcm-identities.json

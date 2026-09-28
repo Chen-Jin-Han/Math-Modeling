@@ -1,0 +1,12 @@
+{
+  "model_version": "1.0.0",
+  "arrival_rate": 1.7,
+  "service_rate": 1.0,
+  "system_capacity": 8,
+  "candidate_servers": [1, 2, 3, 4],
+  "replications": 8,
+  "customers_per_replication": 3000,
+  "base_seed": 20260718,
+  "max_mean_wait": 0.4,
+  "max_rejection_probability": 0.05
+}

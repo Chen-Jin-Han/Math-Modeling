@@ -1,0 +1,64 @@
+{
+  "workspace": "tests\\test_data",
+  "mode": "excellence",
+  "passed": true,
+  "warning": false,
+  "figures_audited": 1,
+  "checks": [
+    {
+      "name": "figure_style_present",
+      "passed": true,
+      "style": {
+        "dpi": 300,
+        "export_dpi": 600,
+        "font_family": "DejaVu Sans",
+        "font_size": 10,
+        "line_width": 1.8,
+        "colorblind_safe": true,
+        "print_friendly": true,
+        "formats": [
+          "png"
+        ]
+      }
+    },
+    {
+      "name": "figure_storyboard_present",
+      "passed": true
+    },
+    {
+      "name": "figure_storyboard_schema",
+      "passed": true,
+      "entries": 1
+    },
+    {
+      "name": "figures_present",
+      "passed": true,
+      "count": 1
+    },
+    {
+      "name": "all_figures_nonblank",
+      "passed": true
+    }
+  ],
+  "issues": [],
+  "figures": [
+    {
+      "file": "figure.png",
+      "passed": true,
+      "quality_score": 100,
+      "width": 1200,
+      "height": 800,
+      "dpi": [
+        300,
+        300
+      ],
+      "issues": [],
+      "storyboard_referenced": true,
+      "storyboard_claim": "最优方案生成了非空且可引用的结果图",
+      "source_data": "results/output.csv",
+      "x_unit": "产品类别",
+      "y_unit": "件",
+      "supports_question": "Q1-Q2"
+    }
+  ]
+}

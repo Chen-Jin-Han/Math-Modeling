@@ -1,0 +1,6 @@
+# Runtime dependencies for the Nova HTTPS API only.
+numpy>=1.21,<3
+scipy>=1.9,<2
+matplotlib>=3.5,<4
+fastapi>=0.115,<1
+uvicorn>=0.30,<1

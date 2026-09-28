@@ -1,0 +1,62 @@
+{
+  "repository": "C:\\Users\\Blake\\math-model",
+  "branch": "codex/workflow-productionization",
+  "dirty": true,
+  "initial_dirty_paths": ["examples/"],
+  "tested_commit": "673694b6341dccd2bdfa189e5312b040566e2bb2",
+  "tag_at_head": "v6.6.0",
+  "verified_claims": {
+    "algorithm_modules": {"declared": 17, "actual": 17, "status": "consistent"},
+    "public_exports": {"declared": 129, "actual": 129, "status": "consistent"},
+    "standard_skills": {"declared": 8, "actual": 8, "status": "consistent"},
+    "legacy_commands": {"declared": 56, "actual": 56, "status": "consistent"},
+    "benchmark_cases": {"declared": 12, "actual": 12, "status": "partially_consistent", "note": "metadata only; not an end-to-end benchmark"},
+    "demonstrations": {"declared": 3, "actual": 3, "status": "partially_consistent", "note": "all replayed in isolation; queue_risk source artifacts were absent"}
+  },
+  "test_results": {
+    "skills": "pass: Validated 8 Codex Skills under skills",
+    "benchmarks": "pass: Validated 12 historical benchmark cases",
+    "legacy": "pass: Validated 56 compatibility-only command documents",
+    "pytest": {"passed": 244, "duration_seconds": 14.15},
+    "ruff": "pass",
+    "coverage": {"overall_percent": 65.5, "policy": "pass", "critical_modules": {"graph_theory.py": 98.07, "image_processing.py": 91.25, "math_programming.py": 96.55, "metaheuristic.py": 96.63, "monte_carlo.py": 95.02}},
+    "build": "pass in isolated virtual environment after adding setuptools build backend",
+    "examples": {"demand_forecasting": "pass", "supplier_allocation": "pass", "queue_risk": "pass"}
+  },
+  "major_findings": [
+    "Repository is an algorithm library plus Codex Skill/workflow assets, not a deployed student/teacher education-agent product.",
+    "Wheel contains algorithms only; it excludes skills, scripts, and untracked examples.",
+    "Demand 94.12% and allocation 37.09% figures are synthetic-demo results against limited baselines and must not be marketed as real-world effects.",
+    "Manifest/state infrastructure is real but lacks LLM/prompt/skill/solver/human-intervention and leakage evidence.",
+    "Third-party provenance, AI disclosure, anonymity checklist, data sources, model card, and limitations documents are absent."
+  ],
+  "direction_scores": [
+    {"rank": 1, "direction": "auditable human-in-the-loop mathematical-modeling teaching and process-evaluation agent", "score": 8.15},
+    {"rank": 2, "direction": "campus event modeling practice lab", "score": 7.85},
+    {"rank": 3, "direction": "modeling process evaluation and teacher-guidance agent", "score": 7.45},
+    {"rank": 4, "direction": "research-model verification and reproducible-experiment agent", "score": 6.85},
+    {"rank": 5, "direction": "automatic mathematical-modeling competition solving agent", "score": 4.35}
+  ],
+  "recommended_direction": "可审计的人机协同数学建模教学与过程评价智能体",
+  "p0": [
+    "Make examples tracked and deliverable; add a runnable student/teacher entry point and ensure queue_risk artifacts are present.",
+    "Replace weak-baseline/synthetic-effect marketing with disclosed data, fair baselines, independent validation, and failure cases.",
+    "Complete third-party, data, AI-use, anonymity, model-card, and limitations governance."
+  ],
+  "p1": [
+    "Unify core API result/randomness/optimization-direction contracts.",
+    "Extend Manifest evidence and turn benchmark metadata into executable evaluations.",
+    "Add quick/standard/strict modes and risk-based coverage gates."
+  ],
+  "p2": [
+    "Freeze legacy from the competition surface and expose a curated API.",
+    "Refine visuals and presentation after P0 evidence is closed."
+  ],
+  "demo_scenario": "Campus event demand forecasting, resource allocation, and queue-risk decision with rejected candidates and evidence-chain review.",
+  "next_14_days": "See 06_14_DAY_ACTION_PLAN.md",
+  "unresolved_items": [
+    "Python 3.10-3.13 CI results were not locally rerun.",
+    "Official benchmark source URLs and upstream-license compatibility were not independently verified.",
+    "No real user study, authorized real data, or deployed UI was found."
+  ]
+}

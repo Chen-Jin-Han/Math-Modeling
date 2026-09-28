@@ -1,0 +1,12 @@
+schema_version: 1
+id: cumcm-2022-a
+competition: CUMCM
+year: 2022
+problem_code: A
+title: 波浪能装置最大输出功率设计
+official_source: https://www.mcm.edu.cn/html_cn/node/388239ded4b057d37b7b8e51e33fe903.html
+archetypes: [physical-modeling, ode, optimization]
+capabilities: [dynamics, numerical-integration, parameter-optimization]
+baseline: 线性稳态响应与单参数网格搜索
+validation_targets: [量纲一致性, 能量守恒, 时域与解析结果一致, 边界最优复核]
+known_failure_modes: [阻尼符号或功率定义错误, 优化器收敛即视为全局最优, 图表与保存结果不一致]

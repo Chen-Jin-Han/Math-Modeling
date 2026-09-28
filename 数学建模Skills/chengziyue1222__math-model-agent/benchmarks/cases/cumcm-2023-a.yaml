@@ -1,0 +1,12 @@
+schema_version: 1
+id: cumcm-2023-a
+competition: CUMCM
+year: 2023
+problem_code: A
+title: 定日镜场的优化设计
+official_source: https://www.mcm.edu.cn/html_cn/node/c74d72127066f510a5723a94b5323a26.html
+archetypes: [physical-modeling, layout-optimization, simulation]
+capabilities: [solar-geometry, optical-efficiency, constrained-layout]
+baseline: 规则同心圆布局加离散网格搜索
+validation_targets: [太阳位置计算, 遮挡阴影, 场地边界, 年平均效率复算]
+known_failure_modes: [时间采样不足, 漏算余弦或截断效率, 布局不可制造, 优化目标与年均指标不一致]

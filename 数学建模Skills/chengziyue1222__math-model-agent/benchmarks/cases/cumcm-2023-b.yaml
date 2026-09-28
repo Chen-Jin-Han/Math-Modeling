@@ -1,0 +1,12 @@
+schema_version: 1
+id: cumcm-2023-b
+competition: CUMCM
+year: 2023
+problem_code: B
+title: 多波束测线问题
+official_source: https://www.mcm.edu.cn/html_cn/node/c74d72127066f510a5723a94b5323a26.html
+archetypes: [geometry, coverage, routing]
+capabilities: [seafloor-geometry, swath-overlap, survey-line-design]
+baseline: 平行等间距测线与局部坡度近似
+validation_targets: [覆盖率, 重叠率区间, 边界漏测, 总航程]
+known_failure_modes: [将坡面距离当水平距离, 只在中心线检查重叠, 忽略边界和转弯成本]

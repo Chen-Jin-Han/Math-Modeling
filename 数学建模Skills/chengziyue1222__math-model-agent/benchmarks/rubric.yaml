@@ -1,0 +1,19 @@
+schema_version: 1
+pass_score: 70
+score_scale:
+  minimum: 0
+  maximum: 5
+hard_gates:
+  - source_traceability
+  - reproducible_result
+  - answers_all_subproblems
+  - no_fabricated_evidence
+criteria:
+  problem_formulation: 15
+  assumptions_and_units: 10
+  data_and_parameters: 10
+  model_design: 15
+  solver_correctness: 10
+  validation_and_robustness: 20
+  sensitivity_and_limits: 10
+  communication_and_traceability: 10

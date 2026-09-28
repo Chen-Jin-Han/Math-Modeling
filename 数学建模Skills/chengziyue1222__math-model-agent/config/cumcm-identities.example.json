@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0",
+  "names": ["参赛队员真实姓名"],
+  "schools": ["参赛学校全称", "参赛学校常用简称"],
+  "regions": ["所属赛区名称"],
+  "student_ids": ["参赛队员学号"],
+  "windows_usernames": ["所有生成文件所用电脑的用户名"],
+  "other_terms": ["实验室名称", "指导教师姓名"]
+}

@@ -1,0 +1,12 @@
+schema_version: 1
+id: cumcm-2020-c
+competition: CUMCM
+year: 2020
+problem_code: C
+title: 中小微企业的信贷决策
+official_source: https://www.mcm.edu.cn/html_cn/node/10405905647c52abfd6377c0311632b5.html
+archetypes: [risk-modeling, classification, decision]
+capabilities: [feature-engineering, credit-scoring, portfolio-allocation]
+baseline: 基于违约率和历史信誉等级的规则评分卡
+validation_targets: [时间或企业级数据隔离, 概率校准, 预算约束, 风险收益敏感性]
+known_failure_modes: [企业记录泄漏到训练与测试两侧, 将相关性解释为因果, 评分与授信优化脱节]

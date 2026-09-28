@@ -1,0 +1,298 @@
+schema_version: '1.0'
+rules:
+- rule_id: STRUCT-ABSTRACT-001
+  description: 摘要应在一页内完成，采用“问题本质与统一框架—各子问题方法/结果/验证—总体检验与关键词”的顺序。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 20260730_技能与论文资料包.zip/04_最近真实生成论文/main_v2.pdf
+  evidence_pages:
+  - A/B p.1
+  - C pp.2-3
+  confidence: high
+  mandatory: true
+  scope: abstract
+  implementation_target:
+  - SKILL.md
+  - template
+  - Python validator
+  - tests
+  validation_method: 摘要起止页跨度必须为 1；检测至少包含方法、关键结果、验证三类句子。
+  rule_origin: recommended_synthesis
+  priority: P1
+  recommended_length_chinese_chars:
+  - 850
+  - 1200
+- rule_id: STRUCT-ABSTRACT-002
+  description: 每个子问题在摘要中最多占一个紧凑段落，数字只保留能区分方案和支撑结论的关键值。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A/B p.1
+  confidence: high
+  mandatory: true
+  scope: abstract
+  implementation_target:
+  - SKILL.md
+  - template
+  - Python validator
+  validation_method: 摘要中连续数字密度、同一量重复次数和有效数字位数超阈值则警告。
+  rule_origin: recommended_synthesis
+  priority: P1
+- rule_id: STRUCT-KEYWORD-001
+  description: 关键词建议 4-7 个，按“对象/方法/关键算法/验证特征”排序，不写题目专属最终数值。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A/B p.1
+  confidence: high
+  mandatory: true
+  scope: abstract
+  implementation_target:
+  - template
+  - Python validator
+  validation_method: 解析关键词分隔符和数量；数量不在 4-7 则警告。
+  rule_origin: recommended_synthesis
+  priority: P2
+- rule_id: STRUCT-RESTATEMENT-001
+  description: 问题重述只保留背景、对象、给定条件和交付要求，不提前写模型优越性或求解结果。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A/B p.5
+  confidence: high
+  mandatory: true
+  scope: problem_restatement
+  implementation_target:
+  - SKILL.md
+  - template
+  - Python validator
+  validation_method: 该章节出现“结果表明/优于/误差为”等结果性语句则警告。
+  rule_origin: recommended_synthesis
+  priority: P1
+- rule_id: STRUCT-ANALYSIS-001
+  description: 问题分析必须先识别子问题依赖和共用状态，再说明每问的难点、判据与求解入口。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.6-7
+  - B pp.6-7
+  confidence: high
+  mandatory: true
+  scope: problem_analysis
+  implementation_target:
+  - SKILL.md
+  - template
+  - tests
+  validation_method: 至少存在依赖关系说明；若多个问题复用同一计算但未声明统一接口则 FAIL。
+  rule_origin: direct_observation
+  priority: P1
+- rule_id: STRUCT-UNIFIED-001
+  description: 当至少两个子问题复用相同状态变量、约束判据或求解内核时，建立“统一模型/基础模型”章节；否则不得为形式而单列。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.12-15
+  - B pp.9-11
+  confidence: high
+  mandatory: true
+  scope: model_architecture
+  implementation_target:
+  - SKILL.md
+  - template
+  - tests
+  validation_method: 依赖图中复用节点计数>=2时要求统一模型章节；无复用时允许每问独立。
+  rule_origin: recommended_synthesis
+  priority: P0
+- rule_id: STRUCT-SUBPROBLEM-001
+  description: 每个核心子问题按“模型建立—求解流程—结果与分析”三段组织；纯解析证明题可将流程并入推导。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.16-40
+  - B pp.9-32
+  confidence: high
+  mandatory: true
+  scope: subproblems
+  implementation_target:
+  - SKILL.md
+  - template
+  - Python validator
+  validation_method: 章节树抽检三类内容齐全；结果段不得只有表格或单一结论句。
+  rule_origin: recommended_synthesis
+  priority: P1
+- rule_id: STRUCT-FLOW-001
+  description: 总体技术路线图只画一次；子问题流程图仅在存在多阶段、分支、嵌套或回退时使用。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A p.7及各问题流程页
+  - B p.6及各问题流程页
+  confidence: high
+  mandatory: false
+  scope: workflow_figures
+  implementation_target:
+  - SKILL.md
+  - template
+  - documentation
+  validation_method: 流程图数量超过“1+复杂子问题数”时触发冗余警告。
+  rule_origin: recommended_synthesis
+  priority: P2
+- rule_id: STRUCT-ASSUMPTION-001
+  description: 模型假设分为题面转写、必要理想化和可检验假设；每条写明依据、影响方向和验证方式。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.8-9
+  - B p.8
+  confidence: high
+  mandatory: true
+  scope: assumptions
+  implementation_target:
+  - SKILL.md
+  - template
+  - Python validator
+  validation_method: 每条假设至少包含“依据/影响/验证或限制”之一；无依据的“为简化”句式 FAIL。
+  rule_origin: recommended_synthesis
+  priority: P0
+- rule_id: STRUCT-SYMBOL-001
+  description: 符号表只列跨章节复用符号，单位独立成列；临时符号在首次出现处解释。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.10-11
+  - B pp.8-9
+  confidence: high
+  mandatory: true
+  scope: notation
+  implementation_target:
+  - template
+  - Python validator
+  validation_method: 符号表中的符号必须在正文出现；正文高频符号未入表则警告。
+  rule_origin: recommended_synthesis
+  priority: P1
+- rule_id: STRUCT-VALIDATION-001
+  description: 正文必须有独立的“模型检验与灵敏度分析”章节，至少包含硬约束、交叉验证和参数/步长敏感性。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 20260730_技能与论文资料包.zip/04_最近真实生成论文/main_v2.pdf
+  evidence_pages:
+  - A pp.41-46
+  - B pp.33-34
+  - C 未形成独立完整三道门
+  confidence: high
+  mandatory: true
+  scope: validation_chapter
+  implementation_target:
+  - SKILL.md
+  - template
+  - Python validator
+  - tests
+  validation_method: 章节树检测三类证据；缺一则整篇不得标记为 validated。
+  rule_origin: recommended_synthesis
+  priority: P0
+- rule_id: STRUCT-EVALUATION-001
+  description: 模型优点、缺点和推广必须具体对应本文模型、数据与适用域，不写通用套话。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 20260730_技能与论文资料包.zip/04_最近真实生成论文/main_v2.pdf
+  evidence_pages:
+  - A pp.46-47
+  - B pp.34-36
+  - C pp.20-21
+  confidence: high
+  mandatory: true
+  scope: evaluation
+  implementation_target:
+  - SKILL.md
+  - template
+  - Python validator
+  validation_method: 每条优缺点至少引用一个模型组件、指标或限制；泛化句式占比过高则警告。
+  rule_origin: recommended_synthesis
+  priority: P1
+- rule_id: STRUCT-REF-001
+  description: 参考文献置于正文后、附录前，并与正文编号一一对应。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 20260730_技能与论文资料包.zip/04_最近真实生成论文/main_v2.pdf
+  evidence_pages:
+  - A pp.48-50
+  - B pp.36-37
+  - C pp.22-23
+  confidence: high
+  mandatory: true
+  scope: references
+  implementation_target:
+  - template
+  - Python validator
+  - tests
+  validation_method: 检查引用编号集合与文献编号集合相等，无未引和悬空引用。
+  rule_origin: direct_observation
+  priority: P0
+- rule_id: STRUCT-APPENDIX-001
+  description: 正文仅呈现代表结果与关键伪代码；全量结果、完整审计表和可复现代码进入附录或提交包。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 20260730_技能与论文资料包.zip/04_最近真实生成论文/main_v2.pdf
+  evidence_pages:
+  - A pp.50-95
+  - B pp.37-64
+  - C pp.24-32
+  confidence: high
+  mandatory: true
+  scope: appendix
+  implementation_target:
+  - SKILL.md
+  - template
+  - documentation
+  validation_method: 正文中超长表/连续代码超过阈值则建议迁移；附录需链接到提交包文件。
+  rule_origin: recommended_synthesis
+  priority: P1
+- rule_id: STRUCT-LENGTH-001
+  description: 在无赛事页数上限时，正文建议 28-42 页；若赛事有限制，先满足限制，再按证据价值删减而非缩字。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 20260730_技能与论文资料包.zip/04_最近真实生成论文/main_v2.pdf
+  evidence_pages:
+  - A body 43 pages
+  - B body 31 pages
+  - C body 18 pages
+  confidence: medium
+  mandatory: false
+  scope: paper
+  implementation_target:
+  - SKILL.md
+  - config
+  - documentation
+  validation_method: 根据赛事配置检查页数；超限时生成删减报告，不允许自动缩小正文或图中文字。
+  rule_origin: recommended_synthesis
+  priority: P2
+recommended_outline:
+- 题目
+- 摘要与关键词
+- 目录
+- 一、问题重述
+- 二、问题分析与技术路线
+- 三、模型假设
+- 四、符号说明
+- 五、统一模型/基础模型（条件触发）
+- 六起、各子问题：模型建立—求解流程—结果与分析
+- 模型检验与灵敏度分析
+- 模型评价与推广
+- 参考文献
+- 附录A：全量审计/补充结果
+- 附录B：关键代码与复现说明

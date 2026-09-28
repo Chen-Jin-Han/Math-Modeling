@@ -1,0 +1,4 @@
+interface:
+  display_name: "数学建模求解"
+  short_description: "建立数学模型、调用算法库求解并完成敏感性与稳健性验证"
+  default_prompt: "使用 $solve-model 建立并求解这个数学模型，随后验证结果。"

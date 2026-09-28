@@ -1,0 +1,5 @@
+{
+  "model_version": "1.0.0",
+  "solver": "scipy-highs-via-linear_programming",
+  "feasibility_tolerance": 1e-7
+}

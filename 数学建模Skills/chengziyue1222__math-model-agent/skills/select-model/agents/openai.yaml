@@ -1,0 +1,4 @@
+interface:
+  display_name: "数学建模选型"
+  short_description: "识别赛题类型，系统比较候选模型并给出可验证的选型建议"
+  default_prompt: "使用 $select-model 分析这道赛题并推荐可验证的模型路线。"

@@ -1,0 +1,12 @@
+schema_version: 1
+id: cumcm-2022-c
+competition: CUMCM
+year: 2022
+problem_code: C
+title: 古代玻璃制品的成分分析与鉴别
+official_source: https://www.mcm.edu.cn/html_cn/node/388239ded4b057d37b7b8e51e33fe903.html
+archetypes: [compositional-data, classification, missing-data]
+capabilities: [clr-transform, clustering, classification, uncertainty-analysis]
+baseline: 原始百分比标准化后的逻辑回归或最近质心分类
+validation_targets: [闭合约束处理, 缺失机制, 分层交叉验证, 类别概率稳定性]
+known_failure_modes: [直接对成分百分比做欧氏分析, 数据泄漏, 小样本上报告过度精确的准确率]

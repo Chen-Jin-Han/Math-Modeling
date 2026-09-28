@@ -1,0 +1,829 @@
+## [1.11.0] - 2026-09-22
+
+本版是**算法库的一次扩容 + 一次体检**：`examples/algorithms/` 的 17 个模块从
+**222 个公开函数**扩到 **260 个**（净增 38 个），自测断言键从 **875 条**增至
+**1361 条**；同时按模块逐函数做了一轮**对抗性复核**——每条结论都要求有一个
+**模块之外的独立参照**（`scipy` / `sklearn` / `statsmodels` / `networkx` 只允许出现在
+临时探针里，仓库代码仍只依赖 `numpy`），并据此修掉一批真实缺陷。
+README 另新增「提示词模板」板块（T0–T8 九套可直接改用的提示词）。
+
+### 新增算法（38 个公开函数）
+
+| 模块 | 新增 | 一句话 |
+|---|---|---|
+| `optimization` | `lp_sensitivity`、`interior_point_lp` | 影子价格 + 基不变区间；Mehrotra 预测-校正内点法 |
+| `graphs` | `bellman_ford`、`topological_sort`、`critical_path` | 负权最短路 + 负环；Kahn 拓扑排序；CPM 关键路径 |
+| `heuristics` | `benchmark_functions`、`benchmark_optimizers`、`artificial_bee_colony` | 标准测试函数与已知全局最优；同预算同种子横向对比；ABC（Karaboga 2005） |
+| `statistics` | `mann_whitney_u`、`wilcoxon_signed_rank`、`kruskal_wallis`、`anova_oneway`、`newey_west_se`、`bca_bootstrap_ci` | 非参数检验族、单因素方差分析、HAC 标准误、BCa 自助置信区间 |
+| `evaluation` | `rsr_evaluation`、`promethee_ii_ranking`、`kendall_w_concordance` | 秩和比 + 分档；PROMETHEE II 净流全排序；Kendall 协调系数 |
+| `clustering` | `kmedoids` | PAM：簇心必须是真实样本点 |
+| `differential` | `euler_maruyama` | 对角噪声 Itô SDE 的强收敛格式 |
+| `stochastic` | `mmck_metrics`、`geometric_brownian_motion` | M/M/c/K 稳态指标；GBM 精确解路径 |
+| `geometry` | `sutherland_hodgman_clip` | 凸多边形对任意多边形窗口的裁剪 |
+| `game` | `iterated_elimination`、`ess_check`、`correlated_equilibrium_lp` | 纯策略迭代剔除；对称二人博弈 ESS；双矩阵博弈的 CE 线性规划 |
+| `timeseries` | `kalman_smoother_linear` | 卡尔曼滤波 + RTS 平滑 |
+| `ml` | `pca_fit`、`pca_transform`、`pr_curve`、`average_precision_score` | 中心化 + SVD 主成分；PR 曲线与 AP |
+| `multicriteria` | `electre_ii` | 双阈值强/弱级别高于关系 + 升降蒸馏排序 |
+| `multiobjective` | `moead`、`igd_metric`、`spacing_metric`、`knee_points` | 切比雪夫标量化 MOEA/D；IGD；Schott 间距；二维前沿拐点 |
+| `sensitivity` | `sobol_second_order`、`impute_mice` | Saltelli 二阶指数；链式方程多重插补（简化版） |
+| `spatial` | `moran_i` | 全局莫兰指数：点估计 + 正态近似 + 置换检验 |
+
+`forecasting` 未新增函数，但 `adf_test` / `mackinnon_crit` 补上了
+**`regression="ctt"`**（常数 + 线性 + 二次趋势）分支与对应的 MacKinnon 2010 临界值表
+——研赛/美赛里带确定性弯曲趋势的序列终于不必自己拆项。
+
+### 修复：真实缺陷
+
+复核过程中确认并修掉的缺陷（严重度按"是否会静默算错"判定）：
+
+| 模块 | 缺陷 | 严重度 |
+|---|---|---|
+| `optimization` | `branch_and_bound_ilp` 把「松弛无界」误判为 `infeasible` | 高 |
+| `optimization` | `interior_point_lp` 对偶残差符号写反，迭代不收敛乃至发散 | 高 |
+| `graphs` | `bellman_ford` 遇负自环时 `has_negative_cycle=True` 却返回 `negative_cycle=None`（契约自相矛盾），新增 `_pred_cycle` 在泛函图上搜环、平行边取最小权重算环权 | 高 |
+| `heuristics` | `simulated_annealing` 几何降温下溢成精确 `0.0` 后 `exp(-delta / T)` 抛 `ZeroDivisionError` | 高 |
+| `timeseries` | `garch11_forecast` 均值回复指数 off-by-one（黄金值 3 处随之更正） | 高 |
+| `ml` | `_pairwise_sq_dist` 用 `‖a‖²+‖b‖²-2a·b` 展开，同点自距离出现灾难性抵消而变**正数** | 中 |
+| `multiobjective` | `crowding_distance` 在退化目标上把并列点误标边界 `inf`，NSGA-II 截断因而漏淘汰 | 中 |
+| `multiobjective` | `_parse_box` 的一维简写 `(lo, hi)` 绕过了共用的有限性与 `hi > lo` 校验 | 中 |
+| `statistics` | `mann_whitney_u` 两个单侧尾共用同一个连续性修正量，`alternative="less"` 偏差 | 中 |
+| `multicriteria` | `rank_sum_ratio` 文档写「并列取平均秩」而实现用竞赛名次 (1,1,3)，并列时 Rsr 与名次都偏 | 中 |
+| `multicriteria` | `_spearman` 声称「天然支持并列」却直接对原值做 Pearson | 中 |
+| `multicriteria` | `rank_consensus` 用 `list.index` 线性扫描共同方案，实际 O(K²·m²) 而非文档的 O(K²·m) | 低 |
+| `ml` | `confusion_matrix` 恒真分支；`roc_auc` 存在不可达分支且文档失实；`decision_tree_fit` 缺 `criterion` 参数 | 低 |
+| `multiobjective` | `knee_points` 的 `scores` 未按原始下标回填，打乱输入后与 `F[i]` 对不上 | 低 |
+| `graphs` | `tsp_two_opt` 陷阱 3 把入参长度校验的说法写反 | 低（文档） |
+| `heuristics` | `_parse_bounds` 的一维简写 `(lo, hi)` 绕过全部校验（`(5, 3)` / `(nan, 5)` 都当合法盒，PSO/DE/GWO 静默搜索成 NaN） | 中 |
+| `heuristics` | `ant_colony_tsp` 单城市早退路径的 `history` 长度是 1 而非文档承诺的 `iters + 1` | 低 |
+| `heuristics` | 另有 4 处文档/自测守卫口径问题（ABC 求值次数、`benchmark_functions` 常数、tabu 藐视准则可达性、`ranking` 自测守卫过弱） | 低 |
+| `heuristics` | `benchmark_functions` 的最优值自测只在 `dim=3` 点测，容差又写成 `1e-9 * max(1, \|最优值\|)`（schwefel 处宽到 4.2e-7），而该键实测偏差仅 4.5e-13，断言近乎不设防、`bm_opt_dev` 还会被误当成上界；改为绝对容差 `1e-9 * dim` 并扫遍 `dim=2..6` 全部 35 个组合（有新增黄金键，旧键不变） | 中 |
+| `examples` | `run_algorithms.py --update-golden` 用 `open(..., "w")` 写基线，Windows 上会把 `\n` 翻译成 `\r\n`，重建一次基线整个 JSON 变 CRLF、git diff 全红；补 `newline="\n"` | 低 |
+
+`heuristics` 还有 1 处**故意不修**：`tabu` 在既有测试权重下的最优回路长度牵动黄金键，
+按"黄金基线冻结"的验收规则保留，改法与影响已写在模块注释里，留待下一次大版本。
+
+### 修复：声明与实现不符
+
+下列问题**不改变任何数值**，但"文档在说谎"，本版一并纠正：
+`lp_sensitivity` 的双对偶信息被拆到 `lp_sensitivity`（影子价格 + 基不变区间，仅 min 形式、
+仅 `A_ub` + `bounds`）与 `interior_point_lp`（对偶变量 `y`、间隙历史）两处说明；
+`pareto_front` 补「不去重」陷阱；`epsilon_constraint_pareto` 补罚系数的下界 `max(极差, 1)`；
+`_safe_norm` 说明常数指标会**抬高**一致性而非「被忽略」；`_norm_ppf` 把精度声称从
+「~1e-12」改为分级实测（中段 1e-15 级、p=1e-8 约 4e-10、p=1e-12 约 7e-9）；
+`newey_west_se` 说明一维 `X` 会被 `as_matrix` 变成 **(1, n)** 单行，以及带宽
+`floor(4n^(2/9))` 的真实取值（n=400 → 5，不是 6）。
+
+### 文档
+
+- **`README.md` 新增「提示词模板」板块**（位于「它会做什么」与「算法与代码」之间）：
+  好提示词的四件套 + ❌/✅ 对照表、按阶段挑模板的 9 行索引、**T0 开局设定 → T8 全流程托管
+  九张卡片**（每张都是可直接复制改写的一段提示词 + 「为什么这样写」）、
+  以及「微调与常见失效」的 8 条症状对照。
+- `references/algorithm-details.md` 按 `__all__` 顺序补齐 38 个新函数的
+  六段式条目（数学形式 / 步骤 / 复杂度 / 参数 / 陷阱 / 怎么检验），并更正优化模块
+  「不做内点法」等 3 处过期表述。
+- `references/algorithm-implementations.md` 的分族速查表随新增函数扩写。
+- `examples/algorithms/__init__.py` 的模块清单按新函数重写；
+  `README.md` 中的函数总数、算法模块表与断言键数同步为 260 / 1361。
+- 版本号 `1.10.0` → `1.11.0`（`SKILL.md` 的 `metadata.version`、`CITATION.cff`、
+  `INSTALL.md` 的示例 ZIP 名）。
+
+### 验证
+
+- `python examples/run_algorithms.py`：**17 个模块 / 1361 个断言键，失败 0 个模块**，
+  每个模块跑两次结果逐位一致（确定性检查），黄金值比对 `rtol=atol=1e-09`。
+- 每个模块都有模块外的独立参照：`scipy.stats`（非参数检验、分布尾概率、
+  Spearman/PPF）、`sklearn`（PCA、PR 曲线、随机森林/GBDT 等）、`statsmodels`
+  （Newey-West、logit 插补）、`networkx`（最短路、负环、拓扑序）、
+  以及解析真值与蛮力网格（Ishigami 指数、超体积、Pareto 前沿、CPM 时差）。
+- AST 守卫（与 CI 同一套）：`scanned 19 files` / `AST GUARDS: clean`——
+  无禁用第三方导入、无 `assert` 关键字、无全局 `np.random`、公开函数 docstring 字段序一致。
+- `validate_skill.py . --strict`、`check_paper.py --self-test`、`install_skill.py --self-test`、
+  `check_latex.py --self-test` / `--require`、`check_latex_full.py --require`、
+  `check_palette.py --quiet`、`make_figures.py --self-test` 全部通过。
+
+### 诚实的边界
+
+- **「黄金值零漂移」只证明没有回归，不证明算法正确。** 本版的正确性证据来自
+  上一条里的**模块外独立参照**，不是黄金值本身。
+- `ml` 中的 `random_forest_*`、`gradient_boosting_*`、`gaussian_nb_*`、`lda_*`、
+  `permutation_importance`、`class_weight_balanced`、`decision_tree_predict`
+  共 12 个公开函数**没有取得仓库之外的独立交叉验证**，只有内部一致性与自测；
+  它们可以用于竞赛论文的说明性计算，但不应被当成工业级实现。
+- 全部实现都是**教学透明版**：优先可读、可复现、可手算核对，不做工程优化。
+  `heuristics` / `multiobjective` 的元启发式给的是**同一预算下的可比结果**，
+  不承诺全局最优。
+- `game` 模块的已知缺口：`iterated_elimination` 不实现混合策略占优；
+  `ess_check` 的 `|B| > 14` 分支未经端到端运行；`correlated_equilibrium_lp` 的
+  `n_constraints` 未做外部交叉验证；退化博弈的 Nash 集不完整（只作说明，未求解）。
+- `sensitivity` 的 `impute_mice` 收敛判据是**绝对**阈值，默认 `max_iter=10, tol=1e-6`
+  在真实量纲数据上通常返回 `converged=False`——这是**如实报告**而非静默错误，
+  调用时请按列标准差量级放大 `tol` 或显式增大 `max_iter`。
+
+## [1.10.0] - 2026-09-22
+
+本版加入**第四套完整文档类模板**：`assets/latex/full/hwcup2026/`——2026 年华为杯
+（第二十三届中国研究生数学建模竞赛）的**严格格式版**，由本仓库作者自制，
+逐条复刻 2026-09-16 官方《论文格式规范》与官方**附件3 Word 模板**。
+它与已有的 `full/gmcm/` **并存、互不替代**。
+
+### 为什么要有这一套
+
+2026 年研赛官方明确要求「**必须按附件3 模板进行编写**」，但组委会**只发 Word 版、
+没有发 LaTeX 版**。此前仓库里的 `full/gmcm/` 是社区沿用的 `gmcmthesis.cls` 通用排版版，
+它版面漂亮、章节与算法环境齐全，但**和附件3 不是同一套版式**——页边距、字号、
+摘要页固定文字的位置都对不上。想在 LaTeX 里交一份"和官方 Word 模板一致"的论文，
+只能自己照着附件3 复刻。
+
+### 新增
+
+- **`assets/latex/full/hwcup2026/`（9 个文件）**：
+  `hwcup2026.cls`（7 663 B，`\LoadClass[UTF8,zihao=-4,a4paper,fontset=none]{ctexart}`）、
+  `main.tex`（2 219 B）、`preview.pdf`（652 699 B，3 页样张）、`README.md`，
+  以及 `assets/` 下 5 张 PNG（官方附件3 封面底图 477 265 B、摘要页顶部赛事标题
+  92 546 B、「题目/摘要/关键词」三个固定标签 3 441 + 4 689 + 6 969 B）。
+  全部文件与作者提供的 `华为杯2026_严格格式_LaTeX模板.zip`
+  （1 143 969 B，SHA-256 `ec625a49…`）**逐字节一致**，本仓库未作任何修改
+  （`README.md` 只在末尾追加了一节"在本仓库里的位置"）。
+- 复刻的官方口径逐条落在 `.cls` 里：A4 纵向，页边距上 30.02 mm / 下 18.49 mm /
+  左 22.51 mm / 右 22.47 mm；首页保留官方封皮与 4 个 Logo；摘要页起阿拉伯数字从 1
+  连续编号、页码居中页脚；不设页眉；题目三号黑体、一级标题四号黑体居中、其余小四
+  宋体；单倍行距；`\ClassError` 兜住非 XeTeX 引擎。
+- **所有这些模板共用的"固定文字"是图片，不是排出来的字。** 封面、4 个 Logo、摘要页
+  顶部赛事标题与三个固定标签全部直接取自官方附件3 的渲染结果（`assets/*.png`），
+  因此不受「华文新魏 / 隶书」等字体缺失的影响，也与 Word 版逐像素一致。
+- **Release 新增第 5 个资产 `hwcup2026-template.zip`**（解压出顶层目录 `hwcup2026/`）。
+  发布脚本同时把它挂上去，README / INSTALL / `full/README.md` 的直达链接与资产清单
+  全部同步——注意 `install_skill.py --download` **只认 `math-modeling-skill` 开头的
+  ZIP**，模板包变多不会让它下错（这条约定 v1.9.0 就钉在自检里了）。
+
+### 字体：这套刻意**不带**任何 `.ttf`
+
+`hwcup2026.cls` 走**双回落**：`\IfFontExistsTF{SimSun}`/`{SimHei}` 有就用（**2026 规范
+点名的就是宋体/黑体**，也是官方 Word 附件3 用的），没有就落 **Noto Serif CJK SC /
+Noto Sans CJK SC**；`\IfFontExistsTF{Times New Roman}` 有就用，没有就落
+**Liberation Serif**。
+
+这套回落目标和另外三套**不是一回事**，必须写清楚，否则 CI 一定红：
+
+| 模板 | 中文回落 | 西文回落 |
+|---|---|---|
+| `hwcup2026` | **Noto Serif / Sans CJK SC** | **Liberation Serif** |
+| `gmcm` / `cumcm` | `ctex` 自带的 **fandol** | **TeX Gyre** |
+
+### 变更
+
+- `.github/workflows/ci.yml`：`latex` 作业的 apt 列表补 **`fonts-noto-cjk`** 与
+  **`fonts-liberation`**（华为杯 2026 回落分支的必需字体，不是 `texlive-*` 的依赖，
+  必须单独点名），安装后用 `fc-list` 断言 `Noto Serif CJK SC` / `Noto Sans CJK SC` /
+  `Liberation Serif` 三个家族都在——**系统字体不进 `kpsewhich`，只能用 fontconfig 点名**，
+  缺了就让安装这一步先红，不必等编译日志里翻 `fontspec Error`。
+- `scripts/check_latex_full.py`：模板表由 3 套扩到 4 套（`hwcup2026` 排在第一，
+  `simulate_linux=True`、`order=None`、不带随包字体），`TEMPLATES` 的既有断言、
+  模拟清单、`--only` 帮助文本同步。固件自检 **26 项 → 29 项**：
+  - 新增「模板表覆盖 `full/` 下的全部模板目录」——直接和文件系统对账，以后再加模板
+    忘了登记就会自检失败，而不是悄悄漏编；
+  - 模拟编译清单从 `[True, True, False]` 改为 `[True, True, True, False]`；
+  - 新增两条"屏蔽 Windows 字体探测"的断言：`SimSun` / `SimHei` 必须被拦住，
+    而 `\IfFontExistsTF{SimSun.ttf}`（研赛那种带扩展名的写法）**必须不被误伤**——
+    所以探测针改成**花括号锚定**的 `\IfFontExistsTF{SimSun}`，不是裸字符串替换。
+- 文档同步到"四套"口径并写清两套华为杯的关系：
+  `assets/latex/full/README.md`（选型表、ZIP 表、编译命令、Ubuntu 依赖表新增
+  `fonts-noto-cjk` / `fonts-liberation` 两行、回落目标分类、目录清单、验证记录、
+  溯源速查）、`assets/latex/full/THIRD-PARTY.md`（**新增第 1 节**，原第 1–4 节顺延为
+  2–5；写明官方附件3 渲染图**版权属组委会、不在 MIT 覆盖内**）、
+  `assets/latex/full/hwcup2026/README.md`（追加"在本仓库里的位置"对照表）、
+  `assets/latex/README.md`、`references/templates.md`、`README.md`、`INSTALL.md`。
+- 版本号 `1.9.1` → `1.10.0`（`SKILL.md` 的 `metadata.version`、`CITATION.cff`）；
+  `INSTALL.md` 的示例 ZIP 名同步。
+
+### 验证记录
+
+| 项目 | 方式 | 结果 |
+|---|---|---|
+| 新模板随仓库副本 | 与作者提供的 ZIP 逐文件比对 | 9/9 个文件字节完全相同（`hwcup2026.cls` 7 663 B / `main.tex` 2 219 B / `preview.pdf` 652 699 B / 5 张 PNG / `README.md`） |
+| 完整模板真编译（全量） | `check_latex_full.py --require`（Windows + MiKTeX 25.12） | **7/7 通过**：hwcup2026 3 页（原样 662 371 B / 回落 652 715 B）、gmcm 8 页、cumcm 12 页、mcm 11 页；0 条硬错误、0 个缺字形、0 处未解析引用；hwcup2026 **0 个 Overfull / Underfull** |
+| 改写逻辑固件自检 | `check_latex_full.py --self-test`（不需要 TeX） | **29/29 通过**（本版新增 3 项） |
+| 回落路径不是"碰运气" | 本机原无 Noto CJK / Liberation，第一次模拟编译实测报 `! Package fontspec Error: The font "Noto Serif CJK SC" cannot be found` | 确认这是一条**真实分支**；下载 noble 的 `fonts-noto-cjk` / `fonts-liberation` 两个 `.deb`，解析 `.ttc`/`.ttf` 名称表确认家族名后装上，再跑即通过（652 715 B / 3 页） |
+| 已发布三套无回归 | 同一跑里的 gmcm / cumcm / mcm | 页数与体积与 v1.9.1 记录一致（gmcm 395 954 / 391 121，cumcm 452 166 / 538 968，mcm 279 394） |
+| Release 五个资产 | 出包后下载回来逐个 sha256 | 见本版 Release 说明（**哈希不写进本文件**，理由同 v1.9.1） |
+
+### 已知的无害警告
+
+`hwcup2026` 在 MiKTeX 25.12 上每遍报 4 次
+`LaTeX Warning: You have requested release '2026/06/01' of LaTeX, but only release '2025-11-01' is available.`
+——`ctexart` 请求比本机更新的 LaTeX 内核，属发行版版本提示，模板侧无法消除，不影响排版。
+**除这一条外，这套模板的日志是干净的。**
+
+## [1.9.1] - 2026-09-21
+
+本版是 v1.9.0 的**补丁**：修红 CI（两轮）、把两处"说得太满"的数字改成实测值、把 README
+里 Release 链接从钉死版本号改成 `latest`、修掉发布资产的出包口径。**模板源码一个字节都没改。**
+
+### 为什么会有这一版
+
+v1.9.0 的 `latex` CI 作业在 GitHub 上是**红的**，两轮才修完——两次都不是模板坏，
+是 **Ubuntu 的 TeX Live 缺包**：
+
+1. **第一轮**：`ulem.sty` 不在 `texlive-latex-base/-recommended/-extra` 里（它在
+   `texlive-plain-generic`，TDS 路径是 `tex/generic/` 而不是 `tex/latex/`），
+   `berasans.sty` 也不在（它在 `texlive-fonts-extra`）。
+2. **第二轮**：补完之后 5 条完整模板编译里只剩「美赛 原样」一条红，pdflatex 报
+   `! Font TS1/ntxtlf/m/n/12=ts1-qtmr at 12.0pt not loadable: Metric (TFM) file not found`。
+   `newtxtext` 把 TS1 编码映射到 TeX Gyre Termes 的度量上，所以需要 `ts1-qtmr.tfm`；
+   它由 Debian 的 `tex-gyre` 提供，而只装 OTF 的 `fonts-texgyre` 是**另一个互不
+   相干的包**——两个包名长得像，是最容易漏的一个。
+
+本地 Windows + MiKTeX 是全量安装，所以 `check_latex_full.py --require` 5/5 通过，
+**在本机一点都看不出来**。这恰好说明"CI 那一遍必须在 Linux 上真跑"是有价值的：
+它专抓"本机装得太全"造成的盲区。
+
+### 变更
+
+- `.github/workflows/ci.yml`：`latex` 作业的 TeX Live 安装列表补 `texlive-plain-generic`、
+  `texlive-fonts-extra`、`fonts-texgyre`、`tex-gyre`；装完后用 `kpsewhich` 逐个点名
+  `lmodern.sty` / `ulem.sty` / `berasans.sty` / `newtxtext.sty` /
+  `texgyretermes-regular.otf` / `ts1-qtmr.tfm`——**缺包立刻在安装这一步就失败**，
+  不必再去编译日志里翻 `! LaTeX Error: File ... not found.`。
+  （提醒：TeX Gyre 的 OTF 在 Debian 上叫 `fonts-texgyre`、度量文件叫 `tex-gyre`，
+  **都不带** `texlive-` 前缀，而且**两个都要装**。）
+- `assets/latex/full/README.md`：新增「需要哪些 TeX 组件」一节，把上面这些"漏了就红"的包
+  和各自的用途列成表；第 5.3 节的 CI 说明同步。
+- **两处数字修正**（v1.9.0 写错了）：`gmcm` 回落路径实测 **391 120 B**（原写 391 121 B）；
+  `cumcm` 原样实测 **452 165 B**（原写 452 166 B）。`full/gmcm/README.md` 与
+  `full/cumcm/README.md` 里的同一组数字同步。
+- **`cumcm` 不再宣称"与随仓库样张逐字节相同"。** v1.9.0 的 README 说三份预编译 PDF 都
+  逐字节一致，实测 `cumcm` 差 1 字节：**前 444 862 字节（占 98.4%）完全相同**，差异只在
+  文件末尾那个 Flate 压缩对象流（`/Length 3866` vs `3867`，装的是 XMP / Info 元数据，
+  也就是 PDF 文档 ID 与生成时间戳）。现在文档明确写成"`gmcm` / `mcm` 逐字节相同，
+  `cumcm` 页数与版面一致、差异仅在元数据"，不再含糊。
+- `README.md`：三个模板包的直达链接改用 `releases/latest/download/...`（原来钉死在
+  `v1.9.0`，一发行新版就过期）；技能包那条不再给带版本号的文件名，改为指向
+  `scripts/install_skill.py --download`（它自己会认版本）。
+- `INSTALL.md`：示例 ZIP 名从 `v1.9.0` 更新为 `v1.9.1`。
+- 删掉仓库根目录一个误建的 `NUL` 空文件（Windows 上给 OpenSSH 传
+  `-o UserKnownHostsFile=NUL` 时被当成了真实文件名）。它从未进入版本库。
+- **发布资产改为严格"从 git blob 出包"。** 打 v1.9.0 的包时是在 Windows 上直接
+  `git archive`，而本机的 `core.autocrlf=true` 会顺手把包里的文本文件改写成 CRLF：
+  技能包 125 个文件里有 **97 个**中招，而当时只校验了 `.ttf` 的字节，完全看不出来
+  （仓库自己声明的却是 `* text=auto eol=lf`）。现在出包时显式关掉这个转换，并用
+  `--mtime` 把 ZIP 条目的时间戳钉在提交时间上（不钉的话，同一次提交连编两次字节都
+  不同）。判据也换成**全量**逐文件比对 git blob，不再是只看字体。因为修好了这个，
+  v1.9.1 的三个模板包虽然**模板源码没动**，包的字节与 v1.9.0 的并不全同：
+  除下文两处 README 数字外，差异只是行尾统一回 LF 与时间戳字段。
+  （资产自身的 SHA-256 记在 GitHub Release 说明里，**不写进本文件**——写进来就
+  改变了提交，提交变了资产又会变，成了自指的循环。）
+
+### 验证记录
+
+| 项目 | 方式 | 结果 |
+|---|---|---|
+| 完整模板真编译 | `check_latex_full.py --require`（Windows + MiKTeX 25.12） | **5/5 通过**，gmcm 8 页 / cumcm 12 页 / mcm 11 页，回落路径页数一致 |
+| 复查"与样张一致"的结论 | 逐字节比对刚编译出的 PDF 与仓库内样张 | `gmcm` / `mcm` 逐字节相同；`cumcm` 前 444 862 字节相同，末尾元数据对象流差 1 字节（已在文档中写明） |
+| Ubuntu 缺包定位 | 下载 `dists/noble/Contents-amd64.gz`（51 301 092 B）反查文件归属 | `ulem.sty` → `texlive-plain-generic`；`berasans.sty` / `newtxtext.sty` → `texlive-fonts-extra`；`texgyretermes-regular.otf` → `fonts-texgyre`；`ts1-qtmr.tfm` → `tex-gyre`。**全部是反查出来的，不是猜的** |
+| 发布资产完整性 | 出包后把 ZIP 里**每一个**条目与 `git cat-file` 取出的 blob 逐字节比对，并连编两次比对 | 技能包 125/125 个条目与 git blob 相同，0 个被转成 CRLF；三个模板包条目清单与 `git ls-tree` 一致；连编两次字节完全相同 |
+| 资产可安装性 | 从最终 ZIP 走 `install_skill.py --from-zip` / `--into <技能根>` 完整装一遍 | 两条路径都装上并通过 `validate_skill --strict`，随包 5 个 `.ttf` 都在 |
+| CI | `.github/workflows/ci.yml` 两个作业 | 见本版所在提交：`check` 与 `latex` 全绿 |
+
+### 如果你已经装了 1.9.0
+
+模板内容**完全没变**（`.cls` / `.tex` / 字体 / 图片都一致），本版只动文档数字、CI 配置与出包口径，
+不更新不影响使用。要更新就 `git pull` 后重跑
+`python scripts/install_skill.py --target auto --force`。
+
+## [1.9.0] - 2026-09-21
+
+本版补上一整层**「完整文档类」LaTeX 模板**。此前仓库里的三套模板是**自包含轻量版**（单个 `main.tex` + `refs.bib`，不依赖私有宏包）——它便于"我自己掌控排版"，但真正参赛时评委认的是各赛事官方文档类的版式（封面、承诺书、编号页、摘要页、页眉页脚都由 `.cls` 决定，自己仿制很难一致）。本版把三套**官方文档类的完整可编译工程**收进来，并把"换一台没有 Windows 字体的机器（含 Overleaf）会不会崩"从"用户自己想办法"变成了 **CI 里真的会跑的一步**。
+
+### 关键结论（先说结果）
+
+- **新增 `assets/latex/full/`：三套完整文档类模板，直接能编。** 研赛（华为杯）`gmcmthesis.cls` v2.2、国赛 `cumcmthesis.cls` v2.9、美赛 `mcmthesis.cls` v6.3.3；每套都带完整正文骨架、图片与**预编译样例 PDF**（8 / 12 / 11 页）。国赛与研赛用 `xelatex`、美赛用 `pdflatex`，**各连跑三遍即可**——这套模板的参考文献是内联 `thebibliography`，**不需要 bibtex**。
+- **原有的轻量版一套都没动。** `assets/latex/{cumcm,yjs,mcm}/` 连一个字节都没改。两套并存是刻意的：轻量版适合自控排版与"由 Markdown 快速成稿"，完整版适合正式提交。选哪套见 `assets/latex/README.md` 顶部的对照表。
+- **"缺 Windows 字体就编不出来"这个坑被堵死了，而且是**验证过**的堵法。** 研赛文档类原本硬写 `\setmainfont{Times New Roman}` / `\setsansfont{Arial}` / `\setmonofont{Courier New}`，并且靠 `\ifx\lishu\undefined` 判断要不要绑定隶书——**这两个写法在 Linux / Overleaf 上都会出问题**（前者直接失败；后者因为 ctex 早就定义过 `\lishu`，判断恒为假，隶书永远绑不上、编译时报 `The font LiSu cannot be found`）。现在全部改用 `fontspec` 的 `\IfFontExistsTF` 探测：有 Windows 字体就用（字形与 Word 一致），没有就回落到 TeX Gyre 的度量兼容克隆（Termes / Heros / Cursor，随 TeX Live / MiKTeX 分发）；CJK 主字体缺了就保留 ctex 自动选定的字体集（Windows → windows，Linux / Overleaf → fandol）。**实测两条路径编出来的页数完全一致**（8 / 12 / 11），换字体只改字形与嵌入大小，不改版面。
+- **随附 5 个中文字体，让无网机器也能得到与 Word 一致的字形。** `full/gmcm/` 里带了 SimSun / SimHei / KaiTi / LiSu / STXinwei 五个 `.ttf`（合计约 43.7 MiB，占本版仓库体积的绝大部分）。**它们是商业字体，不在本仓库 MIT 授权范围内**，随包附上只为字形一致；**删掉即可**，上面的回落路径会接管。三处文档都写明了这一点，并特别警告：**不要把这几个 `.ttf` 挪进 `fonts/` 子目录**——文档类按裸文件名引用它们，挪走后编译仍会"成功"退出 0，但中文字会静默变成一片 `Missing character` 警告。
+- **三套模板每次 CI 都真的编译，而且各编两遍。** 一遍按原样编，一遍**模拟一台没有 Windows 字体的机器**（删掉随包 `.ttf` + 把 ctex 字体集钉成 `fandol` + 把西文字体探测的名字换成一定不存在的名字），两条路径都必须编过，模板才算真的能在 Overleaf / Linux 上用。这套"模拟"是**确定性的**，不依赖跑在哪个平台上。
+- **Release 里现在混着三种 ZIP，而安装器已经不会再下错。** 除技能包外还挂了 `gmcm-template.zip` / `cumcm-template.zip` / `mcm-template.zip`。旧版 `--download` 的实现是"取 Release 的第一个 `.zip` 资产"，而 GitHub 接口**不承诺资产顺序**——模板包一旦排在前面就会被当技能装下去。本版新增 `pick_release_asset()`：**只认文件名以 `math-modeling-skill` 开头的 ZIP**，一个都不匹配时**报错并列出实际资产名**，而不是随便挑一个。
+
+### 变更
+
+**新增**
+
+- `assets/latex/full/`（共 38 个文件）：
+  - `full/gmcm/`（12 个文件，46,540,342 字节）：`gmcmthesis.cls` v2.2 + `MathModel.tex` + 5 个 `.ttf` + `figures/` + 预编译 `MathModel.pdf`（8 页）。
+  - `full/cumcm/`（11 个文件，914,244 字节）：`cumcmthesis.cls` v2.9 + `cumcm2026.sty` + `example.tex` + `figures/` + 预编译 `example.pdf`（12 页）。
+  - `full/mcm/`（15 个文件，701,743 字节）：`mcmthesis.cls` v6.3.3 + `mcmthesis.dtx` + `mcmthesis.ins`（为满足 LPPL 再分发条款而保留）+ `LICENSE-mcmthesis` + `code/` + `figures/` + 预编译 `mcmthesis-demo.pdf`（11 页）。
+  - `full/README.md`（313 行）：两套模板怎么选、与原版的差异、字体与许可提示、逐目录清单、验证记录。
+  - `full/THIRD-PARTY.md`（131 行）：三套模板逐一的来源 / commit / 许可，以及随附 `.ttf` 的许可边界。
+- `scripts/check_latex_full.py`（544 行，仅标准库）：在系统临时目录的副本里真编译完整模板并体检。CLI：`--require` / `--only` / `--no-simulate` / `--keep` / `--tex-dir` / `--timeout` / `--self-test`。核心能力有三个——① 把 ctex 的字体集改写钉死（正则识别 `\LoadClass[...]{ctexart}` 与 `\RequirePackage[...]{ctex}`，加或替换 `fontset=`）；② 把 `\IfFontExistsTF` 的 Windows 字体名换成一定不存在的名字，从而在 Windows 上也能复现"没装这些字体"的分支；③ 核对"AI 声明 vs 参考文献"的顺序（模板给的正则，国赛要求**之前**、美赛要求**之后**）。
+
+**修改**
+
+- `assets/latex/full/gmcm/gmcmthesis.cls`（第 146–174 行）：三处西文字体加 `\IfFontExistsTF` 回落；CJK 主字体 / `zhli` / `xw` 改为探测随包 `.ttf`；`\lishu` 与 `\xinwei` 先 `\providecommand*` 兜底再 `\renewcommand*`（修掉上面那个恒假的 `\ifx` 判断）。
+- `assets/latex/full/cumcm/cumcmthesis.cls`（第 154–163 行）：`\setmainfont{Times New Roman}` 与 `\setsansfont{Arial}` 各加 `\IfFontExistsTF` 回落（`\setmonofont{Courier New}` 上游本就是注释状态，保持原样）。
+- `assets/latex/full/mcm/`：**与上游逐字节一致，未作任何修改**，只补了一份本仓库写的 `README.md`。
+- `.github/workflows/ci.yml`：`latex` 作业新增两步——`check_latex_full.py --self-test`（不需要 TeX，放在装 TeX 之前，便于区分"脚本坏"与"发行版缺宏包"）与 `check_latex_full.py --require`（真编译，含无 Windows 字体的回落路径）。
+- `scripts/install_skill.py`（1089 → 1164 行）：新增 `pick_release_asset(assets)`（含完整 docstring 与"为什么宁可报错也不猜"的说明）；`download_latest_zip()` 改为调用它；`--self-test` 由 **21 项扩到 25 项**（新增"模板包排在前面也认得技能包""无版本号后缀的技能包也认""只有模板包时拒绝乱猜并列出资产名""没有 .zip 时报错"）。
+- `assets/latex/README.md`：顶部加"完整版 vs 轻量版"决策表；新增 `full/` 一节。
+- `assets/latex/full/{gmcm,cumcm,mcm}/README.md`：编译步骤改为三遍（去掉 bibtex）、字体在新版本里是**可选**的、更新字体回落说明与来源链接。
+- `references/templates.md`（106 → 121 行）：第一节加两套模板的对照与上游谱系表；第二节补上 `check_latex_full.py` 的三条命令与"它多做的那一件事"。
+- `README.md`：第 6 节重写为两套模板的对照 + 完整版的下载方式（Release 直达链接 / 直接拷贝 / raw 单文件）+ 编译命令 + 字体与许可提示；「质量保障」表新增"完整模板真编译"一行、安装器一行由 21 项改 25 项；「仓库结构」树补上 `assets/latex/full/` 与 `check_latex_full.py`；「与同类项目的关系」改为**逐套标注上游与许可状态**（并写明研赛这一套是作者自制整理）。
+- `INSTALL.md`（304 → 326 行）：新增「附：LaTeX 论文模板怎么拿（与安装无关）」一节，明确 **Release 里只有 `math-modeling-skill-v*.zip` 是技能包**，另外三个是独立的 LaTeX 工程，以及 `.ttf` 的许可与删除办法。
+- `SKILL.md`（版本 → 1.9.0）：参考文件索引新增"要完整文档类模板"与 `check_latex_full.py` 两行；`compatibility` 补上 `check_latex_full.py`。
+- `CITATION.cff`：版本 → 1.9.0，日期 → 2026-09-21，关键词加 `latex-template`。
+
+### 关键验证记录
+
+| 项目 | 方式 | 结果 |
+|---|---|---|
+| 完整模板：原样编译 | `check_latex_full.py --require --tex-dir <MiKTeX 25.12>` | **5/5 通过**，退出码 0：gmcm 8 页 / cumcm 12 页 / mcm 11 页，硬错误 0、缺字 0、未解析引用 0 |
+| 完整模板：模拟无 Windows 字体 | 同上，删随包 `.ttf` + 钉 `fontset=fandol` + 屏蔽西文字体探测 | gmcm 8 页（391,120 字节，原样 395,954）、cumcm 12 页（538,970 字节，原样 452,165）——**页数与原样路径完全一致**，只有字形与嵌入体积不同 |
+| AI 声明顺序 | 同上，按模板各自的正则核对 | 国赛「AI 工具使用声明」在参考文献之前 ✓（正文含 2 处，按最后一处算）；美赛 `Report on Use of AI` 在参考文献之后 ✓ |
+| 完整模板改写逻辑 | `check_latex_full.py --self-test` | **26/26 通过**（不需要 TeX） |
+| 轻量模板未受影响 | `check_latex.py --self-test` / `--require` | **26/26 通过**；真编译 3 套仍全过 |
+| 安装器 | `install_skill.py --self-test` | **25/25 通过**（新增 4 项资产挑选用例；不联网、不碰真实技能目录） |
+| 结构与自检 | `validate_skill.py . --strict` / `check_paper.py --self-test` / `download_templates.py --self-test` | 0 错误 0 警告 / 全部通过 / 26/26 通过 |
+| 算法与配图 | `run_algorithms.py` / `check_palette.py --quiet` | 17 个模块 875 个断言键、失败 0；配色可访问性断言全部满足 |
+| Release 三个模板包 | 逐 ZIP 用 Python 核对条目名与数量 | `gmcm-template.zip` 12 条 / `cumcm-template.zip` 11 条 / `mcm-template.zip` 15 条，与目录文件数一一对应；条目分隔符全是正斜杠，解压后各自得到一个顶层目录 |
+
+### 字体与许可证（必读）
+
+- 随 `full/gmcm/` 附带的 5 个 `.ttf` 是 Windows / 中易（SinoType）的**商业字体**，**不属于本仓库的 MIT 授权范围**——MIT 只覆盖本仓库自己写的代码与文档。随包附上是为了"和 Word 版字形完全一致"；你完全可以删掉它们，模板会用 TeX Gyre + 系统可用字体照常编译（上表已验证）。
+- 三套模板的来源与许可状态**只作标注、不作法律判断**：美赛 `mcmthesis` 有明确的开源许可（**LPPL 1.3c 或更高**，因此保留了 `.dtx` / `.ins`），国赛 `CUMCMThesis` 上游**未附 LICENSE**、也**未上 CTAN**，研赛这一套是**本仓库作者在公开谱系上自制整理**的。逐条见 `assets/latex/full/THIRD-PARTY.md`。
+- 需要正式再分发模板时，请自行确认上游条款；本仓库只保证"来源可追溯、commit 已固定"。
+
+### 如果你已经装了 1.8.x
+
+技能内容（`references/`、`examples/`、`scripts/` 里的检查逻辑）向后兼容，重装不是必须的。但想拿到完整 LaTeX 模板，需要更新到本版：`git pull` 后 `python scripts/install_skill.py --target auto --force`，或从 Releases 直接下三个模板包。
+
+## [1.8.3] - 2026-09-19
+
+本版修一个**只有真机才能撞见的可用性 bug**：`--download`（脚本里唯一联网的动作）没有重试，遇到 GitHub 的偶发 TLS 断流就整条命令失败，而报错给的出路是"改用 `--from-zip`"——可用户选 `--download` 恰恰是因为手上没有包。
+
+### 关键结论（先说结果）
+
+- **`--download` 现在会重试。** "查询最新 Release"与"下载 ZIP"两步都带**指数退避重试（4 次，退避 1.5s / 3s / 6s）**；重试时打印"第 n/4 次尝试（Xs 后重试，上次失败：…）"，让用户看见它在自救，而不是卡住或直接死掉。
+- **重试的是"整个下载动作"，不只是建立连接。** 连接 + 读响应体 + 写文件都在重试范围内——因为实测里最常见的是 `SSL: UNEXPECTED_EOF_WHILE_READING`，即**连上了但传到一半断掉**。只重试 `urlopen()` 的话，这一半失败照样漏网。写盘用 `"wb"` 覆盖，重试不会把两次的部分内容拼成一个坏 ZIP。
+- **失败信息从"没办法"变成"两条出路"。** 4 次全败时会打印：① 这是网络问题，**原样重跑一次**通常就好；② 到 Releases 页手工下载 ZIP 再用 `--from-zip`。另有 0 字节兜底检查。
+- **实测复现 + 实测修好。** 不是推测：发布 v1.8.2 后我用同一个命令做端到端复验，现场撞到 `urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING]`，装出一个空目录；补上重试后同一条命令在真机上**下载 2,915,975 字节、装完校验通过、`metadata.version` 读出来是 1.8.2**。
+
+### 变更
+
+- `scripts/install_skill.py`（962 → 1,089 行）：
+  - 新增 `_retry_network(what, action, *, attempts, sleeper, reporter)`（含完整 docstring），捕获 `URLError`/`OSError`/`http.client.HTTPException` 并按 `RETRY_BASE_DELAY * 2**(i-1)` 退避；`attempts < 1` 显式抛 `ValueError`（否则循环一次都不跑、静默返回 `None`）；
+  - 新增常量 `RETRY_ATTEMPTS = 4`、`RETRY_BASE_DELAY = 1.5`（注释写明为什么值得重试）；新引入 `http.client`、`time`（都是标准库，依赖清单不变）；
+  - `download_latest_zip()` 改为把"取元数据"和"下载 ZIP"分别包进 `_retry_network`，下载动作含写盘；新增 0 字节检查；docstring 的「陷阱」补上这条真机经验；
+  - `--self-test` 由 **18 项扩到 21 项**：新增「联网动作会重试并最终成功」（注入假 opener 与假 sleeper，断言第 3 次成功且退避时长正是 1.5s / 3s）、「联网一直失败时报可执行的错」（断言信息含次数与 `--from-zip`，且恰好尝试 3 次）、「重试次数必须为正」。
+- `INSTALL.md`（292 → 304 行）：第 3 节的联网命令注明"偶发断线会自动重试 4 次"；新增常见问题「`--download` 报 SSL / 连接被重置 / `UNEXPECTED_EOF_WHILE_READING`」，给出重跑与改走 `--from-zip` 两条路。
+- `README.md`：第 7 节自检期望值 `18/18` → `21/21`；「质量保障」表的「安装器」一行补上重试这项。
+- **示例里的版本号不再写死。** `--from-zip` 的例子原先是 `math-modeling-skill-v1.8.0.zip`（每次发版都会变成旧版本，容易让人以为要下那个版本），现在统一写成 `math-modeling-skill-vX.Y.Z.zip` 并注明"换成 Release 页上的版本号"（改到 `README.md` / `INSTALL.md` / `install_skill.py` 三处）。
+- `SKILL.md` / `CITATION.cff`：版本升至 `1.8.3`。
+
+### 关键验证记录
+
+| 项目 | 方式 | 结果 |
+|---|---|---|
+| 修复前（真机） | `install_skill.py --download --into <临时目录>` | **失败**：`[SSL: UNEXPECTED_EOF_WHILE_READING]`，目标目录为空 |
+| 修复后（真机） | 同一条命令 | **成功**：下载 2,915,975 字节（与 v1.8.2 资产字节数一致），装完 `validate_skill.py --strict` 通过，`metadata.version` = 1.8.2 |
+| 重试逻辑 | `install_skill.py --self-test` | **21/21 通过**；不联网（注入假 opener / 假 sleeper / 假 reporter）、不碰真实技能目录 |
+| 结构与自检 | `validate_skill.py --strict` / `check_paper.py --self-test` / `download_templates.py --list` / `check_latex.py --self-test` | 0 错误 0 警告 / 全过 / 26 项全过 / 26 项全过 |
+| 算法与配图 | `run_algorithms.py` / `check_palette.py --quiet` / `make_figures.py --self-test` | 17 模块 875 键 0 失败 / 全部达标 / 退出码 0 |
+| 发布包 | `git archive` 从本版提交打包，比对 ZIP 条目集合与 git 跟踪文件集合 | 84 文件 0 缺 0 多 |
+| CI（`check` + `latex`） | 推送后看 Actions | 两个任务全绿 |
+
+## [1.8.2] - 2026-09-19
+
+本版**没有任何运行时代码变化**：`scripts/`、`references/`、`examples/`、`templates/` 与 v1.8.1 逐字节相同（`scripts/install_skill.py` 的 SHA-256 两版一致）。它存在的唯一理由是——v1.8.1 的 Release 资产是在一个 **CI 变红的提交**上打的（原因见 1.8.1 末尾「一条自曝」：文档逐字引用了 CI 的检查判据，把自己举报了）。本版把 `main`、标签、Release 资产重新对齐到**CI 两个任务全绿**的树上。
+
+### 关键结论（先说结果）
+
+- **装在机器上的技能不用动。** 如果你已经用 v1.8.1 装好了，它和本版的技能内容一模一样，**不需要重装**；本版只是让"发布物 == 一个 CI 绿过的提交"。
+- **红的原因不在代码、也不在文档里的路径。** 全部 23 个 `*.md` 里本来就没有 Windows 风格路径；红的是我在 1.8.1 的验证记录里**逐字抄了那条 grep 的正则**，判据文本本身命中判据。教训写进了 1.8.1 的 CHANGELOG，也写进了 `ci.yml` 的注释。
+- **没有为了让 CI 变绿而放宽检查。** 判据、扫描范围（全部 `*.md`）、失败行为全部原样；改的是文档措辞。
+- **同类问题不会再"本地全绿、CI 变红"。** 本地收尾自检脚本里补了一条与 CI **逐字等价**的判据（用 `re.escape` 拼出那个字符类，不靠肉眼比对）。
+
+### 变更
+
+- `CHANGELOG.md`：1.8.1 节里两行「文档路径风格」的记录由"逐字引用判据"改成文字转述；1.8.1 节末尾新增「一条自曝」，如实记录这次 CI 变红的原因与修法；本版新增本节。
+- `.github/workflows/ci.yml`：在「检查是否有 Windows 风格路径」步骤上方加注释，说明不要在 `*.md` 里逐字引用这条正则，描述该检查时请用文字转述。
+- `SKILL.md` / `CITATION.cff`：版本升至 `1.8.2`（内容仅版本号与日期）。
+
+### 关键验证记录
+
+| 项目 | 方式 | 结果 |
+|---|---|---|
+| 运行时代码未变 | 对 `scripts/`、`references/`、`examples/`、`templates/` 逐文件比对 v1.8.1 与本版的 SHA-256 | 全部一致，0 处差异 |
+| CI（`check` + `latex`） | 推送后看 Actions：`f5e8468` 两个任务 | 全绿，逐个步骤无失败 |
+| 路径风格判据 | 本地按 CI 的 grep 逐字等价复现（`re.escape`），扫全部 `*.md` | 0 命中 |
+| 结构与自检 | `validate_skill.py --strict` / `install_skill.py --self-test` / `check_paper.py --self-test` / `download_templates.py --list` / `check_latex.py --self-test` | 0 错误 0 警告 / 18 项全过 / 全过 / 26 项全过 / 26 项全过 |
+| 算法与配图 | `run_algorithms.py` / `check_palette.py --quiet` / `make_figures.py --self-test` | 17 模块 875 键 0 失败 / 全部达标 / 退出码 0 |
+| 发布包 | 由 `git archive` 从本版提交打包，比对 ZIP 条目集合与 git 跟踪文件集合 | 84 文件 0 缺 0 多，SHA-256 已记录 |
+
+### 如果你已经装了 1.8.1
+
+不用重装，也不用回滚：技能内容完全一致。若你想让本地副本与 Release 包严格对齐，`python scripts/install_skill.py --force --target <你的宿主>` 覆盖一次即可（1.8.2 起 `--into` 也更宽容，给技能根会自动补一层技能目录名）。
+
+## [1.8.1] - 2026-09-19
+
+1.8.0 把安装入口改成"用户对助手说一句话、助手自己装"之后，我在**实机复验安装器**时踩到一个自己挖的坑，本版专门修它，并把同类隐患一起堵掉。
+
+### 关键结论（先说结果）
+
+- **`--into` 给"技能根"时不再把技能平铺进去。** 旧行为是"原样使用、不追加技能名"：用户（或助手）很自然会把**技能根**（例如 `~/.agents/skills`）喂给 `--into`，结果 `SKILL.md`、`references/`、`scripts/` 等二十多个条目被直接倒进技能根——宿主按 `<技能根>/<name>/SKILL.md` 扫描，**扫不到**；技能根还被污染。这不是假想：我自己按 README 第 2 节的措辞试 `--into <技能根>` 时就复现了，安装器随后自校验报 `name（math-modeling-skill）必须与技能目录名（xxx）一致`，而错误信息只说"技能可能不完整"，把真实原因藏住了。现在 `--into` 两种写法都对：给技能根**自动补一层** `math-modeling-skill`，给技能目录本身**原样使用**，动手前把真实安装路径打印出来。
+- **`--into` 指向别人的技能目录时直接拒绝。** 那个目录里若已有 `SKILL.md` 且 `name` 不是本技能，说明它是别人的技能；往里面塞文件是破坏行为。现在会在复制前报错，并给出正确写法（`<该目录>/math-modeling-skill`），一个字节都不写。
+- **自校验失败的提示说人话。** 原来只说"安装后校验未通过，技能可能不完整"；现在补上最常见的原因——目录名不是 `math-modeling-skill`（宿主按 `name` 找技能，改名会静默失效）。
+- **顺手修掉一个会让 `--force` 莫名失效的隐患：UTF-8 BOM。** `read_frontmatter` 现在先剥掉 BOM 再解析。Windows 上的记事本/部分 IDE 会给文件加 BOM，带着 BOM 时 `---` 不在文件开头，frontmatter 整块读不出来，`is_our_skill` 就会把**自己的旧安装**误判成"别人的技能"，于是更新时被安全闸门拒之门外——症状诡异且难查。
+
+### 变更
+
+- `scripts/install_skill.py`（860 → 962 行，38,220 → 43,586 B）：
+  - 新增 `resolve_into()`（含完整 docstring），把 `--into` 的取值规整成"技能目录本身"并返回一句给人看的备注；
+  - `read_frontmatter()` 增加 BOM 容错（`.lstrip("\ufeff")`），并在 docstring 的「陷阱」里写明原因；
+  - 安装失败信息补上目录名这条最常见原因；`--list-targets` 结尾的引导语与 `--into` 的 `--help`／`epilog` 同步改成"给技能根也行"；新增示例 `--into ~/.agents/skills`。
+- `--self-test` 由 **13 项扩到 18 项**：新增「`--into` 给技能根时自动补一层」「`--into` 给技能目录时原样使用」「技能根里已有别人的技能也能装成兄弟目录」「`--into` 指向别人的技能目录时拒绝」「带 UTF-8 BOM 的 `SKILL.md` 仍可识别」。
+- `README.md`（575 → 578 行）：第 3 节补一段说明 `--into` 的两种写法与"指向别人的技能目录会被拒绝"，多给一行 `--into "<技能根>"` 示例；第 7 节自检期望值改 `18/18`；「质量保障」表的「安装器」一行按新的 18 项改写。
+- `INSTALL.md`（277 → 292 行）：第 2C 节从"必须写全 `<技能根>/math-modeling-skill`"改成"两种写法都对"，并明确"指向别人的技能目录会被拒绝，别绕过"；新增常见问题「校验报 `name…必须与技能目录名…一致`」。
+- `SKILL.md` / `CITATION.cff`：版本升至 `1.8.1`。
+
+### 关键验证记录
+
+| 项目 | 方式 | 结果 |
+|---|---|---|
+| 安装器固件测试 | `python scripts/install_skill.py --self-test` | **18/18 通过**；不联网、不碰真实技能目录 |
+| `--into` 给技能根（本次修的坑） | `--into <空目录>` | 目标自动变成 `<空目录>/math-modeling-skill`，打印"注意：--into 给的是技能根…"，`validate_skill.py --strict` **通过**，退出码 0 |
+| 该位置的覆盖约定 | 同一命令再跑一次 / 加 `--force` 再跑一次 | 第二次按约定**拒绝、退出码 1**；`--force` 后"覆盖完成"+ 校验通过 |
+| `--into` 指向别人的技能 | 目录内放 `name: other-skill` 的 `SKILL.md`（**带 BOM** 写入） | 复制前报错退出、退出码 1，该目录里仍**只有原来那一个文件** |
+| BOM 容错（端到端） | 给已安装副本的 `SKILL.md` 加上 BOM，再 `--force` 更新 | 识别为本技能旧安装并**覆盖成功**、校验通过（修复前会被误判成"别人的技能"而拒绝） |
+| 技能结构 | `python scripts/validate_skill.py . --strict` | **0 个错误，0 个警告**；检查了 30 个文件引用 |
+| 全量算法回归 | `python examples/run_algorithms.py` | 17 个模块 / 875 个断言键，失败 0 个模块（本版未改算法代码） |
+| 其余随包自检 | `check_paper.py` / `download_templates.py` / `check_latex.py` `--self-test`；`check_palette.py --quiet`；`make_figures.py --self-test` | 全部通过（26/26、26/26、配色断言全满足） |
+| 文档路径风格 | 扫全部 23 个 `*.md`，找"目录名紧跟反斜杠"的 Windows 风格路径（同 CI 里那条 grep 的判据） | 命中 **0** |
+
+### 与 1.8.0 的关系
+
+v1.8.0 的 Release 资产里装的是**没修这个坑**的 860 行安装器（该版本已发布，不追改）。请用 **v1.8.1** 的包或 `main` 分支；用 1.8.0 的安装器时请务必把 `--into` 写成 `<技能根>/math-modeling-skill`。
+
+### 一条自曝：本版的 CI 曾经红过一次
+
+推送 v1.8.1 后 CI 的「检查是否有 Windows 风格路径」这步失败了，原因不是代码，而是**我给本文件写验证记录时把那条 grep 的判据原样抄了进来**——判据文本里"目录名 + 一个反斜杠"的组合，正好等于那条 grep 要找的东西，于是文档把自己举报了。
+
+修法是改掉措辞（不再逐字引用判据），并在 `ci.yml` 里加一行注释说明"不要在文档里逐字引用这条判据"。**没有放宽这条检查**：它照样扫全部 `*.md`。我也把同一条判据搬进了本地的收尾自检脚本，免得再出现"本地全绿、CI 变红"。
+
+## [1.8.0] - 2026-09-19
+
+本版只做一件事：**把"怎么装"从"给用户一串命令、让用户自己照着做"，改成"用户对助手说一句话，助手自己装"**。前几版把内容、算法、模板都补齐了，但安装这一步一直假定用户会读 README、会判断自己的技能根目录在哪、会敲对路径——而这恰恰是最容易劝退、也最容易装错的一步。
+
+### 关键结论（先说结果）
+
+- **安装入口反过来了：不再是"用户读说明书"，而是"助手读说明书"**。新增 `INSTALL.md`——一份**写给 AI 助手看**的安装说明（怎么拿到技能包 → 怎么确定本宿主的技能根 → 怎么装 → 怎么校验 → 怎么向用户汇报），末尾附一张「不要做」清单（不要改目录名、不要覆盖别人的技能、不要装错层级、不要为了"验证装好没"去跑算法或下载模板、不要编造宿主路径）。README 的「快速开始」与「下载与安装」都把**一句话提示词**放在第一位，中英各一版，直接复制就能用。
+- **新增 `scripts/install_skill.py`（860 行，纯标准库）**，把安装压成一条命令：`--list-targets` 探测候选技能根（打印绝对路径 / 是否已存在 / 那里已装的是哪个版本）、`--target auto` 自动挑位置、复制时丢掉 `.git/` 与各种缓存、**默认拒绝覆盖**、`--force` 只肯删"确实是本技能"的目录、装完自动跑包内的 `validate_skill.py --strict`。`--self-test` **13/13 通过**，全程不联网、不碰真实技能目录。
+- **坚持"不猜路径"**。README 只列**能核实**的六个位置（DSH 项目级/用户级、Agent Skills 通用约定的项目级/用户级、Claude Code 项目级/用户级）；Codex、Cursor、Gemini CLI、OpenCode 等的技能目录各不相同，本仓库**故意不写死猜测值**——猜错的代价是"装成功了但永远不会被扫描"，比装不上更难查。这些宿主交给助手去读它自己的文档，再用 `--into` 指定。
+- **顺手改掉一条不准确的说明**。旧 README 的排查清单写着"③ 宿主是否需要重启或重新扫描"。DSH 会持续监视技能根目录，**新增/改名/删除技能在下一个技能目录快照就生效，不需要重启**。已按此改写，并把排查扩成单列的一节（目录名 → 层级 → 位置 → 是否要重启 → 是否被别的技能抢触发）。
+
+### 新增
+
+- **`INSTALL.md`（277 行）**——给 AI 助手看的安装流程：第 1 步按"有 shell / 用户已下载 ZIP / 只能读网页"三种情况分别给出取包办法（第三种明确**不要硬装**，改为把话术交给用户）；第 2 步给"跑脚本探测（推荐）／自己找／`--into` 精确指定"三条路，并列一张**只用可核实路径**的宿主-技能目录对照表；第 3 步给脚本安装与纯手工复制（含"记得删 `.git/`"）；第 4 步给三条独立校验命令与期望输出；第 5 步规定汇报必须包含哪五项（装到哪、哪个版本、校验结果、怎么开始用、目录名不要改）。另有 Troubleshooting（装完没生效 / `auto` 选错 / Windows 装到哪 / `--force` 被安全闸门拒绝 / 想装到多个宿主）、更新与卸载。
+- **`scripts/install_skill.py`（860 行，纯标准库，非交互）**：`--list-targets` / `--target {auto,dsh-project,agents-project,dsh-user,agents-user,claude-project,claude-user,custom:<技能根>}` / `--into <目录>` / `--source` / `--from-zip` / `--download` / `--dry-run` / `--force` / `--self-test`。
+- **`--self-test` 的 13 项固件测试**：复制时确实忽略 `.git`/`__pycache__`、已存在时先拒绝再 `--force` 才覆盖、**不是本技能的目录即使 `--force` 也拒绝删除**、`--dry-run` 不写盘、`name` 不匹配可被识别、frontmatter 里嵌套的 `version` 可读、带顶层前缀的 ZIP 与不带前缀的 ZIP 都能解、不含 `SKILL.md` 的 ZIP 被拒绝、`auto` 的挑选顺序、目标路径展开、项目根向上查找、`--list-targets` 可运行。
+
+### 变更
+
+- `README.md`（471 → 575 行）：「快速开始」第 0 步改为先给"把这句话发给你的助手"的中英提示词，再给 `git clone` 与安装器两条备选；「下载与安装」由 5 小节重排为 9 小节——新增 ①「最省事：一句话让你的 AI 助手自己装」②「装到哪里（各宿主的技能目录）」③「用自带安装器装（推荐）」⑧「怎么更新、怎么卸载」⑨「装完没生效？按这个顺序查」，把原先混在一起的"获取方式 / 装到哪里"拆成"手工安装"一节；新增 `scripts/install_skill.py --self-test` 到验证清单；「质量保障」表加一行「安装器」；「怎么『启动』它」纠正重启口径；仓库结构树补 `INSTALL.md` 与 `scripts/install_skill.py` 两行。
+- `SKILL.md`（188 → 189 行）：版本升至 `1.8.0`；索引新增一行"用户要装/更新/换宿主重装这个技能，或问『技能目录在哪』"→ `INSTALL.md` + `scripts/install_skill.py`；`compatibility` 把 `install_skill.py` 并入"仅用标准库"的脚本清单。
+- `.github/workflows/ci.yml`（123 → 138 行）：`check` 作业新增两步——`python scripts/install_skill.py --self-test`；以及"安装入口文档存在且被 README 引用"（断言 `INSTALL.md` 存在、README 里那条 raw 链接逐字符正确、`SKILL.md` 提到它）。后者是把"一句话安装"的契约钉在 CI 里：链接写错或文件没推上去，用户复制过去就是一个 404。
+- `CITATION.cff` 同步版本与日期（`1.8.0` / 2026-09-19）。
+
+### 关键验证记录
+
+| 项目 | 方式 | 结果 |
+|---|---|---|
+| 安装器固件测试 | `python scripts/install_skill.py --self-test` | **13/13 通过**；不联网、不碰真实技能目录 |
+| 真装一遍（本地目录） | `--into <临时目录>/math-modeling-skill`，随后再装一次（不加 `--force`）、再加 `--force` 装一次 | 首次"安装完成"+ `validate_skill.py --strict` 通过；第二次按约定**拒绝并以退出码 1 结束**；加 `--force` 后"覆盖完成"+ 校验通过；装出的目录 97 个条目、**无 `.git/`** |
+| 从发布包装 | `--from-zip math-modeling-skill-v1.7.0.zip --into <临时目录>` | 自动剥掉 `math-modeling-skill/` 前缀，装完校验通过 |
+| 联网取包 | `--download --into <临时目录>`（唯一联网路径） | 查到最新 Release 并下到 `math-modeling-skill-v1.7.0.zip`，**2,887,266 字节**（与 v1.7.0 附件记录一致），装完校验通过。（本版发布后同一个命令会取到 v1.8.0。） |
+| 技能结构 | `python scripts/validate_skill.py . --strict` | **0 个错误，0 个警告**；检查了 30 个文件引用 |
+| 全量算法回归 | `python examples/run_algorithms.py` | 17 个模块 / 875 个断言键，失败 0 个模块（本版未改算法代码） |
+| 其余随包自检 | `check_paper.py --self-test` / `download_templates.py --self-test` / `check_latex.py --self-test` / `check_palette.py --quiet` / `make_figures.py --self-test` | 全部通过（26/26、26/26、配色断言全满足） |
+| 文档路径风格 | 扫全部 23 个 `*.md`，找"目录名紧跟反斜杠"的 Windows 风格路径（同 CI 里那条 grep 的判据） | 命中 **0**（新增的 `INSTALL.md` 与 README 全用正斜杠） |
+
+---
+
+## [1.7.0] - 2026-09-19
+
+本版回应四件具体的事：**README 要能查到"怎么下载 LaTeX 模板"**、**算法要"每个类别里的每个算法都有详细实现"**、**要讲清"怎么创新、哪些参数可以动"**、以及**下载之后用户怎么把这个技能跑起来要顺**。前两件是内容缺口（有模板但不讲怎么拿；算法只覆盖到 11 个模块、部分函数只有名字没有细节），第三件是知识缺口，第四件是体验缺口。
+
+### 关键结论（先说结果）
+
+- **算法覆盖从"点到为止"补成"逐个交代"**：公开名称 **97 → 224**（函数 96 → 222，另 2 个常量），模块 **11 → 17**，黄金值断言键 **324 → 875**。新增的 6 个模块是时间序列（GM(1,1)/ARIMA/SARIMA/GARCH/卡尔曼）、机器学习（KNN/树/森林/提升/朴素贝叶斯/LDA/置换重要性/SMOTE）、多准则决策（PROMETHEE/ELECTRE/RSR/Borda/Copeland）、多目标优化（NSGA-II/ε 约束/HV）、灵敏度与数据清洗（Morris/Sobol/插补/异常检测）、空间与物理场（热传导/Poisson/元胞自动机/量纲分析）。
+- **黄金值合并是"纯新增"，不是"改数值"**：`changed=0，removed=0，added=551`。原有 324 个键一个都没动——这类操作最容易变成"用 `--update-golden` 把回归洗掉"，所以本版把 diff 结果写进验证记录，供任何人复核。
+- **"哪些参数能动"落成一张可查的表**：新增的 `references/innovation-playbook.md` 给 **17 个算法族**逐族列出参数、常规取值、创新方向与创新度分档（⚪调参 / 🔶结构化 / 🔴假设层），并明确"改数值 ≠ 创新"。
+- **LaTeX 模板从"仓库里有"变成"一条命令拿到手"**：`scripts/download_templates.py` 按竞赛一键导出（国赛/研赛/美赛/全部），在非 Windows 平台自动把 `fontset=windows` 换成 `fontset=fandol`，可选打包 zip；`--self-test` 26/26 通过，重复打出的 zip **逐字节一致**。
+- **下载与启动体验也当作交付物来做**：README 加「下载与安装」专章与「怎么『启动』它」小节（含"触发不灵时按顺序查四件事"），并给出命令行直接取 Release ZIP 的一行命令；本版**第一次把打包好的 `math-modeling-skill-v1.7.0.zip` 挂在 Release 附件上**（此前各版本都没有附件），README 里写的"下载 Release ZIP"因此真的能点。
+
+### 新增
+
+- **`references/algorithm-details.md`（2332 行，223 个条目）**：逐算法的**数学形式 → 步骤 → 复杂度 → 参数表 → 陷阱 → 怎么检验**。分节与 `algorithm-implementations.md` 完全对齐（§3.1–§3.17），条目顺序与该模块 `__all__` 一致；"怎么检验"一栏给的是**独立于本实现**的手段（闭式解、对拍、极限行为），可直接改写成论文的"模型检验"章节。
+- **`references/innovation-playbook.md`（371 行）**：三个误解的纠正、创新的五个层级、**17 族参数创新总表**、把"改参数"升级成"真创新"的四步法（机制假设 → 可辨识化 → 消融实验 → 结论边界）、实验设计速查、论文写法三件套、12 条伪创新反面模式、定稿自查清单。
+- **六个新算法模块**（均在 `examples/algorithms/`，只依赖 numpy + 标准库）：`timeseries.py`（12）、`ml.py`（23）、`multicriteria.py`（8）、`multiobjective.py`（9）、`sensitivity.py`（11）、`spatial.py`（7）。
+- **`scripts/download_templates.py`（612 行，纯标准库）**：`--contest {cumcm,yjs,mcm,all}` / `--out` / `--force` / `--fontset {auto,keep,fandol}` / `--zip` / `--list` / `--self-test`；默认不覆盖已存在文件，导完直接打印编译序列与注意事项。
+- **README 新增「下载与安装」专章**（5 小节）：三种获取方式（clone / Release ZIP / 网页 ZIP，并说明目录名必须等于 `SKILL.md` 的 `name`）、**命令行直接下载 Release ZIP 的一行命令（PowerShell 与 bash 各一版）**、四个宿主的安装路径、依赖表、**下载 LaTeX 论文模板**（三套模板对照 + 脚本用法 + 字体坑 + 4 遍编译序列 + raw 链接）、装完 30 秒自检。本版同时把 **`math-modeling-skill-v1.7.0.zip` 作为 Release 附件发出**（此前各版本的 Release 都没有附件），README 里承诺的"下载 Release ZIP"因此真的可用。
+- **README 新增「怎么『启动』它」小节**：说明技能是**宿主扫描目录自动发现**、按 `description` 场景匹配触发的，不需要安装器也不需要在常驻进程；给出"确认装上了 / 强制指定 / 触发不灵时按顺序查四件事"的排查清单。
+
+### 实现说明（几个真踩到的点）
+
+- **逐算法文档的"覆盖率"必须能被脚本判定**：文档里的函数名是手写的，很容易出现"文档有、代码没有"或"代码有、文档漏了"。本版用 `.dsh-tmp/check_details_full.py` 把 `#### \`名字(...)\`` 的标题与 17 个模块的 `__all__` 双向比对（先把签名在 `(` 处截断，常量单列），得到**公开名称 224 / 条目 223（含 `Z95` 一个常量条目）/ 缺失 0 / 多余 0 / 重复标题 0**。
+- **创新手册里每个反引号引用都能落到代码上**：同一套思路核对 `innovation-playbook.md` 的反引号标识符，允许集取"17 个模块的函数名 + 所有形参名"共 **795** 个，未解析项 0。这一步真的抓到过问题——初稿里有一处把参数名当函数名写。
+- **模块头 docstring 与 `__all__` 会对不上**：扩写算法时新增了函数，但模块开头的"本模块包含……"还停在旧清单（例如 `optimization.py` 的头只列了 5 个、实际 9 个）。本版把 **17/17** 个模块的头部清单补全为分组枚举并写明条数，用 `.dsh-tmp/check_headers.py` 断言"条数 = `len(__all__)`、无名称遗漏"。
+- **文档里的数字必须与实测一致**：`spatial.py` 里 Poisson 截断误差一处写 ≈2.8e-3、一处写 ≈2.9e-3。实际算过（n=16, h=1/17：实测最大误差 2.826e-3，解析量级 π²h²/12 = 2.846e-3），2.8e-3 才对，已统一。
+- **CI 抓到一个本机永远碰不到的 numpy 兼容性缺陷**：工作流装的是 `numpy>=1.24`（即最新版），本机是 2.1.3。`timeseries.py` 的卡尔曼平滑里写了 `float(H @ cov @ H.T)`，结果是 `(1, 1)` 数组；numpy 2.1 允许这种"单元素数组转标量"，numpy 2.5 **直接报 `TypeError: only 0-dimensional arrays can be converted to Python scalars`**，整个 `check` 作业在第 5 步就红了。改成显式取 `[0, 0]` 后，本机（2.1.3）与 CI 复现环境（2.5.3）双双全绿。同一轮里还把一处 ARIMA 定阶试探触发的 `overflow encountered in dot` 警告收进 `np.errstate`——那一步本来就会因非有限值被中文 `ValueError` 拒掉，警告只是噪声。**教训：本地跑通 ≠ CI 跑通，声明"依赖 numpy"就必须在最新 numpy 上跑一遍。**
+- **长程迭代的指标不能当黄金值——这一条是 CI 连着两轮红出来的**。第一轮：`multiobjective.zdt1_dev`（NSGA-II 跑 150 代后与解析前沿的最大偏差）本机 0.005040、Linux CI 0.005923，`zdt1_g_max` 同理（1.006226 vs 1.008497）。先排除版本与随机性：本机 numpy 2.1.3 与 2.5.3 结果**逐位相同**（偏差 0.005039580307475866、`front_size 60`、`history_len 151`），`rng(seed)` 比特流相同，代码里没有字符串哈希依赖的排序、`argsort` 用 `kind="stable"`。当时的判断是"混沌放大"（150 代里一次选择的名次被末位浮点差异改变，整条进化轨迹就分岔），于是把这两个键改成**分档布尔指纹**（`zdt1_dev_le_2pct` / `zdt1_g_le_2pct`）。**第二轮 CI 把这个折中方案也否掉了**：同一个提交在两次 Linux 运行里 `g_max` 分别是 1.008497 与 (1.02, 1.05]，分档键直接翻档——说明使坏的不只是"Windows vs Linux"，而是**不同 runner 的 CPU 指令集/BLAS 让 `np.sum` 的成对求和差几个 ULP**，同一个平台上换台机器就会漂。最终做法是**彻底不碰连续量**：删掉那两个指纹键，同时删掉模块内 `dev <= 0.05`、`g_max <= 1.05` 这两条**绝对阈值断言**（后者在实测值已经到 1.02 的情况下只剩 1.5 倍余量，本身就是一条潜伏的脆弱断言），改为断言四类**结构/相对**性质——① 数学不变量 `g >= 1`；② 前沿内部两两互不支配（独立于本模块 `pareto_dominates` 的手写比较）；③ `history` 长度恒为 `n_gen + 1` 且取值在 `[1, pop_size]`（顺带纠正一处想当然：`history` 记录的是"当前种群内的第一前沿规模"，**不是**单调不减，实测 ZDT1 就出现过下降，不能照抄二次算例的单调断言）；④ **相对改进**——与同一 RNG 产生的随机初始种群相比，最终前沿偏差小一个量级以上（实测比值 7.0e-4，判据 0.1，随机基线会跟着平台一起漂移，比值稳定）。黄金值只留 `front_size` / `history_len` 这类**整数**结构量。这条经验也写进了 `algorithm-details.md` 的 NSGA-II 条目。
+
+### 变更
+
+- `README.md`：目录加「下载与安装」；「算法与代码」由「11 个模块」改为「17 个算法模块、222 个公开函数」并指向 `algorithm-details.md`；几何与空间一行改成 `geometry.py`/`spatial.py` 的真实内容（凸包/Haversine/IDW/克里金/泰森多边形 + 热传导/Poisson/元胞自动机/量纲分析）；「怎么做出创新点」改为引用创新手册；质量保障表算法回归一行由「11 个算法模块、324 个断言键」改为「**17 个算法模块、875 个断言键**」；仓库结构树补三行新文件。
+- `SKILL.md`：版本升至 `1.7.0`；索引新增 `algorithm-details.md`、`innovation-playbook.md`、`download_templates.py` 三行；`compatibility` 补上 `download_templates.py` 与 `examples/algorithms/` 的依赖口径。
+- `CITATION.cff` 同步版本与日期（`1.7.0` / 2026-09-19）。
+- `examples/algorithms/` 的 11 个原模块扩写（公开名称 97 → 154）：优化 5→9、图论 10→20、启发式 4→8、预测 16→19、统计 16→23、评价 11→11（内部校订）、聚类 6→12、微分方程 8→15、随机仿真 8→16、几何 8→13、博弈 5→8。
+- `examples/algorithms_golden.json`：相对 `v1.6.0` 是**只新增键**（见验证记录），由 `--update-golden` 重写，键数 324 → 875。开发过程中 ZDT1 那三个键换过两轮（连续量 → 分档指纹 → 整数结构量），最终**净键数仍是 875**；"只新增"这个结论是按 `v1.6.0` 与 1.7.0 两个**发布态**比对得出的，开发中间态不计。
+- `examples/algorithms/multiobjective.py`、`examples/algorithms/timeseries.py`、`examples/algorithms/spatial.py`：CI 逼出来的三处修正——ZDT1 改为结构不变量 + 相对改进判据（见「实现说明」）、卡尔曼平滑 `float(1×1 数组)` 改显式下标（numpy ≥ 2.5 会报 `TypeError`）、`scaling_similarity` 的标量入参改 `reshape(-1)` + 显式长度校验。
+- `references/algorithm-details.md`：NSGA-II 条目的「怎么检验」补上"长程迭代混沌性"的说明——同一提交在不同平台上的 150 代连续指标不可比，黄金值只应记整数指纹。
+- `references/algorithm-implementations.md`：§2「一眼速查表」补 6 行新模块，§3 扩到 §3.17。
+
+### 关键验证记录
+
+| 项目 | 方式 | 结果 |
+|---|---|---|
+| 全量算法回归 | `python examples/run_algorithms.py` | **17 个模块 / 875 个断言键，失败 0 个模块**；每个模块跑两遍比对确定性，无一条"数值不匹配" |
+| 跨 numpy 版本 | 本机 numpy 2.1.3 与隔离环境 numpy 2.5.3 各跑一遍全量回归 | **两边都是 17 模块 / 875 键 / 0 失败**；修掉的正是 2.5 才报的 `TypeError`（见「实现说明」） |
+| 黄金值合并是否夹带回归 | `.dsh-tmp/golden_diff_v160.py`（`v1.6.0` 提交态 vs 1.7.0） | **changed=0、removed=0、added=551**；模块 11 → 17，键 324 → 875 |
+| 逐算法文档覆盖 | `.dsh-tmp/check_details_full.py` | 公开名称 224 / 条目 223（含 1 个常量条目）；缺失 0、多余 0、重复标题 0；17 个模块逐族 OK |
+| 创新手册引用完整性 | `.dsh-tmp/check_playbook_refs.py` | 白名单 795 个函数名/形参名；未解析的反引号标识符 **0** |
+| 模块头清单与 `__all__` 对齐 | `.dsh-tmp/check_headers.py` | **17/17** 模块通过（条数一致、无名称遗漏） |
+| 模板导出脚本自测 | `python scripts/download_templates.py --self-test` | **26/26 通过**；同一输入重复打包的 zip 逐字节一致 |
+| 技能结构校验 | `python scripts/validate_skill.py . --strict` | **0 个错误，0 个警告**（检查了 29 个文件引用） |
+| 依赖边界与代码纪律 | 见 `.github/workflows/ci.yml` 的 AST 扫描 | 17 个算法模块无 scipy/sklearn/pandas 等禁用依赖、无 `assert`、无全局 `np.random`、docstring 字段顺序正确 |
+| 论文自检逻辑 | `python scripts/check_paper.py --self-test` | 好稿 FAIL=0、坏稿/美赛坏稿均按预期报错，骨架三套 FAIL=0 |
+| 模板编译体检逻辑 | `python scripts/check_latex.py --self-test` | **26/26 通过**（无需装 TeX） |
+| 配图配色与数值 | `python scripts/check_palette.py --quiet`、`python scripts/make_figures.py --self-test` | 配色断言全部满足（二色觉最差 ΔE 16.1）；24 项配图数值与改动前一致 |
+
+### 诚实说明
+
+- **本版没有把任何第三方的论文图、表、代码并入仓库**。`references/paper-examples.md` 仍然只给链接与出处索引；`assets/gallery/` 的 16 张图全部由 `make_figures.py` 用固定种子原创生成。
+- **"每个算法都有实现"的边界要说清**：这 222 个函数是**教学透明版**——网格小、格式简单、中间量全部显式返回，目的是让论文能写清每一步在算什么、以及结果怎么检验。真正的生产规模问题，各模块 docstring 都写明了该换哪个成熟库（OR-Tools、Pyomo、statsmodels、sklearn、SALib、PySAL 等）。把"能跑通并对照"说成"工业级性能"是不诚实的，本版没有这么写。
+- **自测断言是独立的，不是复读实现**：`_self_test()` 里用的是闭式解、独立实现（如 SOR 解与直接法解对拍）、极限行为与解析值（如 Sobol 的 S1 解析值 [0.8, 0.2]、GARCH 的方差递推），而不是"实现输出等于实现输出"。
+- **黄金值的作用是防回归，不是证明正确**：875 个键只保证"以后改动不会悄悄改变结果"。数值本身的正确性由那些独立断言负责——这也是为什么新增模块的黄金值是在断言全过之后才记录的。
+- **验证记录里带 `.dsh-tmp/` 前缀的脚本没有随仓库分发**（它们是发布时现写的临时工具，跑在仓库外的临时目录）。每个脚本的判定规则都在表格里写明白了，照着规则用几十行代码就能复现，不依赖这些文件本身。仓库里长期保留的校验器是 `scripts/validate_skill.py`、`scripts/check_paper.py`、`scripts/check_latex.py`、`scripts/check_palette.py`、`scripts/make_figures.py` 和 CI 里的 AST 扫描。
+
+## [1.6.0] - 2026-09-18
+
+本版补上一个**一直在漏的覆盖缺口**：`assets/latex/` 下的三套论文模板此前**从未在 CI 里被编译过**——CI 只校验仓库结构、算法模块和配图，不碰 LaTeX。也就是说模板可以一直悄悄地坏下去（宏包改名、`\cite` 打错、字体装不上），仓库照样全绿，而学生拿到手第一遍编译就报错。本版把"这三个模板真的能编译"变成 CI 上的硬门禁。
+
+### 关键结论（先说结果）
+
+- **中文字体是唯一不能照搬的一环，已经写进脚本说明**：国赛/研赛模板用 `fontset=windows`（调用 Windows 自带的宋体/黑体，学生开箱即用），但 Windows 字体在 Linux 上并不存在。CI 因此在**临时副本**里把它换成随发行版自带的 `fandol` 再编译；**仓库里的模板一个字都不改**。想验证仓库原件本身，在有 Windows 字体的机器上跑 `--keep-fontset` 即可——两种配置本机都实测通过。
+- **判断成败不能依赖日志里的字节数**：TeX Live 写 `Output written on main.pdf (9 pages, 341464 bytes).`，而 MiKTeX 只写 `Output written on main.pdf (9 pages).`。把字节数当必填，会在 MiKTeX 上把明明编译成功的模板判成"没产出 PDF"。页数取自日志，体积一律以磁盘上真实文件为准。
+
+### 新增
+
+- **`scripts/check_latex.py`：三个模板的真编译体检脚本（只依赖标准库）**
+  - 把每个模板的 `main.tex` + `refs.bib` 复制到系统临时目录，按模板文件头写明的顺序编译（`xelatex`/`pdflatex` → `bibtex` → 再两遍），**不在仓库里留下任何 .aux/.log/.pdf**。
+  - 解析 `main.log` / `main.blg` 判定：硬错误（`!` 开头）、未解析的 `\cite` 与 `\ref`、字体缺失（`The font "..." cannot be found`）、`Emergency stop`、交叉引用未收敛（`Rerun to get cross-references right`）、是否真的产出 PDF、页数是否低于下限。
+  - **顺带核对两条合规顺序**（查 .tex 源码）：国赛/研赛「AI 工具使用声明」必须在参考文献**之前**，美赛「Report on Use of AI」必须在参考文献**之后**（即 25 页正文之外）。
+  - `--self-test` 用合成日志跑 **26 项**固件测试，**不需要装 TeX**；`--require` 让"找不到引擎"判为失败而不是跳过（CI 用）；另有 `--only` / `--keep` / `--keep-fontset` / `--tex-dir` 便于本地排查。
+- **`.github/workflows/ci.yml` 新增 `latex` 作业**：装 TeX Live 后跑 `check_latex.py --require`。该作业**先跑不依赖 TeX 的 `--self-test`**，这样一旦 CI 红了能立刻分清是"脚本逻辑坏"还是"发行版缺宏包"。
+
+### 实现说明（两个真踩到的坑，已修并写进自测）
+
+- **顺序核对必须剥掉注释**：最初按整篇文本搜索 `\bibliography{`，结果命中了模板文件头第 13 行那句说明文字 `% 若你暂时不想用 .bib，可把 \bibliography{refs} 换成手写 thebibliography`，于是"AI 声明在参考文献之前"被误判成不合规（注释在第 13 行，AI 声明在第 429 行）。现在先去掉注释再匹配，并加了一条对应的自测。
+- **字体集替换只能动代码行**：`fontset=windows` 在每个中文模板里出现 3 次，其中 2 次在说明文字里。整篇替换会把"Linux/macOS 请把 `fontset=windows` 换成 `fontset=fandol`"改成同义反复，替换计数也虚高成 3。现在按行拆出注释、只替换代码部分。
+- **`lmodern` 不在任何 `texlive-*` 包里（第一次跑 CI 就是这么红的）**：新作业首次运行结果是 **2/3 通过**——国赛/研赛在 Linux 上用 `fandol` 编译通过（页数与 Windows 上完全一致），美赛模板却以 `! LaTeX Error: File `lmodern.sty' not found.` 直接中止。`lmodern.sty` 由 Debian/Ubuntu 的**顶层包 `lmodern`** 提供，装再多 `texlive-*` 也不会有。已在安装列表里补上 `lmodern`，并加了一行 `kpsewhich lmodern.sty` 做前置断言。这正是这个作业存在的意义：宏包清单的窟窿，只有在真编译时才会暴露。
+
+### 变更
+
+- `SKILL.md` 版本升至 `1.6.0`；`compatibility` 补上 `check_latex.py` 的依赖（本机需有 TeX 发行版提供 `xelatex`/`pdflatex`/`bibtex`）；参考文件索引新增一行。
+- `assets/latex/README.md` §6「验证记录」改为**由 `check_latex.py` 一条命令复现**，并把实测数据按 `fontset=windows` 与 `fontset=fandol` 两种配置分开列出（此前只记了前者，且没有说明用的是哪个字体集）。
+- `README.md`「质量保障」表与仓库结构树补 `scripts/check_latex.py`。
+- `references/templates.md` 补"模板改完后怎么验"。
+- `CITATION.cff` 同步版本与日期。
+
+### 关键验证记录
+
+| 项目 | 方式 | 结果 |
+|---|---|---|
+| 模板编译（CI 等价配置，临时副本用 fandol） | `python scripts/check_latex.py` | **3/3 通过**：cumcm 9 页 / 341,465 B；yjs 8 页 / 366,745 B；mcm 8 页 / 284,317 B。硬错误 0，未解析 `\cite`/`\ref` 各 0 |
+| 模板编译（仓库原件，`fontset=windows`） | `python scripts/check_latex.py --keep-fontset` | **3/3 通过**：cumcm 9 页 / 202,842 B；yjs 8 页 / 212,439 B；mcm 8 页 / 284,317 B |
+| 合规顺序 | 同一脚本的源码检查 | 国赛/研赛 AI 声明在参考文献之前 ✓；美赛在其之后 ✓ |
+| 解析逻辑固件测试 | `python scripts/check_latex.py --self-test` | **26/26 通过**（无需装 TeX） |
+| 仓库未被污染 | 运行前后 `git status --porcelain` | 无输出（编译只发生在系统临时目录） |
+| CI 首次运行（Ubuntu + TeX Live） | GitHub Actions run `35358308247` 的 `latex` 作业 | **2/3**：国赛 9 页、研赛 8 页均通过（页数与 Windows 一致），美赛因缺 `lmodern.sty` 失败——**脚本准确报出了缺哪个包**，据此补齐安装列表 |
+| CI 修复后（Ubuntu + TeX Live） | GitHub Actions run `35358882584`：`check` 与 `latex` 两个作业 | **全绿**；`latex` 作业 **3/3 通过**：国赛 9 页 / 341 040 B、研赛 8 页 / 366 285 B、美赛 8 页 / 268 965 B |
+
+## [1.5.0] - 2026-09-18
+
+本版**只动配图的画法与配色，不动数据**。目标是把"看起来像论文插图"这件事从审美口号变成可测的工程约束：先量化各候选配色的二色觉可区分度，再决定色板，最后把"学术感"拆成一组设计令牌写进代码。
+
+### 关键结论（先说结果）
+
+- 用 Machado et al. (2009) 严重度 1.0 的二色觉矩阵在**线性 sRGB** 下仿真，再用 CIELAB ΔE*ab 取最小两两距离对比候选色板，**Okabe-Ito 本来就是可访问性最好的选择**：本仓库 `CYCLE` 二色觉最差 ΔE = **16.1**，而常见的"好看配色"分别是 Tol muted **15.6**、Tol bright **13.1**、seaborn muted **11.8**、matplotlib tab10 **4.6**、seaborn deep **2.7**、ColorBrewer Set2 **2.5**。换成 CVPR 常见的 seaborn/Set2 风格会是一次**可访问性倒退**。
+- 因此本版**保留 Okabe-Ito 色相**，收益全部来自"怎么用颜色"，而不是"换哪套颜色"。
+
+### 新增
+
+- **`scripts/check_palette.py`：配图配色可访问性体检脚本（可复现、可进 CI）**
+  - 用 `ast.parse` **直接读 `make_figures.py` 里的设计令牌**，不导入 matplotlib、不依赖 `assets/gallery/*.png`，因此可在无绘图依赖的环境里跑。
+  - 计算四个指标：正常色觉/三种二色觉下的最小 CIELAB ΔE、灰度（WCAG 相对亮度 ×100）最小间隔、对白底 WCAG 对比度、重复色检查。
+  - 同时**静态断言冗余编码存在**：`make_figures.py` 里有 `_series(`、`_LINESTYLES` 至少 3 档、`_MARKERS` 数量不少于数据色数——防止以后有人只改颜色不补线型。
+  - 阈值：二色觉最差 ΔE ≥ 12、正常色觉 ≥ 18、灰度间隔 ≥ 1.0、最低对比度 ≥ 2.0。支持 `--quiet` 与 `--self-test`。
+- **`assets/gallery/README.md` 新增 §5.7 风格统一（设计令牌表）与 §5.8 配色与可访问性**：把每个令牌的取值与用途列表化，并公开上面这组对照数据、阈值来源与"为什么 ≥6 色色板的灰度间隔不可能达到 5"。
+
+### 变更
+
+- **`scripts/make_figures.py` 重写绘图样式层**：
+  - 新增设计令牌块（`CYCLE` / `INK` / `INK_SOFT` / `INK_MUTED` / `GRID` / `PANEL_BG` / `EDGE` / `CMAP_SEQ` / `CMAP_DIV`），**全文件不再有散落的十六进制字面量**，改样式只需改这一处。
+  - `configure_style()` 统一 rcParams：去顶右脊线、刻度朝外、图例无边框、浅实线网格、近黑墨色（`#262626` 而非纯黑）、连续量一律用感知均匀的 `viridis`（发散量用 `RdBu_r`）。
+  - 新增五个绘图助手 `_grid` / `_series` / `_legend` / `_panel` / `_note`，并**把 16 处 `fig.savefig` 全部收敛到唯一的 `_save`**（统一 `dpi`、`bbox_inches="tight"`、白底）。
+  - `_series(i)` 提供**颜色 + 线型 + 标记点**三重编码：`turn, idx = divmod(i, len(CYCLE))` 决定线型档位与颜色，标记点按颜色索引绑定。
+  - 标题默认左对齐；形如 `(a) xxx` 的标题走 `_panel`，渲染为加粗的 `$\mathbf{(a)}$` 面板标记。
+- **配色取舍**：从数据色循环中移除纯黑与黄色 `#F0E442`（对白底对比度仅 **1.32**，细线不可用）。`OKABE_ITO` 保留 7 色，`CYCLE = OKABE_ITO[:6]`。移除这两色**不改变**二色觉最差 ΔE（仍为 16.1）。
+- **`assets/gallery/README.md` §7 表格按真实 PNG 重新生成**（尺寸/字节/体积逐张核实，合计 2,051,061 字节 = 2003.0 KB）；§5.1 补充字号与左对齐规则；§5.2 补充 300 dpi 下的预估体积；§8 补充体检脚本用法与改动后的标准流程。
+- `README.md` 「质量保障」表新增"配图配色"一行；仓库结构树补 `scripts/check_palette.py`；`assets/gallery/` 说明改为"16 张原创配图 + 画法、配色与图注说明"。
+- `.github/workflows/ci.yml` 新增两步：`scripts/check_palette.py --quiet` 与 `scripts/make_figures.py --self-test`。两者都**只需 numpy、不出图**，所以 CI 仍然不装 matplotlib；相应地 `make_figures.py` 里"本脚本刻意不接入 CI"的说明也改为"CI 只跑数值自检、出图在本机"。
+- `SKILL.md` 版本升至 `1.5.0`，脚本清单补 `check_palette.py`；`CITATION.cff` 同步版本与日期。
+
+### 设计原则（本版新增）
+
+- **可访问性优先于风格模仿**："CVPR 那种好看"在工程上应拆成可执行条目（去脊线、刻度朝外、无框图例、浅网格、近黑墨色、感知均匀色图、强调色克制），**而不是照搬它的默认调色板**——后者的二色觉可区分度实测差一个数量级。
+- **颜色之外必须有冗余编码**：实测 ≥6 色色板的灰度最小间隔普遍只有 0.4~2.5，**没有任何一套能达到 5**，因此黑白打印/灰度阅读场景必须由线型与标记点兜底（对应 WCAG 2.1 1.4.1「不能只靠颜色传达信息」）。
+- **审美主张要能被脚本反驳**：配色选择写成 `check_palette.py` 的断言后，任何人（包括后续的自己）都可以用一条命令检验，而不是靠"我觉得更好看"。
+
+### 关键验证记录
+
+| 项目 | 方式 | 结果 |
+|---|---|---|
+| 配图配色体检 | `python scripts/check_palette.py --quiet` | 全部断言通过；二色觉最差 ΔE = **16.1**，正常色觉 26.4，灰度间隔 1.1，最低对比度 2.25 |
+| 对照色板 | 同一脚本内 `REFERENCE` 对照表 | seaborn deep 2.7 / ColorBrewer Set2 2.5 / tab10 4.6 / Tol muted 15.6 / Tol bright 13.1 / seaborn muted 11.8 |
+| 图库可复现性 | 重新生成后逐文件比对 | **16/16 逐字节一致**（字节数合计 2,051,061，最大 205.7 KB） |
+| 图内数值未变 | `python scripts/make_figures.py --self-test` | **24/24** 数值键与改动前一致 |
+| 样式未误伤标题 | 改 `axes.titlelocation` 前后比对 PNG | 逐字节一致（所有标题早已显式指定 `loc`，该改动只是把默认值改对） |
+| 字面量收敛 | 统计 `make_figures.py` 中的十六进制颜色字面量 | 仅剩令牌块内的取值，无散落实例 |
+
+## [1.4.0] - 2026-09-18
+
+本版把技能从"文档 + 检查工具"扩展为**文档 + 可直接用的成品件**：能编译的论文模板、能运行的算法实现、能照抄的配图范本，并补齐对应的索引、评测与 CI 校验。
+
+### 新增
+
+- **`assets/latex/`：三套可直接编译的自包含 LaTeX 论文模板**
+  - `cumcm/main.tex`（国赛，中文）、`yjs/main.tex`（研赛，中文）、`mcm/main.tex`（美赛，英文）。
+  - 每套都是**单一自包含 `.tex` + `refs.bib`**：不 `\input` 外部文件、不依赖外部图片，图表用 TikZ/pgfplots/booktabs/listings 内联绘制——因此不会因为缺文件而编译失败。
+  - 已内置各赛事硬规则：摘要页位置、页码、**AI 工具使用声明排在参考文献之前**（国赛/研赛）、附录源程序、美赛 `Report on Use of AI` 位于参考文献之后且不计页数。
+  - `assets/latex/README.md` 给出完整编译序列（`xelatex → bibtex → xelatex ×2`）与每一步的作用。
+- **`references/algorithm-implementations.md`：模型 → 算法 → 复杂度 → 本仓库实现 → 外部库 → 陷阱 对照索引**，并集中记录跨模块通用陷阱与"什么时候该换成熟库"。
+- **`examples/algorithms/`：11 个可直接运行的算法模块**（`optimization` / `graphs` / `heuristics` / `forecasting` / `statistics` / `evaluation` / `clustering` / `differential` / `stochastic` / `geometry` / `game`）。
+  - **仅依赖 numpy 与标准库**，Python 3.9+，非交互；CI 用 AST 静态扫描强制这条依赖边界。
+  - 每个模块提供 `_self_test() -> dict`，随机算法一律走显式种子（不使用 `np.random` 全局状态），因此**结果可复现**。
+  - `examples/run_algorithms.py`：递归类型感知比对 `examples/algorithms_golden.json`（`rtol=atol=1e-9`），并做确定性复跑；支持 `--module/--rtol/--atol/--list/--update-golden`。
+- **`assets/gallery/`：16 张原创论文配图 + 逐图说明**，由 `scripts/make_figures.py` 固定种子生成（Agg 非交互后端），可**逐字节复现**。覆盖评价权重与敏感性、TOPSIS 排序、预测对比与残差诊断、SIR 机理与参数敏感性、Pareto 前沿、收敛性、排队仿真、最短路、空间插值、相关矩阵等。`assets/gallery/README.md` 另含绘图规范（字号、dpi、坐标轴单位、误差棒、图注自解释）与"禁止的画法"。
+- **`references/paper-examples.md`：优秀论文与官方来源索引**（只给链接与查阅方式，不在仓库中转载他人图表），含三大赛事官方入口、CUMCM 官方 AI 规定、COMAP 授权与材料页，以及"看什么 / 自己画什么 / 现成实现"的逐题型对照表。
+- **`evals/evals.json` 新增 e11–e14**：分别覆盖 LaTeX 模板交付、算法实现的可运行性与陷阱、**拒绝再分发他人论文图表**（合规边界）、美赛六题分类与模板差异。持续沿用"新能力 ⇒ 补用例"的规则。
+
+### 变更
+
+- **`scripts/validate_skill.py`**：新增 `--strict`（警告按错误处理）；索引目录扩展到 `references/ scripts/ assets/ evals/ examples/`，并扫描 `SKILL.md` + 各目录下的 `*.md`；新增 Windows 反斜杠路径检测；对未在索引中出现的顶层文件给出警告。
+- **`.github/workflows/ci.yml`**：改用 `validate_skill.py . --strict`；新增对 `examples/algorithms/*.py` 的 AST 禁用依赖扫描；新增 `python examples/run_algorithms.py` 算法回归；路径风格检查扩展到 `examples/`。
+- **`.gitignore`**：新增 LaTeX 构建产物（`*.aux` `*.bbl` `*.blg` `*.fls` `*.fdb_latexmk` `*.synctex.gz` `*.toc` `*.out` `*.xdv` `*.run.xml` 等），避免把编译中间件提交进仓库。
+- `SKILL.md` 版本升至 `1.4.0`，参考文件索引补齐至全部新增文件。
+- `README.md` 新增"可直接用的成品件"一节与仓库结构更新；`CITATION.cff` 同步版本与日期。
+
+### 设计原则（本版新增）
+
+- **不再分发第三方论文图表**：论文插图版权归作者/出版方，即使标注出处，未经许可下载进仓库再分发通常也不构成合规使用，并带来学术诚信风险。因此改为提供「原创可复现图库 + 官方/授权来源链接索引」。
+- **算法实现是"教学透明版"而非工业库**：目的让论文能交代清每一步（松弛变量、检验数、Ljung-Box 之外的 ADF 响应面来源等），并在文档中明确规模上限与"何时该换成熟库"。
+- **数值主张必须可复核**：所有关键实现都与独立参照（成熟库、解析解、穷举最优解）对照后才写入文档，并在 `references/algorithm-implementations.md` §6 留下验证记录。
+
+### 关键验证记录
+
+| 项目 | 方式 | 结果 |
+|---|---|---|
+| LaTeX 模板 | 依次执行 `xelatex → bibtex → xelatex ×2` | 国赛 9 页 / 研赛 8 页 / 美赛 8 页；**0 硬错误、0 未定义引用、0 overfull hbox** |
+| AI 声明位置 | `pdftotext -enc UTF-8` 核对文本偏移 | 国赛/研赛「AI 工具使用声明」均**早于**「参考文献」；美赛 0 个中文字符，`References` 早于 `Report on Use of AI` |
+| LP 正确性 | 与 `scipy.optimize.linprog(method="highs")` 随机对照 | 138 个随机 LP，**0 处不一致** |
+| DEA 正确性 | 与 `linprog` 对照（`Σλ=1` 作等式） | 随机算例最大绝对偏差 **≈ 6.4e-13** |
+| ADF 临界值 | 与 `statsmodels` 的 MacKinnon (2010) 响应面对照 | 63 组组合最大绝对偏差 **8.9e-16**，0 处不一致 |
+| 收敛阶 | 步长序列估计 | RK4 **≈ 4.0693**（理论 4）、Euler **≈ 1.0035**（理论 1） |
+| 配图库可复现性 | 重新生成后逐文件 SHA-256 比对 | **16/16 完全一致**，0 处不匹配 |
+| 全部算法模块 | `python examples/run_algorithms.py` | 11 个模块全部 PASS 并命中黄金值 |
+
+> 说明："所有的模型"按**主流竞赛模型族**作务实覆盖（11 个模块 + 索引），不是字面意义上穷尽一切模型；文档中已如实标明边界。
+
+
+
+## [1.3.1] - 2026-09-11
+
+### 新增
+
+- **`evals/evals.json` 新增 e7–e10 行为用例**，为 1.3.0 引入的模型库与资源索引补齐评测覆盖：
+  - `e7` 模型族归类与"基线→分级改进→逐级验证"路径，明确要求给出最小可解基线与失效条件。
+  - `e8` GitHub 资源检索的引用纪律：记录许可证、版本/提交与访问日期，**不得编造 star 数、维护度或性能基准**。
+  - `e9` 诚实拒绝：不推荐未经核验/已失效的专用库，不宣称"比文献更好"，改为可检验的对照设计。
+  - `e10` 自带示例的可运行性：轻量依赖、预期输出形态、实际陷阱与"基线非成品"的说明。
+- **`evals/trigger-queries.json` 新增 t21/t22**：一条资源检索型正例（GitHub 选库+引用规范），一条 near-miss 负例（通用图结构库推荐），用于检验 description 是否覆盖新能力而不误触发。
+
+### 变更
+
+- `SKILL.md` frontmatter `metadata.version` 由 `1.0.0` 对齐到实际发布线 `1.3.1`。
+
+## [1.3.0] - 2026-09-11
+
+### 新增
+
+- **`references/model-implementations.md`**：按题目类别组织的增强模型库，覆盖优化/运筹、路径/调度、预测/统计、评价/风险、ODE/PDE、几何/物理、网络、博弈、图像和多问综合题；每类提供透明基线、改进阶梯、适用前提、常见错误和验证协议。
+- **`references/github-resources.md`**：基于 GitHub 一手仓库页/README 核验的资源索引，覆盖 OR-Tools、Pyomo、sktime、Darts、StatsForecast、statsmodels、scikit-learn、XGBoost、SciML、FiPy、FEniCS、SimPy、NetworkX、PySAL、Shapely、Mesa、Nashpy 等；记录 README 明确能力、语言、许可证和边界。
+- **`examples/modeling_patterns.py`**：带详细注释的透明基线示例，包括 TOPSIS、滚动均值/MAE、Dijkstra 和蒙特卡洛概率估计；不绑定具体题目数据，不冒充完整解题器。
+
+### 设计原则
+
+- **先基线再升级**：复杂模型必须通过基线、消融、敏感性或留出验证证明增益，不能以模型名称代替证据。
+- **资源可追溯**：建议记录仓库、具体路径、许可证、访问日期、tag/release 或 commit SHA；不报告未经核验的 stars、维护度或性能排名。
+- **许可分层**：仓库、示例代码和数据集可能有不同许可证；GPL/AGPL 代码不能未经评估直接并入本仓库的 MIT 发行物。
+- **诚实排除**：已确认返回 404 的 DEApy 链接不列入资源索引；DEA 可用成熟优化器自行实现 CCR/BCC 线性规划并说明来源。
+
+### 已核验资源
+
+- [google/or-tools](https://github.com/google/or-tools)：CP-SAT、线性规划、MIP、TSP/VRP、流和指派。
+- [Pyomo/pyomo](https://github.com/Pyomo/pyomo)：LP/QP/NLP/MILP/MIQP/MINLP 等代数建模。
+- [sktime/sktime](https://github.com/sktime/sktime)、[unit8co/darts](https://github.com/unit8co/darts)、[Nixtla/statsforecast](https://github.com/Nixtla/statsforecast)：时间序列预测与回测生态。
+- [statsmodels/statsmodels](https://github.com/statsmodels/statsmodels)、[scikit-learn/scikit-learn](https://github.com/scikit-learn/scikit-learn)、[dmlc/xgboost](https://github.com/dmlc/xgboost)：统计推断、机器学习和表格数据基线。
+- [SciML/DifferentialEquations.jl](https://github.com/SciML/DifferentialEquations.jl)、[usnistgov/FiPy](https://github.com/usnistgov/fipy)、[FEniCS/dolfinx](https://github.com/FEniCS/dolfinx)：ODE/PDE/有限元与有限体积。
+- [networkx/networkx](https://github.com/networkx/networkx)、[PySAL/pysal](https://github.com/pysal/pysal)、[Toblerity/Shapely](https://github.com/shapely/shapely)：图、空间统计和几何。
+- [mesa/mesa](https://github.com/mesa/mesa)、[drvinceknight/Nashpy](https://github.com/drvinceknight/Nashpy)：ABM 与双人矩阵博弈。
+
+---
+
+## [1.2.0] - 2026-09-11
+
+### 新增
+- **`scripts/check_paper.py --init`**：生成对应竞赛的论文骨架（Markdown，自带所有必备章节与占位符提示）
+- **`assets/cheatsheet.md`**：一页纸红线清单（可打印，提交前 30 分钟核对；覆盖三赛事通用红线 + 专项硬规则）
+- **`assets/paper-outline.md`**：可填空论文骨架（国赛/研赛/美赛三套，含占位符与"此处必须出现数值"提示）
+- **`CITATION.cff`**：引用元数据（GitHub 显示"Cite this repository"）
+- **`CONTRIBUTING.md`**：贡献指南（规则追踪项目的特殊要求：每条规定必须标注来源，官方未公布的不编造）
+- **`.github/ISSUE_TEMPLATE/`**：Issue 模板（规则更新 / Bug 报告 / config.yml）
+
+### 改进
+- **`scripts/check_paper.py`**：
+  - 新增 **单位混用检测**（小时 vs 分钟、万元 vs 元、千米 vs 米）
+  - 新增 **图表未引用警告**（图 1 只出现一次 → WARN "可能未在正文引用"）
+  - 新增 **参考文献格式粗检**（条目数、年份缺失、GB/T 7714 风格）
+  - **修正美赛摘要要素检查**：改用英文模式（problem/goal、method/model、results/conclusions），不再要求 keywords（MCM 官方未要求），不再误判英文 Summary 缺要素
+  - **修正摘要区块识别正则**：要求"摘要/Summary"必须是行首标题，避免被文件头注释中的"摘要页"字样抢先匹配
+  - 骨架自检：生成的模板本身不应出现任何 FAIL（用户一开局就有 FAIL=0 的起点）
+- **`README.md`**：新增英文摘要、目录、快速开始示例输出、致谢项目补充
+
+### 设计依据
+- **骨架生成 `--init`**：形成"生成 → 填写 → 自检"闭环，用户从 FAIL=0 起步而非从空白页起步
+- **一页纸清单**：参考飞行检查单（checklist）理念，打印后贴在电脑旁，提交前 30 分钟逐项勾选
+- **开源项目完整性**：CITATION.cff + CONTRIBUTING.md + Issue 模板 → 看起来像维护项目而非一次性上传
+
+---
+
+## [1.1.0] - 2026-09-11
+
+### 新增
+
+- **references/templates.md**：模板与工具链——三大赛事 LaTeX 模板选型（含"社区模板封面字段与匿名要求冲突"的警告）、XeLaTeX / pdfLaTeX 编译差异、图表与参考文献排版规范、matplotlib 中文字体配置、结果落盘模板（从根上避免"论文数字与代码不符"）。
+- **scripts/validate_skill.py**：技能结构校验器——frontmatter 字段白名单（拦截"跨工具分发会硬报错"的非标准字段）、`name` 与目录名一致性、description / compatibility 长度、正文 500 行建议值、**文件引用存在性**、Windows 反斜杠路径。对任何 Agent Skill 作者都通用。
+- **evals/**：触发与行为评测。`trigger-queries.json` 20 条查询（10 正例 + 10 个 near-miss 负例）、`evals.json` 6 条行为用例（含**反幻觉断言**，如"不得编造官方评分权重"）、`README.md` 说明触发率测量方法（每条重复 3 次、阈值 0.5、train/validation 划分以防过拟合）。
+- **.github/workflows/ci.yml**：持续集成——结构校验、脚本自测、JSON 合法性、路径风格检查。
+
+### 改进
+
+- **check_paper.py 新增三项检查**：单位混用（时间 / 金额 / 长度 / 质量，中英文单位均识别）、图表编号是否在正文被引用（编号只出现一次即提示）、参考文献数量与著录完整性（是否含出版年份）。
+- **修正检查逻辑的误报**：灵敏度分析与模型评价不再作为必备章节（实证依据：2021–2025 年 64 篇国赛获奖论文中，二者独立成章的比例仅约 19% 与 28%，多数并入"建模与求解"各问之后），改为内容级 WARN；仅美赛保持 FAIL（COMAP 官方点名要求 sensitivity 与 strengths/weaknesses）。避免把结构规范的获奖论文误判为不合格。
+- **自检固件增至三份**（好稿 / 国赛坏稿 / 美赛坏稿），新增覆盖美赛专属的 FAIL 路径。
+- **README**：新增徽章、质量保障四层检查表，更新仓库结构与脚本用法说明。
+
+### 设计依据
+
+- 触发评测方法依据 Agent Skills 官方 description 优化指南：造约 20 条查询统计触发率，**near-miss 负例**最有价值，并以 train/validation 划分防止把 description 过拟合到评测集。
+- 章节必备性的判定改为以**获奖论文语料实证**为准，而非凭印象规定"必须有检验章节"。
+
+## [1.0.0] - 2026-09-11
+
+### 新增
+
+- **SKILL.md**：数学建模竞赛全流程主控（7 步：确认前提 → 审题选题 → 方法选型 → 假设与符号 → 建模求解 → 检验 → 写作与自检），含三条铁律、官方评奖四维对齐表、Gotchas 与反面模式。
+- **references/contests.md**：三大竞赛官方规则对照表，含 2026 年国赛 AI 规定、研赛格式要求、美赛 25 页限制与 Summary Sheet 单页 12pt。
+- **references/model-library.md**：模型方法库（11 大族 + 2020–2025 历年赛题信号反查表）。
+- **references/paper-structure.md**：论文结构骨架（国赛/研赛 11 节 + 美赛 9 节）与真实章节标题样例。
+- **references/scoring-rubric.md**：评阅标准与失分点（官方四维标准 + 社区失分点清单）。
+- **references/checklists.md**：提交前检查清单（国赛/研赛/美赛分节点、含 AI 合规专项）。
+- **assets/abstract-template.md**：摘要模板（中文 + MCM 英文，含四要素写法 + failure-mode 表）。
+- **scripts/check_paper.py**：论文自检脚本（结构完整性、摘要要素、匿名合规、图表编号、AI 声明、附录程序、参考文献、长度估算）。
+- **README.md** / **LICENSE** / **.gitignore** / **.gitattributes**。
+
+### 设计依据
+
+- **规则追踪为本**：每条规定标注 `[官方]/[半官方]/[社区]` 三级可信度，附原文链接与页码。
+- **诚实优先于"有用"**：未找到官方说明的项目（如评分权重表）明确标注"未找到"而非编造。
+- **三赛事平等对待**：国赛/研赛/美赛各有独立章节与检查分支，不偏向任一竞赛。
+- **AI 合规从严**：2026 年起国赛/研赛/美赛均有 AI 使用规定，检查脚本与清单全覆盖。

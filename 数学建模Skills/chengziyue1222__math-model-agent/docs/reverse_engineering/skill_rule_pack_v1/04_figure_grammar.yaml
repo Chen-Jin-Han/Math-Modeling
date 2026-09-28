@@ -1,0 +1,335 @@
+schema_version: '1.0'
+rules:
+- rule_id: FIG-GRAMMAR-001
+  description: 每张图必须绑定唯一核心结论和证据角色；不能只因“好看”而生成。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 20260730_技能与论文资料包.zip/01_当前主Skill/SKILL.md
+  evidence_pages:
+  - A/B 全文图形
+  - 当前 Skill references/figure-contract.md
+  confidence: high
+  mandatory: true
+  scope: all_figures
+  implementation_target:
+  - SKILL.md
+  - config
+  - template
+  - Python validator
+  - tests
+  validation_method: 图注册表中每图必须填写 claim、evidence_role、source_artifact；缺失即 FAIL。
+  rule_origin: recommended_synthesis
+  priority: P0
+- rule_id: FIG-ROUTE-001
+  description: 存在多层模块、分支或门禁时使用总体技术路线图；只画模块与数据契约，不把全部公式和数值塞入图中。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A p.7
+  - B p.6
+  confidence: high
+  mandatory: false
+  scope: workflow
+  implementation_target:
+  - config
+  - template
+  - rendering pipeline
+  validation_method: 流程图最小字体在最终嵌入尺寸下>=6.5 pt；节点文字平均不超过两行。
+  rule_origin: reverse_constraint
+  priority: P1
+- rule_id: FIG-GEOM-001
+  description: 涉及几何约束时，先画变量、方向、尺寸和边界的几何示意图，再展示数值构型。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A p.14
+  - B p.11
+  confidence: high
+  mandatory: false
+  scope: geometry
+  implementation_target:
+  - config
+  - template
+  - rendering pipeline
+  validation_method: 几何图必须标出关键对象、坐标系/方向、变量及单位；缺一则警告。
+  rule_origin: direct_observation
+  priority: P1
+- rule_id: FIG-SNAPSHOT-001
+  description: 动态过程用 3-4 个等间隔或事件驱动时刻的共享坐标多面板快照；各面板保持同尺度。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A p.17
+  - B p.13
+  confidence: high
+  mandatory: false
+  scope: dynamic_process
+  implementation_target:
+  - config
+  - rendering pipeline
+  - Python validator
+  validation_method: 所有子图 x/y limits 相同；时间点与正文一致；面板标签齐全。
+  rule_origin: direct_observation
+  priority: P1
+- rule_id: FIG-GLOBALLOCAL-001
+  description: 首次碰撞、极值或异常事件同时给出全局构型和局部放大，局部图标明对应对象与间隙/残差。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A p.23
+  - B p.19
+  confidence: high
+  mandatory: false
+  scope: critical_event
+  implementation_target:
+  - config
+  - rendering pipeline
+  - tests
+  validation_method: 关键事件图包含 global 与 local 两个视图且来自同一时刻/数据哈希。
+  rule_origin: direct_observation
+  priority: P0
+- rule_id: FIG-TIMESERIES-001
+  description: 展示演化趋势时使用时间曲线，需标出阈值、临界时刻和关键区间；避免只报最终点。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.19,22
+  - B pp.15,18
+  confidence: high
+  mandatory: false
+  scope: time_series
+  implementation_target:
+  - config
+  - rendering pipeline
+  validation_method: 图中阈值/临界点必须与结果 JSON 一致；正文至少解释趋势与机制。
+  rule_origin: direct_observation
+  priority: P1
+- rule_id: FIG-HEATMAP-001
+  description: 时间×对象或参数×响应的二维结构使用热力图，必须提供感知均匀色标、单位和极值注释。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.20,29,36
+  - B p.34
+  confidence: high
+  mandatory: false
+  scope: matrix_or_surface
+  implementation_target:
+  - config
+  - rendering pipeline
+  - Python validator
+  validation_method: 色标有单位；禁用 jet/rainbow；同变量跨图共享 vmin/vmax。
+  rule_origin: recommended_synthesis
+  priority: P1
+- rule_id: FIG-PARAM-001
+  description: 可行域、敏感性和响应面应画出临界边界、基准点和可行/不可行区域，而非只给散点。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.26,29
+  - B pp.21-22
+  confidence: high
+  mandatory: false
+  scope: parameter_analysis
+  implementation_target:
+  - config
+  - rendering pipeline
+  validation_method: 检测基准点、边界/阈值与区域说明；缺失则警告。
+  rule_origin: direct_observation
+  priority: P1
+- rule_id: FIG-CONVERGENCE-001
+  description: 数值求根、优化或迭代算法声称高精度时，至少给出残差/区间宽度随迭代变化或步长减半表。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  evidence_pages:
+  - A p.22
+  confidence: high
+  mandatory: false
+  scope: numerical_solver
+  implementation_target:
+  - config
+  - rendering pipeline
+  - Python validator
+  validation_method: 存在“机器精度/超线性/收敛”表述而无收敛证据则 FAIL。
+  rule_origin: recommended_synthesis
+  priority: P0
+- rule_id: FIG-COMPARE-001
+  description: 算法比较图必须使用公平数据切分、相同指标和明确基线；弱基线不得作为唯一对照。
+  source_files:
+  - 20260730_技能与论文资料包.zip/04_最近真实生成论文/main_v2.pdf
+  - 审查报告 02_TECHNICAL_AUDIT.md
+  evidence_pages:
+  - C 结果图表
+  - N/A - repository audit
+  confidence: high
+  mandatory: true
+  scope: model_comparison
+  implementation_target:
+  - SKILL.md
+  - config
+  - Python validator
+  - tests
+  validation_method: 比较表/图的 data_split_hash、metric_definition、baseline_class 必须一致且至少含一个强或标准基线。
+  rule_origin: reverse_constraint
+  priority: P0
+- rule_id: FIG-SIZE-001
+  description: 正文单图宽度建议为版心的 0.78-1.0；双图每幅约 0.45-0.49；四宫格仅用于共享坐标的快照。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A/B 多页图形
+  confidence: medium
+  mandatory: false
+  scope: layout
+  implementation_target:
+  - config
+  - rendering pipeline
+  - Python validator
+  validation_method: 根据图 bbox/版心比检查；含密集标注的图宽度低于 0.75 版心则警告。
+  rule_origin: recommended_synthesis
+  priority: P2
+- rule_id: FIG-TYPE-001
+  description: 图内字体统一为无衬线；最终嵌入论文后刻度和图例不得低于 6.5 pt，轴标题和注释建议 7-8 pt。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 20260730_技能与论文资料包.zip/01_当前主Skill/SKILL.md
+  evidence_pages:
+  - A/B 流程图和曲线图
+  - references/typography.md
+  confidence: high
+  mandatory: true
+  scope: typography
+  implementation_target:
+  - config
+  - rendering pipeline
+  - Python validator
+  - tests
+  validation_method: 读取矢量图字体或按物理缩放计算最终字号；<6.5 pt FAIL。
+  rule_origin: reverse_constraint
+  priority: P1
+- rule_id: FIG-COLOR-001
+  description: 使用 2-4 个语义主色和 1 个强调色；连续变量使用感知均匀色图，关键比较不得只靠红绿。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 20260730_技能与论文资料包.zip/01_当前主Skill/SKILL.md
+  evidence_pages:
+  - A/B 图形
+  - references/color-palettes.md/common-pitfalls.md
+  confidence: high
+  mandatory: true
+  scope: color
+  implementation_target:
+  - config
+  - rendering pipeline
+  - Python validator
+  validation_method: 颜色数量和色盲模拟检查；关键组必须另有线型/形状/直接标签。
+  rule_origin: recommended_synthesis
+  priority: P1
+- rule_id: FIG-VECTOR-001
+  description: 线图、流程图、示意图和文字优先导出 PDF/SVG 矢量主文件，同时保留 >=450 dpi RGB 预览图。
+  source_files:
+  - 20260730_技能与论文资料包.zip/01_当前主Skill/SKILL.md
+  evidence_pages:
+  - references/export-specs.md
+  confidence: high
+  mandatory: true
+  scope: export
+  implementation_target:
+  - SKILL.md
+  - config
+  - rendering pipeline
+  - tests
+  validation_method: 交付目录同时存在矢量主文件和 450 dpi 预览；字体嵌入可编辑。
+  rule_origin: recommended_synthesis
+  priority: P1
+- rule_id: FIG-CAPTION-001
+  description: 图题位于图下方；正文在图前说明用途，在图后解释新增证据和机制，禁止“如图所示”后无分析。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A/B 全文图题
+  confidence: high
+  mandatory: true
+  scope: captions
+  implementation_target:
+  - template
+  - Python validator
+  validation_method: 每个图引用在图前出现，图后 1-2 段含至少一个具体趋势/数值/机制词。
+  rule_origin: direct_observation
+  priority: P1
+- rule_id: FIG-NODUP-001
+  description: 同一数据不得用多张仅样式不同的图重复呈现；若局部放大或不同视角有独立证据需在图注册表中说明。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 20260730_技能与论文资料包.zip/01_当前主Skill/SKILL.md
+  evidence_pages:
+  - A/B 图组
+  - figure-contract.md
+  confidence: high
+  mandatory: true
+  scope: all_figures
+  implementation_target:
+  - SKILL.md
+  - Python validator
+  - tests
+  validation_method: 比较 source_artifact_hash 与 evidence_role；重复哈希且角色相同则 FAIL。
+  rule_origin: recommended_synthesis
+  priority: P1
+grammar:
+- problem_signal: 多模块/多阶段/有分支回退
+  recommended_figure: 总体技术路线图
+  must_show:
+  - 输入
+  - 共用内核
+  - 子问题调用
+  - 验证门
+  - 输出
+  forbidden:
+  - 塞入全部公式
+  - 正文同字号长段落
+- problem_signal: 运动/演化/仿真过程
+  recommended_figure: 共享坐标的多时刻快照 + 时间曲线
+  must_show:
+  - 时间
+  - 相同尺度
+  - 关键状态
+  forbidden:
+  - 各子图尺度不同
+  - 仅画最终时刻
+- problem_signal: 首次碰撞/首次失效/异常事件
+  recommended_figure: 全局图 + 局部放大 + 间隙曲线
+  must_show:
+  - 事件时刻
+  - 对象编号
+  - 双侧状态
+  forbidden:
+  - 只给布尔碰撞结果
+- problem_signal: 参数阈值/可行域
+  recommended_figure: 响应曲线或区域图
+  must_show:
+  - 边界
+  - 基准点
+  - 可行/不可行区域
+  forbidden:
+  - 只报告最优值
+- problem_signal: 迭代/求根/优化精度
+  recommended_figure: 残差或区间宽度收敛图
+  must_show:
+  - 停止阈值
+  - 迭代序号
+  - 独立复核
+  forbidden:
+  - 用求解器容差替代真实误差

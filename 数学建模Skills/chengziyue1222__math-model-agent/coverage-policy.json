@@ -1,0 +1,10 @@
+{
+  "overall_minimum": 65.0,
+  "critical_modules": {
+    "graph_theory.py": 80.0,
+    "image_processing.py": 80.0,
+    "math_programming.py": 80.0,
+    "metaheuristic.py": 80.0,
+    "monte_carlo.py": 80.0
+  }
+}

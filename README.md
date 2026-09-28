@@ -45,6 +45,25 @@
 | [数模往届优秀论文](./数模往届优秀论文/README.md) | 4691 个文件 | 国赛、美赛历年赛题、论文与数据附件 |
 | [写作必看](./写作必看/README.md) | 指南与模板 | 论文结构、表达和排版 |
 | [推荐资料](./推荐资料/README.md) | 优化理论参考书 | 优化建模、算法与理论学习 |
+| [数学建模 Skills](./数学建模Skills/README.md) | 9 个完整项目 | AI 辅助建模、算法实现与论文写作 |
+
+## 数学建模 Skills
+
+[数学建模 Skills 项目合集](./数学建模Skills/README.md) 收录以下 9 个项目的完整源码和原始 README，包含技能定义、算法代码、模板及附件。各项目的来源、提交版本和文件校验值见[来源清单](./数学建模Skills/UPSTREAM_SOURCES.json)。
+
+| GitHub 原始项目 | 本仓库项目说明 |
+| --- | --- |
+| [Lupynow/math-modeling-skills](https://github.com/Lupynow/math-modeling-skills) | [项目 README](./数学建模Skills/Lupynow__math-modeling-skills/README.md) |
+| [han69611/math-modeling-skills](https://github.com/han69611/math-modeling-skills) | [项目 README](./数学建模Skills/han69611__math-modeling-skills/README.md) |
+| [Hjdd14/math-modeling](https://github.com/Hjdd14/math-modeling) | [项目 README](./数学建模Skills/Hjdd14__math-modeling/README.md) |
+| [woodfishhhh/EZ_math_model](https://github.com/woodfishhhh/EZ_math_model) | [项目 README](./数学建模Skills/woodfishhhh__EZ_math_model/README.md) |
+| [chengziyue1222/math-model-agent](https://github.com/chengziyue1222/math-model-agent) | [项目 README](./数学建模Skills/chengziyue1222__math-model-agent/README.md) |
+| [xuec699-sudo/math-modeling-skills](https://github.com/xuec699-sudo/math-modeling-skills) | [项目 README](./数学建模Skills/xuec699-sudo__math-modeling-skills/README.md) |
+| [VectorAC/math-modeling-skill](https://github.com/VectorAC/math-modeling-skill) | [项目 README](./数学建模Skills/VectorAC__math-modeling-skill/README.md) |
+| [Slatermy/math-modeling-skills](https://github.com/Slatermy/math-modeling-skills) | [项目 README](./数学建模Skills/Slatermy__math-modeling-skills/README.md) |
+| [anticipate218/math-modeling-skill](https://github.com/anticipate218/math-modeling-skill) | [项目 README](./数学建模Skills/anticipate218__math-modeling-skill/README.md) |
+
+各项目的 LICENSE、README 及第三方附件中的许可声明保留原样，使用时遵循对应项目的许可与归属说明。
 
 ## 竞赛项目目录约定
 

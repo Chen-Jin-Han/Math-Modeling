@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1200" height="400" viewBox="0 0 1200 400"
+     role="img" aria-labelledby="title desc">
+  <title id="title">EZ Math Model</title>
+  <desc id="desc">A seven-stage mathematical modeling workflow from problem intake to a verified paper and output package.</desc>
+
+  <defs>
+    <pattern id="paper-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#253044" stroke-width="1"/>
+    </pattern>
+    <clipPath id="plot-clip">
+      <rect x="718" y="54" width="418" height="250" rx="12"/>
+    </clipPath>
+  </defs>
+
+  <rect width="1200" height="400" rx="24" fill="#0B1220"/>
+  <rect width="1200" height="400" rx="24" fill="url(#paper-grid)" opacity="0.72"/>
+
+  <g id="title-block" transform="translate(64 54)">
+    <text x="0" y="0" fill="#55C2B8"
+          font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+          font-size="18" font-weight="700">AGENT SKILL · MATHEMATICAL MODELING · v1.2.0</text>
+    <text x="0" y="82" fill="#F5F1E8"
+          font-family="-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif"
+          font-size="68" font-weight="750">EZ Math Model</text>
+    <text x="0" y="128" fill="#C7D0DE"
+          font-family="-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif"
+          font-size="25">从赛题与附件，到可审查的模型、论文与交付包</text>
+
+    <path d="M0 174 H568" stroke="#3A465B" stroke-width="1"/>
+    <g transform="translate(0 205)"
+       font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+       font-size="19">
+      <text x="0" y="0" fill="#8F9AAF">INPUT</text>
+      <text x="0" y="34" fill="#F5F1E8">problem + data</text>
+      <text x="224" y="0" fill="#8F9AAF">METHOD</text>
+      <text x="224" y="34" fill="#F5F1E8">7-stage pipeline</text>
+      <text x="454" y="0" fill="#8F9AAF">OUTPUT</text>
+      <text x="454" y="34" fill="#F5F1E8">output.zip</text>
+    </g>
+
+    <g transform="translate(0 300)"
+       font-family="-apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, sans-serif"
+       font-size="18" font-weight="650">
+      <rect width="118" height="38" rx="19" fill="#16283A" stroke="#55C2B8"/>
+      <text x="59" y="25" text-anchor="middle" fill="#A9E2DC">CUMCM</text>
+      <rect x="132" width="96" height="38" rx="19" fill="#2D2030" stroke="#EF8354"/>
+      <text x="180" y="25" text-anchor="middle" fill="#F6B397">MCM</text>
+      <rect x="242" width="88" height="38" rx="19" fill="#2D2030" stroke="#EF8354"/>
+      <text x="286" y="25" text-anchor="middle" fill="#F6B397">ICM</text>
+      <text x="354" y="25" fill="#8F9AAF">Python ≥ 3.10 · MIT</text>
+    </g>
+  </g>
+
+  <g id="project-proof" transform="translate(0 0)">
+    <rect x="696" y="34" width="462" height="292" rx="18" fill="#101A2B" stroke="#3A465B"/>
+    <text x="724" y="73" fill="#8F9AAF"
+          font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+          font-size="18">MODEL TRACE / OBJECTIVE SURFACE</text>
+
+    <g clip-path="url(#plot-clip)">
+      <path d="M724 270 C770 246 797 220 836 225 C883 231 905 154 958 168 C1010 182 1028 112 1134 92"
+            fill="none" stroke="#55C2B8" stroke-width="4"/>
+      <path d="M724 287 C777 282 806 260 854 265 C911 271 939 222 981 226 C1041 232 1075 184 1134 191"
+            fill="none" stroke="#EF8354" stroke-width="3" stroke-dasharray="10 9"/>
+      <path d="M724 294 H1134 M724 250 H1134 M724 206 H1134 M724 162 H1134 M724 118 H1134"
+            stroke="#2C394D" stroke-width="1"/>
+      <circle cx="958" cy="168" r="7" fill="#0B1220" stroke="#F5F1E8" stroke-width="3"/>
+      <path d="M958 168 L1000 128" stroke="#F5F1E8" stroke-width="1"/>
+      <text x="1008" y="125" fill="#F5F1E8"
+            font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+            font-size="18">validated</text>
+    </g>
+
+    <g transform="translate(696 350)"
+       font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+      <path d="M24 0 H438" stroke="#3A465B" stroke-width="2"/>
+      <g fill="#0B1220" stroke="#55C2B8" stroke-width="2">
+        <circle cx="24" cy="0" r="15"/><circle cx="93" cy="0" r="15"/>
+        <circle cx="162" cy="0" r="15"/><circle cx="231" cy="0" r="15"/>
+        <circle cx="300" cy="0" r="15"/><circle cx="369" cy="0" r="15"/>
+        <circle cx="438" cy="0" r="15"/>
+      </g>
+      <g fill="#F5F1E8" font-size="16" font-weight="700" text-anchor="middle">
+        <text x="24" y="6">00</text><text x="93" y="6">01</text>
+        <text x="162" y="6">02</text><text x="231" y="6">03</text>
+        <text x="300" y="6">04</text><text x="369" y="6">05</text>
+        <text x="438" y="6">06</text>
+      </g>
+    </g>
+  </g>
+</svg>

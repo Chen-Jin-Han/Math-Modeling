@@ -1,0 +1,241 @@
+schema_version: '1.0'
+rules:
+- rule_id: WF-STATE-001
+  description: 采用显式状态机：intake→parse→dependency_plan→model_design→solver_plan→execute→validate→visualize→write→reference_check→layout→consistency→pdf_preflight→package。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 审查报告 02_TECHNICAL_AUDIT.md
+  evidence_pages:
+  - A/B 目录与代码模块
+  - N/A - audit
+  confidence: high
+  mandatory: true
+  scope: workflow
+  implementation_target:
+  - SKILL.md
+  - config
+  - Python validator
+  - tests
+  validation_method: 状态只能按允许边推进；每次推进写入证据哈希与 gate 结果。
+  rule_origin: recommended_synthesis
+  priority: P0
+- rule_id: WF-CONTRACT-001
+  description: 每个阶段必须声明输入、输出、责任工具、阻塞条件和恢复入口；自然语言“已完成”不算产物。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 审查报告 04_RECOMMENDED_PRODUCT.md
+  evidence_pages:
+  - A/B 模块结构
+  - N/A - audit
+  confidence: high
+  mandatory: true
+  scope: workflow
+  implementation_target:
+  - SKILL.md
+  - config
+  - documentation
+  - tests
+  validation_method: 阶段 manifest 缺任一合同字段则不能 advance。
+  rule_origin: recommended_synthesis
+  priority: P0
+- rule_id: WF-TOOL-001
+  description: 题目解析和写作可由模型起草；数值、文献真实性、文件哈希和 PDF 视觉检查必须调用真实工具。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A/B 代码与验证章节
+  confidence: high
+  mandatory: true
+  scope: tool_policy
+  implementation_target:
+  - SKILL.md
+  - config
+  - tests
+  validation_method: 工具调用日志必须覆盖 execution/reference/pdf_preflight；缺失即 blocked。
+  rule_origin: recommended_synthesis
+  priority: P0
+- rule_id: WF-PLAN-001
+  description: 建模前先生成子问题依赖图和候选模型比较表，经规则门选择后再编码。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.6-7
+  - B pp.6-7
+  confidence: high
+  mandatory: true
+  scope: planning
+  implementation_target:
+  - SKILL.md
+  - template
+  - tests
+  validation_method: 存在 dependency_graph.yaml 与 model_candidates.yaml；选择理由包含适用条件、风险、验证计划。
+  rule_origin: direct_observation
+  priority: P0
+- rule_id: WF-CODEFIRST-001
+  description: 所有结果性文字必须在代码执行和验证之后生成；不得先写结果再补代码。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A/B 代码-结果结构推断
+  confidence: medium
+  mandatory: true
+  scope: execution_to_writing
+  implementation_target:
+  - SKILL.md
+  - config
+  - tests
+  validation_method: 正文 result_claim 的 source_artifact 时间戳必须晚于成功运行，且哈希可追溯。
+  rule_origin: recommended_synthesis
+  priority: P0
+- rule_id: WF-FALLBACK-001
+  description: 求解失败时按“检查合同→扩大/修正括号→替代算法→降级结论→人工复核”回退，禁止静默改参数。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A/B 求根和搜索流程
+  confidence: high
+  mandatory: true
+  scope: failure_recovery
+  implementation_target:
+  - SKILL.md
+  - config
+  - tests
+  validation_method: 故障注入验证回退路径及参数变更日志；无日志参数变化 FAIL。
+  rule_origin: recommended_synthesis
+  priority: P0
+- rule_id: WF-WRITE-001
+  description: 写作从验证后的 evidence registry 拉取数字、图、表和限制，摘要最后生成。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A/B 摘要高度压缩全文
+  confidence: high
+  mandatory: true
+  scope: writing
+  implementation_target:
+  - SKILL.md
+  - template
+  - Python validator
+  validation_method: 摘要生成前 evidence registry 状态必须 complete；正文禁止自由输入未注册数字。
+  rule_origin: recommended_synthesis
+  priority: P0
+- rule_id: WF-VISUAL-001
+  description: 图形生成调用现有 academic-data-visualization skill，但论文编排、图题、跨图一致性由论文技能负责。
+  source_files:
+  - 20260730_技能与论文资料包.zip/01_当前主Skill/SKILL.md
+  evidence_pages:
+  - 当前主 Skill 全文
+  confidence: high
+  mandatory: true
+  scope: visualization_integration
+  implementation_target:
+  - SKILL.md
+  - config
+  - documentation
+  - tests
+  validation_method: 调用链记录 figure skill 版本；论文技能验证最终嵌入字号和 caption，而不是只验单图。
+  rule_origin: recommended_synthesis
+  priority: P1
+- rule_id: WF-HUMAN-001
+  description: 遇到题意歧义、数据口径冲突、无法核验文献或高风险假设时暂停并请求人工确认。
+  source_files:
+  - 审查报告 04_RECOMMENDED_PRODUCT.md
+  evidence_pages:
+  - N/A - audit
+  confidence: high
+  mandatory: true
+  scope: human_review
+  implementation_target:
+  - SKILL.md
+  - config
+  - tests
+  validation_method: 预设歧义用例应进入 needs_review，确认后记录 reviewer 与 decision。
+  rule_origin: recommended_synthesis
+  priority: P0
+- rule_id: WF-PACK-001
+  description: 最终交付前在干净目录复跑并生成提交包清单、版本和匿名扫描报告。
+  source_files:
+  - 审查报告 05_DEMO_AND_SUBMISSION_PLAN.md
+  evidence_pages:
+  - N/A - audit
+  confidence: high
+  mandatory: true
+  scope: packaging
+  implementation_target:
+  - SKILL.md
+  - Python validator
+  - tests
+  - documentation
+  validation_method: clean-room test + anonymity scan + manifest verify 全部 PASS。
+  rule_origin: recommended_synthesis
+  priority: P0
+states:
+- state: intake
+  outputs:
+  - task_contract.yaml
+- state: parse
+  outputs:
+  - problem_spec.yaml
+  - data_contract.yaml
+- state: dependency_plan
+  outputs:
+  - dependency_graph.yaml
+- state: model_design
+  outputs:
+  - model_candidates.yaml
+  - assumption_register.yaml
+- state: solver_plan
+  outputs:
+  - experiment_plan.yaml
+- state: execute
+  outputs:
+  - results/
+  - run_manifest.json
+  - logs/
+- state: validate
+  outputs:
+  - constraint_audit.json
+  - cross_validation.json
+  - sensitivity.json
+  - convergence.json
+- state: visualize
+  outputs:
+  - figures/
+  - figure_manifest.yaml
+  - tables/
+- state: write
+  outputs:
+  - paper_source/
+  - claim_registry.yaml
+- state: reference_check
+  outputs:
+  - references.bib
+  - reference_audit.json
+- state: layout
+  outputs:
+  - paper.pdf
+- state: consistency
+  outputs:
+  - consistency_report.json
+- state: pdf_preflight
+  outputs:
+  - pdf_preflight.json
+  - rendered_pages/
+- state: package
+  outputs:
+  - submission.zip
+  - MANIFEST.yaml
+real_tool_required_states:
+- execute
+- validate
+- reference_check
+- consistency
+- pdf_preflight
+- package

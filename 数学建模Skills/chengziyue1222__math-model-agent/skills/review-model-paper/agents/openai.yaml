@@ -1,0 +1,4 @@
+interface:
+  display_name: "数学建模论文审查"
+  short_description: "从模型、数据、结果、引用和排版维度审查数学建模论文"
+  default_prompt: "使用 $review-model-paper 审查这篇数学建模论文并给出分级修改清单。"

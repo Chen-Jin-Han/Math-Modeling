@@ -1,0 +1,133 @@
+# 章节大纲与篇幅占比 — 单一信息源
+#
+# 字段说明：
+#   order              整数，章节顺序
+#   target_share       占全文百分比或绝对页数
+#   word_count         本章建议总字数（中文）
+#   sections           本章必须包含的小节列表
+#   per_section_words  每个小节的字数指引
+#   structure          段落 / 列表 / 表格的组合提示
+#   sample_phrases     可参考的开头与连接词，writer 仅作提示，不抄
+#   forbidden          本章常见踩雷写法
+#   notes              其他说明
+#
+# 字数指引来自 MathModelAgent backend/app/config/md_template.toml 与 zhanwen
+# 优秀论文统计经验值；可被赛事级别 / strict_quality 覆盖。
+
+[meta]
+language_default       = "zh"
+total_pages_target     = "20-25"
+total_words_target_min = 12000
+total_words_target_max = 18000
+strict_overrides       = "在 intake.strict_quality=true 时，最低字数 +30%"
+
+[abstract]
+title              = "摘要"
+order              = 0
+target_share       = "1页"
+word_count         = "600-700"
+sections           = ["背景段", "各问题段（每问 1 段）", "总结段（敏感性 + 结论）"]
+per_section_words  = { background = 100, per_question = 170, conclusion = 150 }
+structure          = "段落式；首段背景，中段每问独立成段，末段总结。**绝对禁止** bullet。"
+sample_phrases     = ["针对问题一，", "具体做法是", "通过{方法}得到", "敏感性分析显示", "综合来看"]
+forbidden          = ["列表 / 项目符号", "缺具体数值", "复述题目而不写做法"]
+notes              = "全篇最重要的部分，评委首先看。每个问题段必须含具体数值（精度、误差、运行时间、最优值）。"
+keywords_count     = "4-5"
+keywords_format    = "无编号、空格或分号分隔"
+
+[restate]
+title              = "一、问题重述"
+order              = 1
+target_share       = "8-12%"
+word_count         = "400-700"
+sections           = ["1.1 问题背景", "1.2 问题重述"]
+per_section_words  = { "1.1" = 160, "1.2" = "200-300" }
+structure          = "1.1 段落式；1.2 可用项目符号列出每个小问"
+sample_phrases     = ["在……背景下", "本文基于以上信息建立数学模型", "针对问题 X"]
+forbidden          = ["照抄原题", "添加题目未给出的设定"]
+
+[analyze]
+title              = "二、问题分析"
+order              = 2
+target_share       = "8-12%"
+word_count         = "500-900"
+sections           = ["2.1 问题一的分析", "2.N 问题 N 的分析"]
+per_section_words  = { per_question = 250 }
+structure          = "每问分两段：第一段定性问题类型，第二段对比模型选择"
+sample_phrases     = ["本题要求……，归入{类型}问题", "相较{备选}，{选择}的优势在于", "后续将通过{验证}检验"]
+forbidden          = ["仅写一句\"本题为预测问题\"", "未对比备选模型直接给结论"]
+
+[assumption]
+title              = "三、模型假设"
+order              = 3
+target_share       = "适量"
+word_count         = "200-400"
+count              = "3-4"
+structure          = "(1) (2) (3) 编号；每条附 Justification"
+sample_phrases     = ["假设是合理的，因为……", "在{条件}下该假设成立"]
+forbidden          = ["假设数据准确（空假设）", "没有 Justification 的假设"]
+
+[symbol]
+title              = "四、符号说明与数据预处理"
+order              = 4
+target_share       = "适量"
+sections           = ["4.1 符号说明", "4.2 数据预处理"]
+per_section_words  = { "4.1" = "表格", "4.2_data_driven" = 200, "4.2_physics" = 150 }
+structure          = "4.1 markdown 表格（符号|含义|单位）；4.2 段落式"
+forbidden          = ["对物理常量做异常值清洗", "一个符号对应多个变量"]
+eda_branching      = "数据驱动题写完整 EDA；物理机理题写参数一致性检查 + 量纲验证"
+
+[modeling]
+title              = "五、模型的建立与求解"
+order              = 5
+target_share       = "50-60%"
+word_count         = "6000-10000"
+per_section_words  = { per_question = 600 }
+sections           = ["5.X.1 模型建立", "5.X.2 模型求解"]
+structure          = "每问标准 5 段：问题分析 / 公式推导 / 求解方法 / 结果展示（含 4-6 张图）/ 结果分析"
+must_have          = ["公式块单独成段", "公式参数必须写来源", "三线表 + 4-6 张图", "每张图≥3 行解读", "优化类问题必须含\"无约束 vs 物理约束\"对比段"]
+forbidden          = ["在段落里塞公式", "数值无来源", "图片只放不解读", "因果与相关混淆"]
+sample_phrases     = ["模型形式如下", "其中 {param} 由{来源}给出", "为避免{问题}，引入{保护}", "无约束最优解为 X，但违反 {约束}，约束下最优为 Y"]
+
+[sensitivity]
+title              = "六、敏感性分析"
+order              = 6
+target_share       = "4-8%"
+word_count         = "300-700"
+sections           = ["6.1 灵敏度分析"]
+structure          = "段落 + 至少 1 张图 + 数值变化区间"
+must_have          = ["关键参数清单", "扰动范围（默认 ±20%）", "评估指标", "鲁棒性结论"]
+forbidden          = ["仅写\"模型表现稳定\"无数值", "未指明扰动方式"]
+sample_phrases     = ["参数 X 在 ±20% 范围内变动时，{指标} 在 [a, b] 内波动"]
+
+[evaluate]
+title              = "七、模型的评价、改进与推广"
+order              = 7
+target_share       = "4-8%"
+word_count         = "300-700"
+sections           = ["7.1 优点", "7.2 缺点", "7.3 改进与推广"]
+must_have          = ["优点 ≥ 缺点数量", "每条附具体依据", "推广前提条件"]
+typical_count      = { strengths = 4, weaknesses = 2 }
+forbidden          = ["空泛优点（如\"模型简单\"）", "无前提条件的推广"]
+
+[references]
+title              = "参考文献"
+order              = 8
+target_share       = "1页"
+count              = "5-15"
+format             = "GB/T 7714"
+must_have          = ["每条 [^N] 全文唯一引用一次", "理论章节必须有引用"]
+typical_categories = ["经典教材", "近 5 年综述", "题目领域期刊"]
+
+[appendix]
+title              = "附录"
+order              = 9
+target_share       = "不计入正文"
+sections           = ["附录 A 核心代码", "附录 B 补充数据表"]
+notes              = "代码必须可运行；大表（≥50 行）放此处，正文只放摘要表"
+
+[forbidden_global]
+in_main_body       = ["bullet point list", "numbered list（除符号说明、模型假设、参考文献等表格场景）"]
+data_fabrication   = ["不基于代码 print 的数值描述", "凭空生成的统计指标"]
+visual_violations  = ["3D 柱状图", "饼图", "ax.set_title 内部标题", "300dpi 以下", "密集网格线"]
+language           = ["第一人称（本研究 / 我们 / 笔者）", "口语化（a lot of / 很多）", "主观评价（very good / 很好）"]

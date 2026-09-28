@@ -1,0 +1,33 @@
+{
+  "benchmark": "nova_eval_v0_1",
+  "case_manifest_hash": "71a72faeb73dab93a01beab455ea8049b52c497f407383ad7fca7d7bace07cdd",
+  "configuration_hash": "66372b48e78a44ef2c8971e110aa8d9e8ed887d52a52992e5ed2f7b5c4275014",
+  "experiment_registry_hash": "3d60ae62ba7ad59eca6b5b487ed95c44cf677aa2d6ef7d1aa8f0f3a56205e950",
+  "figures": [
+    "01_gate_accuracy.png",
+    "02_average_experiments.png",
+    "03_average_decision_cost.png",
+    "04_nova_top1_by_fault.png",
+    "05_false_block_rate.png",
+    "06_experiment_count_distribution.png"
+  ],
+  "generated_cases": 21,
+  "partition": "challenge",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "protocol_version": "nova_core_v0_1",
+  "python": "3.14.2 (tags/v3.14.2:df79316, Dec  5 2025, 17:18:21) [MSC v.1944 64 bit (AMD64)]",
+  "reproducibility_check": {
+    "cases_checked": 7,
+    "logical_result_match_rate": 1.0,
+    "strategy_runs_checked": 28
+  },
+  "requested_cases": 21,
+  "rule_pack_reference": "VAL-GATE-002, VAL-GATE-006, VAL-GATE-012",
+  "seed": 20260810,
+  "strategies": [
+    "nova",
+    "fixed-early-stop",
+    "fixed-all",
+    "surface-metric"
+  ]
+}

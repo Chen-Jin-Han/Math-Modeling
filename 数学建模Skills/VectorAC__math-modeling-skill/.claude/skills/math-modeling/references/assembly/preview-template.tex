@@ -1,0 +1,56 @@
+% =========================================================
+%  部件预览骨架 preview_qN.tex
+%
+%  目的：让每个成员独立编译预览自己的部件（编号从 1 开始
+%        无所谓，预览用）。每人各编各的，互不影响。
+%
+%  用法：
+%  1. 复制 main 模板的 preamble（\documentclass + \usepackage 部分）
+%     到此文件；编译需要 cumcmthesis.cls 与部件文件同目录。
+%     preamble 必须与 main.tex 一致（含 \scite 等命令定义、三线表宏包），
+%     否则部件里能用的命令在组装后可能失效。
+%  2. 把 \input{part_qN.tex} 换成自己的部件文件名。
+%  3. latexmk -xelatex preview_q1.tex
+%
+%  组装时：main.tex 复用同一份 preamble，按模板结构 \input 全部部件。
+% =========================================================
+
+\PassOptionsToPackage{table}{xcolor}
+\documentclass[withoutpreface,bwprint]{cumcmthesis}
+
+% ─── 复制主模板的额外宏包与设置（bookmark / listings / 公式间距等）───
+\usepackage{bookmark}
+\usepackage{listings}
+\setlength{\abovedisplayskip}{\baselineskip}
+\setlength{\belowdisplayskip}{\baselineskip}
+\setlength{\abovedisplayshortskip}{\baselineskip}
+\setlength{\belowdisplayshortskip}{\baselineskip}
+
+% ─── 论文基本信息（预览时可留占位）───────────────────────
+% 注：preview 仅本机自看；电子版匿名（withoutpreface 不渲染学校/成员/日期），
+%     但填写示例值仍应替换为真实信息或用占位——勿把 preview 当正式模板
+\title{【预览：问题一部件】}
+\tihao{A}
+\baominghao{0000}
+\schoolname{XX大学}
+\membera{成员甲}
+\memberb{成员乙}
+\memberc{成员丙}
+\supervisor{指导教师}
+\yearinput{2026}
+\monthinput{09}
+\dayinput{10}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+    预览用摘要（可留空或放自己的摘要句组）。
+    \keywords{预览 \quad 部件 \quad 编译测试}
+\end{abstract}
+
+% ─── 部件主体（改成自己的部件文件名）──────────────────────
+\input{part_q1.tex}
+
+\end{document}

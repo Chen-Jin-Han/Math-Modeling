@@ -1,0 +1,383 @@
+schema_version: '1.0'
+rules:
+- rule_id: TEST-PDF-001
+  description: A4 纵向页面测试
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - 全页
+  confidence: high
+  mandatory: true
+  scope: pdf
+  implementation_target:
+  - tests
+  validation_method: PyMuPDF 读取 MediaBox 和 rotation
+  rule_origin: recommended_synthesis
+  priority: P1
+  expected_result: 595±1×842±1 pt, rotation=0
+- rule_id: TEST-PDF-002
+  description: 正文边距测试
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 20260730_技能与论文资料包.zip/04_最近真实生成论文/main_v2.pdf
+  evidence_pages:
+  - 正文页
+  confidence: high
+  mandatory: true
+  scope: pdf
+  implementation_target:
+  - tests
+  validation_method: 抽取正文长行 bbox 中位数
+  rule_origin: recommended_synthesis
+  priority: P1
+  expected_result: 左右边距 68-74 pt；越界 FAIL
+- rule_id: TEST-PDF-003
+  description: 正文字体字号测试
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - 正文页
+  confidence: high
+  mandatory: true
+  scope: pdf
+  implementation_target:
+  - tests
+  validation_method: 按字符数加权统计 span
+  rule_origin: recommended_synthesis
+  priority: P1
+  expected_result: 中文宋体、拉丁 Times；正文 11.5-12.1 pt
+- rule_id: TEST-PDF-004
+  description: 摘要单页测试
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 20260730_技能与论文资料包.zip/04_最近真实生成论文/main_v2.pdf
+  evidence_pages:
+  - 首页/摘要页
+  confidence: high
+  mandatory: true
+  scope: pdf
+  implementation_target:
+  - tests
+  validation_method: 定位摘要与关键词页码
+  rule_origin: recommended_synthesis
+  priority: P1
+  expected_result: 起止同页
+- rule_id: TEST-PDF-005
+  description: 目录存在及页码抽检
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 20260730_技能与论文资料包.zip/04_最近真实生成论文/main_v2.pdf
+  evidence_pages:
+  - 目录
+  confidence: high
+  mandatory: true
+  scope: pdf
+  implementation_target:
+  - tests
+  validation_method: 解析目录文本并与标题页码比对
+  rule_origin: recommended_synthesis
+  priority: P1
+  expected_result: 至少抽检 10 项全部一致
+- rule_id: TEST-PDF-006
+  description: 参考文献与附录强制分页
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - refs/appendix
+  confidence: high
+  mandatory: true
+  scope: pdf
+  implementation_target:
+  - tests
+  validation_method: 检查标题前内容 bbox
+  rule_origin: recommended_synthesis
+  priority: P1
+  expected_result: 标题位于新页上部且前无旧章节内容
+- rule_id: TEST-PDF-007
+  description: 孤标题与图题分离
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - 全页
+  confidence: high
+  mandatory: true
+  scope: pdf
+  implementation_target:
+  - tests
+  validation_method: 布局块跨页分析
+  rule_origin: recommended_synthesis
+  priority: P1
+  expected_result: 标题后至少 2 行；图与图题同页
+- rule_id: TEST-FIG-001
+  description: 图内最小字号
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 20260730_技能与论文资料包.zip/01_当前主Skill/SKILL.md
+  evidence_pages:
+  - 图页
+  confidence: high
+  mandatory: true
+  scope: figures
+  implementation_target:
+  - tests
+  validation_method: 解析矢量字体或物理缩放估算
+  rule_origin: recommended_synthesis
+  priority: P1
+  expected_result: '>=6.5 pt'
+- rule_id: TEST-FIG-002
+  description: 图源哈希和 claim 合同
+  source_files:
+  - 20260730_技能与论文资料包.zip/01_当前主Skill/SKILL.md
+  evidence_pages:
+  - N/A
+  confidence: high
+  mandatory: true
+  scope: figures
+  implementation_target:
+  - tests
+  validation_method: 检查 figure_manifest.yaml
+  rule_origin: recommended_synthesis
+  priority: P0
+  expected_result: 每图有 source_hash、claim、evidence_role
+- rule_id: TEST-FIG-003
+  description: 矢量主文件和高分辨率预览
+  source_files:
+  - 20260730_技能与论文资料包.zip/01_当前主Skill/SKILL.md
+  evidence_pages:
+  - N/A
+  confidence: high
+  mandatory: true
+  scope: figures
+  implementation_target:
+  - tests
+  validation_method: 检查文件格式、DPI、字体嵌入
+  rule_origin: recommended_synthesis
+  priority: P1
+  expected_result: PDF/SVG + >=450 dpi PNG
+- rule_id: TEST-TABLE-001
+  description: 表格结构化来源测试
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - 结果表
+  confidence: high
+  mandatory: true
+  scope: tables
+  implementation_target:
+  - tests
+  validation_method: 从 source_artifact 重渲染并逐值比较
+  rule_origin: recommended_synthesis
+  priority: P0
+  expected_result: 所有展示值与源数据一致
+- rule_id: TEST-NUM-001
+  description: 跨产物 quantity_id 一致性
+  source_files:
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - pp.6,20-21
+  confidence: high
+  mandatory: true
+  scope: numeric
+  implementation_target:
+  - tests
+  validation_method: 扫描摘要/正文/图/表/流程图/附件
+  rule_origin: recommended_synthesis
+  priority: P0
+  expected_result: 同 quantity_id 在舍入容差内一致
+- rule_id: TEST-NUM-002
+  description: 报告精度合理性
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - 摘要/结果
+  confidence: high
+  mandatory: true
+  scope: numeric
+  implementation_target:
+  - tests
+  validation_method: 比较输入精度、敏感性和展示有效数字
+  rule_origin: recommended_synthesis
+  priority: P0
+  expected_result: 无证据时正文<=6有效数字；超限需说明
+- rule_id: TEST-MODEL-001
+  description: 硬约束全量审计
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - 验证章节
+  confidence: high
+  mandatory: true
+  scope: model
+  implementation_target:
+  - tests
+  validation_method: 运行 constraint_audit
+  rule_origin: recommended_synthesis
+  priority: P0
+  expected_result: 所有 mandatory 约束 PASS
+- rule_id: TEST-MODEL-002
+  description: 首次事件双侧验证
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - 事件章节
+  confidence: high
+  mandatory: true
+  scope: model
+  implementation_target:
+  - tests
+  validation_method: 在估计值两侧按 epsilon 重算
+  rule_origin: recommended_synthesis
+  priority: P0
+  expected_result: 左/右状态符合方向且 bracket 收敛
+- rule_id: TEST-MODEL-003
+  description: 上包络/全局峰值步长减半
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  evidence_pages:
+  - pp.36-40
+  confidence: high
+  mandatory: true
+  scope: model
+  implementation_target:
+  - tests
+  validation_method: 粗细两级网格和边界枚举
+  rule_origin: recommended_synthesis
+  priority: P0
+  expected_result: 峰值变化低于阈值且活跃分支记录
+- rule_id: TEST-MODEL-004
+  description: 真正独立交叉验证
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - 验证章节
+  confidence: high
+  mandatory: true
+  scope: model
+  implementation_target:
+  - tests
+  validation_method: 检查依赖图和替代实现
+  rule_origin: recommended_synthesis
+  priority: P0
+  expected_result: 关键实现非完全共享；差异有解释
+- rule_id: TEST-REF-001
+  description: 文献真实性和引用闭合
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - 参考文献
+  confidence: high
+  mandatory: true
+  scope: references
+  implementation_target:
+  - tests
+  validation_method: 权威索引核验 + 编号集合比较
+  rule_origin: recommended_synthesis
+  priority: P0
+  expected_result: 全部文献可核验且引用/文献一一闭合
+- rule_id: TEST-WRITE-001
+  description: 禁止未注册数字
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - 全文
+  confidence: high
+  mandatory: true
+  scope: writing
+  implementation_target:
+  - tests
+  validation_method: 提取正文数字并匹配 claim_registry
+  rule_origin: recommended_synthesis
+  priority: P0
+  expected_result: 结果性数字 100% 有 quantity_id/source_hash
+- rule_id: TEST-WRITE-002
+  description: 强断言证据门
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 20260730_技能与论文资料包.zip/04_最近真实生成论文/main_v2.pdf
+  evidence_pages:
+  - 全文
+  confidence: high
+  mandatory: true
+  scope: writing
+  implementation_target:
+  - tests
+  validation_method: 扫描“证明/显著/机器精度/全局”等词
+  rule_origin: recommended_synthesis
+  priority: P0
+  expected_result: 每个强断言有 evidence_id 和适用域
+- rule_id: TEST-CODE-001
+  description: 干净环境复跑
+  source_files:
+  - 审查报告 01_REPOSITORY_EVIDENCE.md
+  evidence_pages:
+  - N/A
+  confidence: high
+  mandatory: true
+  scope: code
+  implementation_target:
+  - tests
+  validation_method: 临时环境安装依赖并运行统一入口
+  rule_origin: recommended_synthesis
+  priority: P0
+  expected_result: exit=0；关键产物生成且 manifest 验证通过
+- rule_id: TEST-CODE-002
+  description: 随机性复现
+  source_files:
+  - 审查报告 02_TECHNICAL_AUDIT.md
+  evidence_pages:
+  - N/A
+  confidence: high
+  mandatory: true
+  scope: code
+  implementation_target:
+  - tests
+  validation_method: 同 seed 双跑与不同 seed 扰动
+  rule_origin: recommended_synthesis
+  priority: P0
+  expected_result: 同 seed 结果一致；随机算法显式记录 rng/seed
+- rule_id: TEST-PACK-001
+  description: 提交包完整与匿名
+  source_files:
+  - 审查报告 05_DEMO_AND_SUBMISSION_PLAN.md
+  evidence_pages:
+  - N/A
+  confidence: high
+  mandatory: true
+  scope: package
+  implementation_target:
+  - tests
+  validation_method: 清单、绝对路径/邮箱/密钥/元数据扫描
+  rule_origin: recommended_synthesis
+  priority: P0
+  expected_result: 0 blocking issue
+- rule_id: TEST-REG-001
+  description: 当前 main_v2 格式回归
+  source_files:
+  - 20260730_技能与论文资料包.zip/04_最近真实生成论文/main_v2.pdf
+  evidence_pages:
+  - 全页
+  confidence: high
+  mandatory: true
+  scope: regression
+  implementation_target:
+  - tests
+  validation_method: 用新模板重渲染相同内容并预检
+  rule_origin: recommended_synthesis
+  priority: P1
+  expected_result: 摘要一页、有目录、版心更宽、验证章节完整、无数值变动

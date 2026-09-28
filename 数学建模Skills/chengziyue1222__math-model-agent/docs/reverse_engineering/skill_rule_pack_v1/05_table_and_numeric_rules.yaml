@@ -1,0 +1,275 @@
+schema_version: '1.0'
+rules:
+- rule_id: TABLE-STYLE-001
+  description: 正文表格默认三线表、无竖线；表题位于表上方并居中。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 20260730_技能与论文资料包.zip/04_最近真实生成论文/main_v2.pdf
+  evidence_pages:
+  - A/B/C 全文表格
+  confidence: high
+  mandatory: true
+  scope: tables
+  implementation_target:
+  - config
+  - template
+  - rendering pipeline
+  - Python validator
+  validation_method: 检测表格线条与表题位置；出现全网格或竖线则警告。
+  rule_origin: direct_observation
+  priority: P1
+- rule_id: TABLE-UNIT-001
+  description: 单位优先写在列名或表下注释，不在每个单元格重复。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A/B 结果表与符号表
+  confidence: high
+  mandatory: true
+  scope: tables
+  implementation_target:
+  - config
+  - template
+  - Python validator
+  validation_method: 同列单位重复率超过阈值则 FAIL；无量纲使用“—”。
+  rule_origin: recommended_synthesis
+  priority: P1
+- rule_id: TABLE-NUM-001
+  description: 同一列数字小数位统一，按小数点对齐；科学计数法指数格式一致。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 20260730_技能与论文资料包.zip/04_最近真实生成论文/main_v2.pdf
+  evidence_pages:
+  - A/B/C 结果表
+  confidence: high
+  mandatory: true
+  scope: tables
+  implementation_target:
+  - config
+  - rendering pipeline
+  - Python validator
+  - tests
+  validation_method: 解析表源数据与渲染文本；同列小数位差异非缺失值导致则 FAIL。
+  rule_origin: recommended_synthesis
+  priority: P1
+- rule_id: TABLE-WIDTH-001
+  description: 表格宽度不得超过版心；超过时优先拆表、转置、缩短表头或移入附录，不得缩小至不可读。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A/B 宽结果表
+  confidence: high
+  mandatory: true
+  scope: tables
+  implementation_target:
+  - template
+  - rendering pipeline
+  - Python validator
+  validation_method: 表 bbox > 版心或最终字号 <9 pt 时 FAIL。
+  rule_origin: reverse_constraint
+  priority: P1
+- rule_id: TABLE-SPLIT-001
+  description: 坐标与速度、模型参数与验证指标等不同量纲的信息应拆表，避免多层表头过密。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.18,24
+  - B pp.16-17
+  confidence: high
+  mandatory: false
+  scope: tables
+  implementation_target:
+  - SKILL.md
+  - template
+  validation_method: 表格列数>8或表头层级>2时要求拆分说明。
+  rule_origin: direct_observation
+  priority: P2
+- rule_id: TABLE-LONG-001
+  description: 全量逐时刻/逐对象结果不进正文；正文保留代表样本，完整结果输出到附件表格并在正文引用。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.18,24
+  - B pp.16-20
+  confidence: high
+  mandatory: true
+  scope: results
+  implementation_target:
+  - SKILL.md
+  - template
+  - Python validator
+  validation_method: 正文表行数>30或列数>10则警告；必须存在对应附件文件及哈希。
+  rule_origin: direct_observation
+  priority: P1
+- rule_id: TABLE-CROSSPAGE-001
+  description: 跨页长表必须重复表头、标注“续表”，且一行不得跨页拆分。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - 符号表与附录审计表
+  confidence: medium
+  mandatory: true
+  scope: tables
+  implementation_target:
+  - template
+  - Python validator
+  validation_method: 识别跨页表；下一页无重复表头或行被截断则 FAIL。
+  rule_origin: recommended_synthesis
+  priority: P1
+- rule_id: TABLE-SOURCE-001
+  description: 表格必须由结构化结果文件生成，禁止手工复制数字到论文。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 审查报告 08_TRACEABILITY_MATRIX.md
+  evidence_pages:
+  - A/B 正文对 result*.xlsx 的引用
+  - N/A - audit
+  confidence: high
+  mandatory: true
+  scope: results
+  implementation_target:
+  - SKILL.md
+  - rendering pipeline
+  - Python validator
+  - tests
+  validation_method: 表格旁记录 source_artifact_hash；与 CSV/JSON/XLSX 重算不一致则 FAIL。
+  rule_origin: recommended_synthesis
+  priority: P0
+- rule_id: NUM-PRECISION-001
+  description: 报告精度由输入精度、模型误差、敏感性和用途共同决定；求解器容差不等于可报告有效数字。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A/B 摘要及临界结果的多位小数
+  confidence: high
+  mandatory: true
+  scope: numeric_reporting
+  implementation_target:
+  - SKILL.md
+  - config
+  - Python validator
+  - tests
+  validation_method: 若报告小数位显著多于输入/不确定性允许范围且无误差预算，则 FAIL。
+  rule_origin: reverse_constraint
+  priority: P0
+- rule_id: NUM-GUARD-001
+  description: 内部计算保留守护位，正文通常显示 4-6 个有效数字；临界值可附高精度值但必须同时给容差或区间。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A/B 结果表与摘要
+  confidence: medium
+  mandatory: false
+  scope: numeric_reporting
+  implementation_target:
+  - config
+  - template
+  - Python validator
+  validation_method: 比较计算值与展示值；正文超过 8 个有效数字需 evidence_note。
+  rule_origin: recommended_synthesis
+  priority: P1
+- rule_id: NUM-RESIDUAL-001
+  description: 残差小只能证明数值方程被满足，不能单独证明模型、数据口径或全局最优正确。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A/B 多处“机器精度”表述
+  confidence: high
+  mandatory: true
+  scope: validation
+  implementation_target:
+  - SKILL.md
+  - Python validator
+  - tests
+  validation_method: 出现“残差/机器精度”结论时要求同时链接结构约束、独立验证和适用域证据。
+  rule_origin: reverse_constraint
+  priority: P0
+- rule_id: NUM-CONSISTENCY-001
+  description: 摘要、正文、图、表、流程图和附件中的同名量必须由同一 canonical result 生成。
+  source_files:
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - B pp.6,20-21 的 pmin 与坐标矛盾
+  confidence: high
+  mandatory: true
+  scope: all_outputs
+  implementation_target:
+  - SKILL.md
+  - config
+  - Python validator
+  - tests
+  validation_method: 按 quantity_id 收集所有展示值；超出展示舍入容差即 FAIL。
+  rule_origin: reverse_constraint
+  priority: P0
+- rule_id: NUM-SIGN-001
+  description: 坐标系、旋向和正负号必须在模型开始处声明，并在代码、图和表中保持同一约定。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.13-18
+  - B pp.9-20
+  confidence: high
+  mandatory: true
+  scope: geometry_and_motion
+  implementation_target:
+  - SKILL.md
+  - config
+  - Python validator
+  - tests
+  validation_method: 方向/旋向断言 + 代表点重算；图表符号不一致则 FAIL。
+  rule_origin: recommended_synthesis
+  priority: P0
+- rule_id: NUM-THRESHOLD-001
+  description: 阈值、容差和步长必须区分：物理阈值、算法停止容差、显示舍入和扫描分辨率分别记录。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.20-26
+  - B pp.18-22
+  confidence: high
+  mandatory: true
+  scope: solvers
+  implementation_target:
+  - config
+  - Python validator
+  - tests
+  validation_method: Manifest 中四类字段缺失或混用则 FAIL。
+  rule_origin: recommended_synthesis
+  priority: P0
+- rule_id: NUM-INTERVAL-001
+  description: 事件时刻、最小可行参数和全局峰值必须报告括号/置信区间或邻域复核，而非单点数字。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.21-28
+  - B pp.18-22
+  confidence: high
+  mandatory: true
+  scope: critical_results
+  implementation_target:
+  - SKILL.md
+  - template
+  - Python validator
+  validation_method: 临界结果对象需包含 lower、estimate、upper 或 left/right state；缺失即 FAIL。
+  rule_origin: recommended_synthesis
+  priority: P0
+default_display_policy:
+  ordinary_results: 4-6 significant digits
+  probabilities_rates: 3-4 decimals unless uncertainty requires more
+  solver_residuals: scientific notation with tolerance and norm definition
+  critical_parameters: estimate + bracket/uncertainty; high precision only in appendix
+  coordinates: consistent decimals per table and coordinate convention ID

@@ -1,0 +1,231 @@
+schema_version: '1.0'
+rules:
+- rule_id: WRITE-CLAIM-001
+  description: 每个结论按“发现—证据—机制/原因—限制”展开，不写只有形容词的结论。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A/B 结果与分析章节
+  confidence: high
+  mandatory: true
+  scope: results_analysis
+  implementation_target:
+  - SKILL.md
+  - template
+  - Python validator
+  validation_method: 结果段至少包含量化证据或图表引用，并包含机制或限制语句；否则警告。
+  rule_origin: recommended_synthesis
+  priority: P1
+- rule_id: WRITE-FIG-001
+  description: 图前说明为什么画，图后说明读出了什么；禁止仅写“结果如图所示”。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A/B 全文
+  confidence: high
+  mandatory: true
+  scope: figure_discussion
+  implementation_target:
+  - SKILL.md
+  - template
+  - Python validator
+  validation_method: 图引用后 250 字内必须出现趋势、比较、临界或机制词。
+  rule_origin: direct_observation
+  priority: P1
+- rule_id: WRITE-TABLE-001
+  description: 表后只解释最重要的 1-3 个比较，不逐格复述所有数字。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A/B 结果表后段落
+  confidence: high
+  mandatory: true
+  scope: table_discussion
+  implementation_target:
+  - SKILL.md
+  - template
+  - Python validator
+  validation_method: 表后文本与表值重复率过高且无比较/机制词则警告。
+  rule_origin: recommended_synthesis
+  priority: P2
+- rule_id: WRITE-FORMULA-001
+  description: 公式出现前说明目的，出现后定义变量、解释物理/统计意义并说明如何计算。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A/B 模型建立章节
+  confidence: high
+  mandatory: true
+  scope: equations
+  implementation_target:
+  - SKILL.md
+  - template
+  - Python validator
+  validation_method: 独立公式前后各 1 段检查；未定义符号或无解释则 FAIL。
+  rule_origin: direct_observation
+  priority: P1
+- rule_id: WRITE-ASSUME-001
+  description: 假设不得使用“为简化问题，假设……”作为唯一理由；必须写题面依据、尺度依据或后续敏感性验证。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.8-9
+  - B p.8
+  confidence: high
+  mandatory: true
+  scope: assumptions
+  implementation_target:
+  - SKILL.md
+  - Python validator
+  validation_method: 匹配“为简化”且 200 字内无依据/验证词则 FAIL。
+  rule_origin: reverse_constraint
+  priority: P0
+- rule_id: WRITE-SIGNIFICANT-001
+  description: “显著”“大幅”“明显优于”等词只有在统计检验、预先定义阈值或业务量级支持时使用。
+  source_files:
+  - 20260730_技能与论文资料包.zip/04_最近真实生成论文/main_v2.pdf
+  evidence_pages:
+  - C 结果分析多处
+  confidence: high
+  mandatory: true
+  scope: claims
+  implementation_target:
+  - SKILL.md
+  - Python validator
+  - tests
+  validation_method: 检测强度词并要求 claim_evidence_id；无证据则 FAIL。
+  rule_origin: reverse_constraint
+  priority: P0
+- rule_id: WRITE-PROOF-001
+  description: 数值扫描只能支持“在所检区间和分辨率下未发现反例”，不得直接写“证明全局单调/全局最优”。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A/B 单调性与不变性论述
+  confidence: high
+  mandatory: true
+  scope: mathematical_claims
+  implementation_target:
+  - SKILL.md
+  - Python validator
+  validation_method: 出现“证明/定理/唯一/全局”时要求解析推导或形式化条件；仅数值证据则 FAIL。
+  rule_origin: reverse_constraint
+  priority: P0
+- rule_id: WRITE-PRECISION-001
+  description: “达到机器精度”“逐位可复现”必须限定为数值实现层面，并与模型误差、输入误差分开。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A p.1及多处
+  - B p.1
+  confidence: high
+  mandatory: true
+  scope: precision_claims
+  implementation_target:
+  - SKILL.md
+  - Python validator
+  validation_method: 精度词附近必须出现误差对象、范数、容差和适用层级。
+  rule_origin: reverse_constraint
+  priority: P0
+- rule_id: WRITE-AI-001
+  description: 限制高频套话：“值得注意的是”“进一步”“这说明”“从图中可以看出”不得机械重复。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 20260730_技能与论文资料包.zip/04_最近真实生成论文/main_v2.pdf
+  evidence_pages:
+  - 全文语言风格
+  confidence: medium
+  mandatory: false
+  scope: style
+  implementation_target:
+  - config
+  - Python validator
+  - documentation
+  validation_method: 每千字同一连接词超过 3 次则警告；自动润色时改为直接陈述证据。
+  rule_origin: recommended_synthesis
+  priority: P3
+- rule_id: WRITE-SENTENCE-001
+  description: 中文技术句优先 25-55 字，单句超过 90 字时拆分；定义和条件可例外。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 20260730_技能与论文资料包.zip/04_最近真实生成论文/main_v2.pdf
+  evidence_pages:
+  - A/B/C 全文
+  confidence: medium
+  mandatory: false
+  scope: style
+  implementation_target:
+  - config
+  - Python validator
+  validation_method: 句长分布统计；>90 字句占比超过 5% 警告。
+  rule_origin: recommended_synthesis
+  priority: P3
+- rule_id: WRITE-REPEAT-001
+  description: 摘要、章节结尾和总评不得重复同一段结论；同一数字可因不同目的引用，但须缩写并链接 quantity_id。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 20260730_技能与论文资料包.zip/04_最近真实生成论文/main_v2.pdf
+  evidence_pages:
+  - A/B/C 全文
+  confidence: high
+  mandatory: true
+  scope: style_and_consistency
+  implementation_target:
+  - Python validator
+  - tests
+  validation_method: 段落相似度与数字重复扫描；高相似段落无不同功能标签则警告。
+  rule_origin: recommended_synthesis
+  priority: P2
+- rule_id: WRITE-LIMIT-001
+  description: 模型不足必须写明受影响的结论、可能偏差方向和补救实验，不写“模型仍有提升空间”。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 20260730_技能与论文资料包.zip/04_最近真实生成论文/main_v2.pdf
+  evidence_pages:
+  - A pp.47
+  - B p.35
+  - C pp.20-21
+  confidence: high
+  mandatory: true
+  scope: limitations
+  implementation_target:
+  - SKILL.md
+  - template
+  - Python validator
+  validation_method: 每条不足包含 impact、direction 或 mitigation 至少两项。
+  rule_origin: recommended_synthesis
+  priority: P1
+- rule_id: WRITE-REF-001
+  description: 方法来源、背景事实和非原创定理必须引用；纯题面信息、本文数值结果和常识性代数不强行引用。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A 20 refs
+  - B 12 refs
+  confidence: high
+  mandatory: true
+  scope: citations
+  implementation_target:
+  - SKILL.md
+  - Python validator
+  - tests
+  validation_method: 引用位置分类审计；引用与句子语义不匹配则 FAIL。
+  rule_origin: recommended_synthesis
+  priority: P0
+templates:
+  result_paragraph: 本模型得到【结果】。与【基线/边界】相比，【量化差异】；该差异主要由【机制】造成。该结论在【验证/敏感性】下保持/不保持，并受【限制】约束。
+  figure_after: 图X显示【主趋势】；在【区间/对象】处出现【关键事件】，对应数值为【量】。其原因是【机制】，而非仅由绘图尺度造成。
+  table_after: 表X中最重要的比较是【A vs B】和【C vs D】。前者说明【结论】，后者暴露【限制/权衡】；其余完整结果见附件。
+  sensitivity: 将【参数】在【范围】内扰动后，【输出】的方向/幅度为【结果】。响应是否单调、是否跨越决策阈值，以及结论是否改变，应分别说明。

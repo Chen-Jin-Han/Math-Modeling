@@ -1,0 +1,620 @@
+[
+  {
+    "case_id": "CASE-C-0001",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "TIME_SPLIT_AUDIT"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "challenge_noise": 0.65,
+        "split_strategy": "random"
+      },
+      "fault_type": "TIME_SPLIT",
+      "faults": [
+        "TIME_SPLIT"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "random"
+    },
+    "partition": "challenge",
+    "seed": 20260814
+  },
+  {
+    "case_id": "CASE-C-0002",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "TIME_SPLIT_AUDIT"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "challenge_noise": 0.65,
+        "split_strategy": "random"
+      },
+      "fault_type": "TIME_SPLIT",
+      "faults": [
+        "TIME_SPLIT"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "random"
+    },
+    "partition": "challenge",
+    "seed": 20260915
+  },
+  {
+    "case_id": "CASE-C-0003",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "TIME_SPLIT_AUDIT"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "challenge_noise": 0.65,
+        "split_strategy": "random"
+      },
+      "fault_type": "TIME_SPLIT",
+      "faults": [
+        "TIME_SPLIT"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "random"
+    },
+    "partition": "challenge",
+    "seed": 20261016
+  },
+  {
+    "case_id": "CASE-C-0004",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "LEAKAGE_CHALLENGE"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "challenge_noise": 0.65,
+        "positive_offset_count": 1
+      },
+      "fault_type": "FEATURE_LEAKAGE",
+      "faults": [
+        "FEATURE_LEAKAGE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        1
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "challenge",
+    "seed": 20270814
+  },
+  {
+    "case_id": "CASE-C-0005",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "LEAKAGE_CHALLENGE"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "challenge_noise": 0.65,
+        "positive_offset_count": 1
+      },
+      "fault_type": "FEATURE_LEAKAGE",
+      "faults": [
+        "FEATURE_LEAKAGE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        1
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "challenge",
+    "seed": 20270915
+  },
+  {
+    "case_id": "CASE-C-0006",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "LEAKAGE_CHALLENGE"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "challenge_noise": 0.65,
+        "positive_offset_count": 1
+      },
+      "fault_type": "FEATURE_LEAKAGE",
+      "faults": [
+        "FEATURE_LEAKAGE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        1
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "challenge",
+    "seed": 20271016
+  },
+  {
+    "case_id": "CASE-C-0007",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "HIGH_LOAD_SUBSET_EVALUATION"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "challenge_noise": 0.65,
+        "peak_error_shift": 13.6
+      },
+      "fault_type": "PEAK_FAILURE",
+      "faults": [
+        "PEAK_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": true,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "challenge",
+    "seed": 20280814
+  },
+  {
+    "case_id": "CASE-C-0008",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "HIGH_LOAD_SUBSET_EVALUATION"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "challenge_noise": 0.65,
+        "peak_error_shift": 10.0
+      },
+      "fault_type": "PEAK_FAILURE",
+      "faults": [
+        "PEAK_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": true,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "challenge",
+    "seed": 20280915
+  },
+  {
+    "case_id": "CASE-C-0009",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "HIGH_LOAD_SUBSET_EVALUATION"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "challenge_noise": 0.65,
+        "peak_error_shift": 10.9
+      },
+      "fault_type": "PEAK_FAILURE",
+      "faults": [
+        "PEAK_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": true,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "challenge",
+    "seed": 20281016
+  },
+  {
+    "case_id": "CASE-C-0010",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "causal_baseline_margin": "non-positive",
+        "challenge_noise": 0.65
+      },
+      "fault_type": "BASELINE_FAILURE",
+      "faults": [
+        "BASELINE_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "challenge",
+    "seed": 20290814
+  },
+  {
+    "case_id": "CASE-C-0011",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "causal_baseline_margin": "non-positive",
+        "challenge_noise": 0.65
+      },
+      "fault_type": "BASELINE_FAILURE",
+      "faults": [
+        "BASELINE_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "challenge",
+    "seed": 20290915
+  },
+  {
+    "case_id": "CASE-C-0012",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "causal_baseline_margin": "non-positive",
+        "challenge_noise": 0.65
+      },
+      "fault_type": "BASELINE_FAILURE",
+      "faults": [
+        "BASELINE_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "challenge",
+    "seed": 20291016
+  },
+  {
+    "case_id": "CASE-C-0013",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "LEAKAGE_CHALLENGE",
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "causal_baseline_margin": "non-positive",
+        "challenge_noise": 0.65,
+        "positive_offset_count": 1
+      },
+      "fault_type": "MULTI_FAULT",
+      "faults": [
+        "FEATURE_LEAKAGE",
+        "BASELINE_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        2
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "challenge",
+    "seed": 20300814
+  },
+  {
+    "case_id": "CASE-C-0014",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "LEAKAGE_CHALLENGE",
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "causal_baseline_margin": "non-positive",
+        "challenge_noise": 0.65,
+        "positive_offset_count": 1
+      },
+      "fault_type": "MULTI_FAULT",
+      "faults": [
+        "FEATURE_LEAKAGE",
+        "BASELINE_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        2
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "challenge",
+    "seed": 20300915
+  },
+  {
+    "case_id": "CASE-C-0015",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "LEAKAGE_CHALLENGE",
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "causal_baseline_margin": "non-positive",
+        "challenge_noise": 0.65,
+        "positive_offset_count": 1
+      },
+      "fault_type": "MULTI_FAULT",
+      "faults": [
+        "FEATURE_LEAKAGE",
+        "BASELINE_FAILURE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        2
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "challenge",
+    "seed": 20301016
+  },
+  {
+    "case_id": "CASE-C-0016",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "READY_FOR_REVIEW",
+      "fault_parameters": {
+        "challenge_noise": 0.65
+      },
+      "fault_type": "CLEAN",
+      "faults": [
+        "CLEAN"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "challenge",
+    "seed": 20310814
+  },
+  {
+    "case_id": "CASE-C-0017",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "READY_FOR_REVIEW",
+      "fault_parameters": {
+        "challenge_noise": 0.65
+      },
+      "fault_type": "CLEAN",
+      "faults": [
+        "CLEAN"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "challenge",
+    "seed": 20310915
+  },
+  {
+    "case_id": "CASE-C-0018",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "BASELINE_COMPARISON"
+      ],
+      "expected_gate": "READY_FOR_REVIEW",
+      "fault_parameters": {
+        "challenge_noise": 0.65
+      },
+      "fault_type": "CLEAN",
+      "faults": [
+        "CLEAN"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": false,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "challenge",
+    "seed": 20311016
+  },
+  {
+    "case_id": "CASE-C-0019",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "HIGH_LOAD_SUBSET_EVALUATION"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "boundary_side": "above",
+        "challenge_noise": 0.65,
+        "peak_error_shift": 4.5
+      },
+      "fault_type": "BORDERLINE",
+      "faults": [
+        "BORDERLINE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": true,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "challenge",
+    "seed": 20320814
+  },
+  {
+    "case_id": "CASE-C-0020",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "HIGH_LOAD_SUBSET_EVALUATION"
+      ],
+      "expected_gate": "READY_FOR_REVIEW",
+      "fault_parameters": {
+        "boundary_side": "below",
+        "challenge_noise": 0.65,
+        "peak_error_shift": 3.8
+      },
+      "fault_type": "BORDERLINE",
+      "faults": [
+        "BORDERLINE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": true,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "challenge",
+    "seed": 20320915
+  },
+  {
+    "case_id": "CASE-C-0021",
+    "ground_truth": {
+      "acceptable_first_experiments": [
+        "HIGH_LOAD_SUBSET_EVALUATION"
+      ],
+      "expected_gate": "BLOCKED",
+      "fault_parameters": {
+        "boundary_side": "above",
+        "challenge_noise": 0.65,
+        "peak_error_shift": 4.5
+      },
+      "fault_type": "BORDERLINE",
+      "faults": [
+        "BORDERLINE"
+      ]
+    },
+    "input_summary": {
+      "feature_origin_offsets": [
+        0,
+        -1,
+        -24
+      ],
+      "high_load_watch": true,
+      "period_count": 96,
+      "split_strategy": "chronological"
+    },
+    "partition": "challenge",
+    "seed": 20321016
+  }
+]

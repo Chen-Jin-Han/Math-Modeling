@@ -1,0 +1,12 @@
+schema_version: 1
+id: cumcm-2020-a
+competition: CUMCM
+year: 2020
+problem_code: A
+title: 炉温曲线
+official_source: https://www.mcm.edu.cn/html_cn/node/10405905647c52abfd6377c0311632b5.html
+archetypes: [physical-modeling, parameter-estimation, optimization]
+capabilities: [heat-transfer-model, ode-solver, constrained-optimization]
+baseline: 分段恒温与固定传送速度下的一阶热惯性模型
+validation_targets: [温区边界连续性, 峰值温度约束, 高温持续时间, 曲线面积约束]
+known_failure_modes: [温区坐标与时间换算错误, 只优化峰值不检查全过程约束, 参数拟合后不做留出验证]

@@ -1,0 +1,396 @@
+schema_version: '1.0'
+profile_name: cumcm-agent-paper-v1
+sources:
+- 国赛24年Aclaudeopus5直出(1).pdf
+- 24Afable5直出(1).pdf
+- 20260730_技能与论文资料包.zip/04_最近真实生成论文/main_v2.pdf
+- 20260730_技能与论文资料包.zip/01_当前主Skill/SKILL.md
+rules:
+- rule_id: LAYOUT-PAGE-001
+  description: 默认采用 A4 纵向单栏；赛事模板另有强制要求时以赛事模板覆盖。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 20260730_技能与论文资料包.zip/04_最近真实生成论文/main_v2.pdf
+  evidence_pages:
+  - A/B/C 全文 PDF 元数据
+  confidence: high
+  mandatory: true
+  scope: paper
+  implementation_target:
+  - config
+  - template
+  - Python validator
+  - tests
+  validation_method: 读取 PDF MediaBox；必须为约 595.28×841.89 pt 且 rotation=0。
+  rule_origin: direct_observation
+  priority: P1
+  observed:
+    page_size_pt:
+    - 595.28
+    - 841.89
+- rule_id: LAYOUT-MARGIN-001
+  description: 目标版心左右边距采用约 25 mm；不得直接沿用当前样例约 31.7 mm 的窄版心。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 20260730_技能与论文资料包.zip/04_最近真实生成论文/main_v2.pdf
+  evidence_pages:
+  - A pp.5-47
+  - B pp.5-35
+  - C pp.4-21
+  confidence: high
+  mandatory: true
+  scope: body
+  implementation_target:
+  - config
+  - template
+  - Python validator
+  - tests
+  validation_method: 抽取正文行 bbox；中位 x0、page_width-x1 应在 68-74 pt。
+  rule_origin: recommended_synthesis
+  priority: P1
+  value_estimate:
+    left_right_mm:
+    - 24.0
+    - 26.0
+    observed_A_B_text_x_pt:
+    - 70.87
+    - 524.41
+    current_C_text_x_pt:
+    - 89.86
+    - 505.41
+- rule_id: LAYOUT-MARGIN-002
+  description: 正文顶部有效起始位置约 25 mm；底部正文须为页码和脚注保留稳定空间。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A/B 正文章节起始页及普通正文页
+  confidence: medium
+  mandatory: false
+  scope: body
+  implementation_target:
+  - config
+  - template
+  - Python validator
+  validation_method: 抽取正文首行与末行位置；首行 y0 建议 68-78 pt，正文不得压入页码区。
+  rule_origin: recommended_synthesis
+  priority: P2
+  value_estimate:
+    top_mm:
+    - 24
+    - 27
+    bottom_safe_mm:
+    - 25
+    - 32
+- rule_id: LAYOUT-FONT-001
+  description: 中文正文使用宋体，西文和数字使用 Times New Roman 或数学字体；全文不得无理由混用多套正文家族。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A/B 全文字体清单与正文页
+  confidence: high
+  mandatory: true
+  scope: body
+  implementation_target:
+  - config
+  - template
+  - Python validator
+  - rendering pipeline
+  - tests
+  validation_method: pdffonts/文本 span 统计：正文中文主字体为 SimSun，拉丁主字体为 TimesNewRomanPSMT；缺失或混用超过阈值则 FAIL。
+  rule_origin: direct_observation
+  priority: P1
+- rule_id: LAYOUT-FONT-002
+  description: 正文基准字号为 12 pt；允许 11.5-12.1 pt 的编译误差，不得通过缩小正文解决超页。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A/B 全文正文 span
+  confidence: high
+  mandatory: true
+  scope: body
+  implementation_target:
+  - config
+  - template
+  - Python validator
+  - tests
+  validation_method: 正文中文字符按字数加权的主字号须在 11.5-12.1 pt。
+  rule_origin: direct_observation
+  priority: P1
+  observed:
+    A_B_body_pt: 12.005
+- rule_id: LAYOUT-LINE-001
+  description: 正文基线间距约 19.9 pt，相当于 12 pt 字号下约 1.65 倍；段落之间不额外堆积大空白。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 20260730_技能与论文资料包.zip/04_最近真实生成论文/main_v2.pdf
+  evidence_pages:
+  - A/B 正文页
+  - C 正文页
+  confidence: high
+  mandatory: true
+  scope: body
+  implementation_target:
+  - config
+  - template
+  - Python validator
+  validation_method: 抽取连续正文行 y0 差；中位值建议 19.0-20.7 pt。当前 C 约 21.67 pt 应被压缩。
+  rule_origin: recommended_synthesis
+  priority: P1
+  observed:
+    A_B_line_step_pt: 19.87
+    current_C_line_step_pt: 21.67
+- rule_id: LAYOUT-PARA-001
+  description: 正文两端对齐，首行缩进 2 个汉字；公式后续行、表后说明和列表可例外。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A/B 正文多页
+  confidence: high
+  mandatory: true
+  scope: body
+  implementation_target:
+  - template
+  - Python validator
+  - tests
+  validation_method: 比较段落首行 x0 与续行 x0；常规段落首行差约 2em，且行宽接近版心。
+  rule_origin: direct_observation
+  priority: P1
+- rule_id: LAYOUT-TITLE-001
+  description: 无强制封面时，第一页直接放置论文题目、摘要和关键词；不得自动生成装饰性封面。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 20260730_技能与论文资料包.zip/04_最近真实生成论文/main_v2.pdf
+  evidence_pages:
+  - A/B p.1
+  - C p.1-3
+  confidence: high
+  mandatory: false
+  scope: front_matter
+  implementation_target:
+  - SKILL.md
+  - config
+  - template
+  - Python validator
+  validation_method: 若赛事模板未要求封面，第一页必须包含题目与摘要；独立封面视为 FAIL。
+  rule_origin: recommended_synthesis
+  priority: P1
+- rule_id: LAYOUT-TITLE-002
+  description: 论文题目采用黑体约 16 pt、居中；摘要标题黑体约 14 pt、居中。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A/B p.1
+  confidence: high
+  mandatory: true
+  scope: front_matter
+  implementation_target:
+  - config
+  - template
+  - Python validator
+  validation_method: 解析首页 span：题目 15.5-16.5 pt；“摘要”13.5-14.5 pt；均水平居中。
+  rule_origin: direct_observation
+  priority: P1
+- rule_id: LAYOUT-HEAD-001
+  description: 一级标题采用黑体约 15 pt、居中，中文序号“X、标题”；不强制每个一级标题另起一页。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.5-47
+  - B pp.5-35
+  confidence: high
+  mandatory: true
+  scope: headings
+  implementation_target:
+  - config
+  - template
+  - Python validator
+  - tests
+  validation_method: 检测一级标题字号 14.5-15.5 pt、黑体、中心位置；赛事模板另有编号规范时覆盖。
+  rule_origin: direct_observation
+  priority: P1
+- rule_id: LAYOUT-HEAD-002
+  description: 二级、三级标题采用左对齐黑体约 12 pt；层级深度原则上不超过三级。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.5-47
+  - B pp.5-35
+  confidence: high
+  mandatory: true
+  scope: headings
+  implementation_target:
+  - config
+  - template
+  - Python validator
+  validation_method: 解析标题编号与字体；检测超过三级的正文标题并警告。
+  rule_origin: recommended_synthesis
+  priority: P1
+- rule_id: LAYOUT-HEAD-003
+  description: 任何标题后必须至少容纳两行正文或一个不可拆分图表块；不得把孤立标题留在页底。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - 多处章节标题位于页面中下部
+  confidence: high
+  mandatory: true
+  scope: pagination
+  implementation_target:
+  - template
+  - Python validator
+  - tests
+  validation_method: 标题 bbox 距页底不足“标题+2行正文”高度且下一块在下一页则 FAIL。
+  rule_origin: reverse_constraint
+  priority: P1
+- rule_id: LAYOUT-TOC-001
+  description: 目录在摘要之后单独起页，列至二级标题；仅当三级标题承担独立推导或算法模块时才列三级。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 20260730_技能与论文资料包.zip/04_最近真实生成论文/main_v2.pdf
+  evidence_pages:
+  - A/B pp.2-4
+  - C 未见目录
+  confidence: high
+  mandatory: true
+  scope: front_matter
+  implementation_target:
+  - SKILL.md
+  - template
+  - Python validator
+  - tests
+  validation_method: 检查书签/目录页；摘要后须存在目录，页码与正文标题抽检一致。
+  rule_origin: recommended_synthesis
+  priority: P1
+- rule_id: LAYOUT-REF-001
+  description: 参考文献必须单独起页，不得像两份样稿一样在正文或上一节后半页直接开始。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A p.48
+  - B p.36
+  confidence: high
+  mandatory: true
+  scope: references
+  implementation_target:
+  - template
+  - Python validator
+  - tests
+  validation_method: “参考文献”标题 y0 应位于页面上部指定区间，且该页标题前不得有正文内容。
+  rule_origin: reverse_constraint
+  priority: P1
+- rule_id: LAYOUT-APP-001
+  description: 附录必须单独起页；每个一级附录均使用独立编号并进入目录。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A p.50
+  - B p.37
+  confidence: high
+  mandatory: true
+  scope: appendix
+  implementation_target:
+  - template
+  - Python validator
+  - tests
+  validation_method: 附录标题页标题前无参考文献条目；目录编号与实际附录编号一致。
+  rule_origin: reverse_constraint
+  priority: P1
+- rule_id: LAYOUT-CODE-001
+  description: 论文附录中的代码字号不得低于 7.5 pt；样稿中 5.5/6.5 pt 的完整源码排法只作为反例。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 20260730_技能与论文资料包.zip/04_最近真实生成论文/main_v2.pdf
+  evidence_pages:
+  - A pp.52-95
+  - B pp.37-64
+  - C pp.24-32
+  confidence: high
+  mandatory: true
+  scope: appendix_code
+  implementation_target:
+  - config
+  - template
+  - rendering pipeline
+  - Python validator
+  validation_method: 解析等宽字体 span；主代码字号 <7.5 pt 则 FAIL。
+  rule_origin: reverse_constraint
+  priority: P1
+  observed:
+    A_code_pt: 5.5
+    B_code_pt: 6.5
+    C_code_pt: 10.46
+- rule_id: LAYOUT-CODE-002
+  description: 代码块使用等宽字体、浅灰背景、行号可选；禁止横向溢出和函数被无意义截断。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 20260730_技能与论文资料包.zip/04_最近真实生成论文/main_v2.pdf
+  evidence_pages:
+  - A/B/C 代码附录
+  confidence: high
+  mandatory: true
+  scope: appendix_code
+  implementation_target:
+  - config
+  - template
+  - rendering pipeline
+  - Python validator
+  validation_method: 检查代码 bbox 不越过版心；长行必须换行或在提交包中保留，PDF 中不缩字救场。
+  rule_origin: recommended_synthesis
+  priority: P1
+- rule_id: LAYOUT-PAGENO-001
+  description: 页码置于底部居中，摘要页可计页码；封面是否计页依赛事模板。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 20260730_技能与论文资料包.zip/04_最近真实生成论文/main_v2.pdf
+  evidence_pages:
+  - A/B/C 全文
+  confidence: high
+  mandatory: true
+  scope: pagination
+  implementation_target:
+  - template
+  - Python validator
+  validation_method: 每页底部中心附近检测唯一页码；连续性与目录页码一致。
+  rule_origin: direct_observation
+  priority: P2
+- rule_id: LAYOUT-DENSITY-001
+  description: 正文版面密度以每页约 700-900 个非空字符或等效图表信息为目标，不得通过大留白制造“完成感”。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 20260730_技能与论文资料包.zip/04_最近真实生成论文/main_v2.pdf
+  evidence_pages:
+  - A body pp.5-47
+  - B body pp.5-35
+  - C body pp.4-21
+  confidence: medium
+  mandatory: false
+  scope: body
+  implementation_target:
+  - config
+  - Python validator
+  - documentation
+  validation_method: 按正文页计算字符数和墨迹率；连续 3 页低于 450 字且无占版心 30% 以上图表则警告。
+  rule_origin: recommended_synthesis
+  priority: P2
+  observed:
+    A_mean_chars: 817
+    B_mean_chars: 764
+    C_mean_chars: 639

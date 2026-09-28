@@ -1,0 +1,692 @@
+schema_version: '1.0'
+rules:
+- rule_id: MODEL-PATTERN-001
+  description: 算法模式卡：共用内核与依赖图
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.6-15
+  - B pp.6-11
+  confidence: high
+  mandatory: false
+  scope: modeling_pattern
+  implementation_target:
+  - SKILL.md
+  - config
+  - documentation
+  - tests
+  validation_method: 按卡片的 required_validation 自动生成并执行；任一强制验证失败则该模式不得输出“已验证”。
+  rule_origin: direct_observation
+  priority: P0
+  method_name: 共用内核与依赖图
+  problem_type: 多子问题共享状态/约束/工具
+  trigger_conditions:
+  - 至少两个子问题复用同一状态或判据
+  inputs:
+  - 题目结构
+  - 子问题输入输出
+  outputs:
+  - 依赖图
+  - 统一接口
+  preconditions:
+  - 复用逻辑可抽象且口径一致
+  recommended_algorithm: 先建依赖 DAG，再定义共用接口
+  alternative_algorithm: 每问独立实现
+  major_failure_modes:
+  - 重复代码导致口径漂移
+  - 局部修改不一致
+  required_validation:
+  - 接口合同测试
+  - 跨问题同源判据测试
+  recommended_figures:
+  - 总体技术路线图
+  transferable_tasks:
+  - 多阶段预测
+  - 优化-仿真联动
+  - 供应链/交通/排队
+- rule_id: MODEL-PATTERN-002
+  description: 算法模式卡：一维主参数化
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.6,13
+  - B pp.6,9
+  confidence: high
+  mandatory: false
+  scope: modeling_pattern
+  implementation_target:
+  - SKILL.md
+  - config
+  - documentation
+  - tests
+  validation_method: 按卡片的 required_validation 自动生成并执行；任一强制验证失败则该模式不得输出“已验证”。
+  rule_origin: direct_observation
+  priority: P1
+  method_name: 一维主参数化
+  problem_type: 高维构型由单一进度参数决定
+  trigger_conditions:
+  - 对象沿共同路径/时间/累积量演化
+  inputs:
+  - 路径或状态映射
+  - 主参数
+  outputs:
+  - 统一状态接口
+  preconditions:
+  - 状态对主参数单值或分支可控
+  recommended_algorithm: 弧长/时间/累计量参数化
+  alternative_algorithm: 直接多维联立
+  major_failure_modes:
+  - 多值分支
+  - 参数不单调
+  - 接点不连续
+  required_validation:
+  - 单值性/连续性检查
+  - 接点残差
+  recommended_figures:
+  - 参数路径示意
+  transferable_tasks:
+  - 运动链
+  - 生产流程
+  - 库存演化
+- rule_id: MODEL-PATTERN-003
+  description: 算法模式卡：闭式表达+数值反解
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.13,16
+  - B pp.9-10
+  confidence: high
+  mandatory: false
+  scope: modeling_pattern
+  implementation_target:
+  - SKILL.md
+  - config
+  - documentation
+  - tests
+  validation_method: 按卡片的 required_validation 自动生成并执行；任一强制验证失败则该模式不得输出“已验证”。
+  rule_origin: direct_observation
+  priority: P1
+  method_name: 闭式表达+数值反解
+  problem_type: 正向映射有解析式但逆函数无闭式
+  trigger_conditions:
+  - 正向函数连续且单调或可分段
+  inputs:
+  - 目标值
+  - 正向函数
+  - 导数/括号
+  outputs:
+  - 反解与残差
+  preconditions:
+  - 根存在且可括住
+  recommended_algorithm: 有括号 Brent；良好初值时 Newton
+  alternative_algorithm: 数值积分逐步推进
+  major_failure_modes:
+  - 无括号
+  - 牛顿越界
+  - 把容差当误差
+  required_validation:
+  - 双侧括号
+  - 替代算法复核
+  - 残差与状态误差
+  recommended_figures:
+  - 收敛曲线
+  transferable_tasks:
+  - 分位数反解
+  - 累计分布
+  - 时间-距离转换
+- rule_id: MODEL-PATTERN-004
+  description: 算法模式卡：链式约束递推
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.13-15
+  - B pp.10-11
+  confidence: high
+  mandatory: false
+  scope: modeling_pattern
+  implementation_target:
+  - SKILL.md
+  - config
+  - documentation
+  - tests
+  validation_method: 按卡片的 required_validation 自动生成并执行；任一强制验证失败则该模式不得输出“已验证”。
+  rule_origin: direct_observation
+  priority: P0
+  method_name: 链式约束递推
+  problem_type: 相邻对象以固定约束连接
+  trigger_conditions:
+  - 链拓扑且每步局部未知维度低
+  inputs:
+  - 前节点状态
+  - 局部约束
+  outputs:
+  - 全链状态
+  preconditions:
+  - 物理解分支唯一或可识别
+  recommended_algorithm: 逐节括号求根/投影递推
+  alternative_algorithm: 一次性高维求解
+  major_failure_modes:
+  - 错误分支
+  - 误差累积
+  - 下标偏移
+  required_validation:
+  - 局部约束残差
+  - 顺序/拓扑断言
+  - 全链闭合
+  recommended_figures:
+  - 链式几何图
+  - 残差热图
+  transferable_tasks:
+  - 机械链
+  - 车辆编队
+  - 多阶段库存
+- rule_id: MODEL-PATTERN-005
+  description: 算法模式卡：解析约束速度/导数传播
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A p.15
+  - B p.11
+  confidence: high
+  mandatory: false
+  scope: modeling_pattern
+  implementation_target:
+  - SKILL.md
+  - config
+  - documentation
+  - tests
+  validation_method: 按卡片的 required_validation 自动生成并执行；任一强制验证失败则该模式不得输出“已验证”。
+  rule_origin: direct_observation
+  priority: P0
+  method_name: 解析约束速度/导数传播
+  problem_type: 最终导数量可由约束微分得到
+  trigger_conditions:
+  - 状态满足可微约束
+  inputs:
+  - 状态
+  - 切向/雅可比
+  - 边界速度
+  outputs:
+  - 全系统导数
+  preconditions:
+  - 雅可比非奇异
+  recommended_algorithm: 解析递推或隐函数微分
+  alternative_algorithm: 有限差分
+  major_failure_modes:
+  - 奇异分母
+  - 差分吞峰
+  - 符号错误
+  required_validation:
+  - 奇异性阈值
+  - 中心差分仅作复核
+  - 尺度测试
+  recommended_figures:
+  - 速度分布图
+  transferable_tasks:
+  - 灵敏度传播
+  - 约束系统
+  - 动态网络
+- rule_id: MODEL-PATTERN-006
+  description: 算法模式卡：实体几何+粗筛精判
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.15,20-23
+  - B pp.17-19
+  confidence: high
+  mandatory: false
+  scope: modeling_pattern
+  implementation_target:
+  - SKILL.md
+  - config
+  - documentation
+  - tests
+  validation_method: 按卡片的 required_validation 自动生成并执行；任一强制验证失败则该模式不得输出“已验证”。
+  rule_origin: direct_observation
+  priority: P0
+  method_name: 实体几何+粗筛精判
+  problem_type: 碰撞/覆盖/相交不能退化为点距
+  trigger_conditions:
+  - 对象有不可忽略尺寸和方向
+  inputs:
+  - 实体几何
+  - 候选对象对
+  outputs:
+  - 带符号间隙/相交状态
+  preconditions:
+  - 几何模型与题意一致
+  recommended_algorithm: 包围体粗筛 + SAT/GJK/精确距离
+  alternative_algorithm: 中心距阈值
+  major_failure_modes:
+  - 实体被缩短
+  - 相邻对象误判
+  - 粗筛漏判
+  required_validation:
+  - 朴素全对照
+  - 临界局部图
+  - 尺寸敏感性
+  recommended_figures:
+  - 全局+局部碰撞图
+  transferable_tasks:
+  - 装载布局
+  - 机器人路径
+  - 设施布置
+- rule_id: MODEL-PATTERN-007
+  description: 算法模式卡：带符号事件函数
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.20-22
+  - B pp.17-19
+  confidence: high
+  mandatory: false
+  scope: modeling_pattern
+  implementation_target:
+  - SKILL.md
+  - config
+  - documentation
+  - tests
+  validation_method: 按卡片的 required_validation 自动生成并执行；任一强制验证失败则该模式不得输出“已验证”。
+  rule_origin: direct_observation
+  priority: P0
+  method_name: 带符号事件函数
+  problem_type: 首次事件需要连续可求根判据
+  trigger_conditions:
+  - 离散事件可表示为连续量过零
+  inputs:
+  - 状态映射
+  - 符号约定
+  outputs:
+  - 事件时刻/参数
+  preconditions:
+  - 事件函数连续或分段连续
+  recommended_algorithm: 粗扫找首个变号+局部求根
+  alternative_algorithm: 只做布尔二分
+  major_failure_modes:
+  - 函数非单调
+  - 擦肩未变号
+  - 找到后续事件
+  required_validation:
+  - 首个括号审计
+  - 双侧状态
+  - 步长减半
+  recommended_figures:
+  - 事件函数曲线+局部放大
+  transferable_tasks:
+  - 碰撞
+  - 失稳
+  - 阈值越界
+  - 约束激活
+- rule_id: MODEL-PATTERN-008
+  description: 算法模式卡：嵌套极小-外层求根
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.24-28
+  - B pp.20-22
+  confidence: high
+  mandatory: false
+  scope: modeling_pattern
+  implementation_target:
+  - SKILL.md
+  - config
+  - documentation
+  - tests
+  validation_method: 按卡片的 required_validation 自动生成并执行；任一强制验证失败则该模式不得输出“已验证”。
+  rule_origin: direct_observation
+  priority: P0
+  method_name: 嵌套极小-外层求根
+  problem_type: 参数可行性由全过程最坏状态决定
+  trigger_conditions:
+  - 目标是最小可行参数
+  inputs:
+  - 参数
+  - 内层事件/间隙函数
+  outputs:
+  - 临界参数
+  preconditions:
+  - 外层可行集结构已验证
+  recommended_algorithm: 内层全局/多谷搜索 + 外层 Brent/二分
+  alternative_algorithm: 只检查终点
+  major_failure_modes:
+  - 漏掉中途极小
+  - 内层网格噪声
+  - 伪单调
+  required_validation:
+  - 局部极小枚举
+  - 外层翻转次数
+  - 两层容差分离
+  recommended_figures:
+  - 可行性曲线
+  - 临界构型
+  transferable_tasks:
+  - 安全裕度设计
+  - 容量配置
+  - 鲁棒阈值
+- rule_id: MODEL-PATTERN-009
+  description: 算法模式卡：单调性验证后搜索
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.24-26
+  - B pp.20-21
+  confidence: high
+  mandatory: false
+  scope: modeling_pattern
+  implementation_target:
+  - SKILL.md
+  - config
+  - documentation
+  - tests
+  validation_method: 按卡片的 required_validation 自动生成并执行；任一强制验证失败则该模式不得输出“已验证”。
+  rule_origin: recommended_synthesis
+  priority: P0
+  method_name: 单调性验证后搜索
+  problem_type: 二分/Brent 依赖可行性单调
+  trigger_conditions:
+  - 要用单调搜索但理论不显然
+  inputs:
+  - 参数采样
+  - 可行性判据
+  outputs:
+  - 单调证据
+  - 搜索括号
+  preconditions:
+  - 采样范围覆盖决策域
+  recommended_algorithm: 解析证明优先；数值翻转检查辅助
+  alternative_algorithm: 盲目二分
+  major_failure_modes:
+  - 可行集有空洞
+  - 参数改变几何结构
+  required_validation:
+  - 符号翻转次数
+  - 反例搜索
+  - 局部加密
+  recommended_figures:
+  - 可行域图
+  transferable_tasks:
+  - 阈值标定
+  - 容量选择
+  - 正则化参数
+- rule_id: MODEL-PATTERN-010
+  description: 算法模式卡：对称性与不变量降维
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.29-35
+  - B pp.22-27
+  confidence: high
+  mandatory: false
+  scope: modeling_pattern
+  implementation_target:
+  - SKILL.md
+  - config
+  - documentation
+  - tests
+  validation_method: 按卡片的 required_validation 自动生成并执行；任一强制验证失败则该模式不得输出“已验证”。
+  rule_origin: direct_observation
+  priority: P1
+  method_name: 对称性与不变量降维
+  problem_type: 几何/模型存在群对称或尺度齐次
+  trigger_conditions:
+  - 输入/约束对称
+  inputs:
+  - 对称变换
+  - 不变量
+  outputs:
+  - 减少变量的解析关系
+  preconditions:
+  - 对称未被边界/数据破坏
+  recommended_algorithm: 解析消元和不变量证明
+  alternative_algorithm: 数值拟合所有参数
+  major_failure_modes:
+  - 伪对称
+  - 边界破坏
+  - 数值常数误判定理
+  required_validation:
+  - 变换前后残差
+  - 多参数扫描只作辅助
+  recommended_figures:
+  - 几何对称示意
+  transferable_tasks:
+  - 网络流
+  - 路径设计
+  - 物理系统
+- rule_id: MODEL-PATTERN-011
+  description: 算法模式卡：线性齐次缩放
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.15,36-40
+  - B pp.29-32
+  confidence: high
+  mandatory: false
+  scope: modeling_pattern
+  implementation_target:
+  - SKILL.md
+  - config
+  - documentation
+  - tests
+  validation_method: 按卡片的 required_validation 自动生成并执行；任一强制验证失败则该模式不得输出“已验证”。
+  rule_origin: direct_observation
+  priority: P1
+  method_name: 线性齐次缩放
+  problem_type: 输出对控制量线性缩放
+  trigger_conditions:
+  - 构型与幅值分离
+  inputs:
+  - 单位幅值响应
+  - 上限
+  outputs:
+  - 闭式最大允许幅值
+  preconditions:
+  - 缩放不改变状态/时间域定义
+  recommended_algorithm: 单位输入求放大因子，再反解限值
+  alternative_algorithm: 对幅值反复搜索
+  major_failure_modes:
+  - 时间重标度遗漏
+  - 非线性饱和
+  - 状态依赖幅值
+  required_validation:
+  - 多幅值比值恒定
+  - 边界激活复算
+  recommended_figures:
+  - 放大因子曲线
+  transferable_tasks:
+  - 限速
+  - 载荷上限
+  - 剂量缩放
+- rule_id: MODEL-PATTERN-012
+  description: 算法模式卡：多分支上包络峰值
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.36-40
+  - B pp.29-32
+  confidence: high
+  mandatory: false
+  scope: modeling_pattern
+  implementation_target:
+  - SKILL.md
+  - config
+  - documentation
+  - tests
+  validation_method: 按卡片的 required_validation 自动生成并执行；任一强制验证失败则该模式不得输出“已验证”。
+  rule_origin: recommended_synthesis
+  priority: P0
+  method_name: 多分支上包络峰值
+  problem_type: 全局约束由多对象最大值决定
+  trigger_conditions:
+  - 响应是分支 max/min
+  inputs:
+  - 各分支函数
+  - 事件/接点
+  outputs:
+  - 全局峰值与活跃分支
+  preconditions:
+  - 分支连续但上包络可折
+  recommended_algorithm: 粗扫候选窗+分支/接点细扫+独立网格
+  alternative_algorithm: 对上包络直接光滑优化
+  major_failure_modes:
+  - 折点漏峰
+  - 错误活跃分支
+  - 危险侧偏差
+  required_validation:
+  - 活跃分支记录
+  - 步长减半
+  - 边界/接点枚举
+  recommended_figures:
+  - 时空热图
+  - 峰值局部放大
+  transferable_tasks:
+  - 最坏个体风险
+  - 峰值载荷
+  - 多场景鲁棒优化
+- rule_id: MODEL-PATTERN-013
+  description: 算法模式卡：硬约束审计
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.41-43
+  - B p.33
+  confidence: high
+  mandatory: false
+  scope: modeling_pattern
+  implementation_target:
+  - SKILL.md
+  - config
+  - documentation
+  - tests
+  validation_method: 按卡片的 required_validation 自动生成并执行；任一强制验证失败则该模式不得输出“已验证”。
+  rule_origin: direct_observation
+  priority: P0
+  method_name: 硬约束审计
+  problem_type: 结果必须满足题面和模型不变量
+  trigger_conditions:
+  - 存在明确等式/不等式/输出合同
+  inputs:
+  - 结果
+  - 约束列表
+  outputs:
+  - 逐项 PASS/FAIL
+  preconditions:
+  - 约束可计算
+  recommended_algorithm: 独立 audit 模块与断言
+  alternative_algorithm: 正文口头确认
+  major_failure_modes:
+  - 只审抽样
+  - 阈值无来源
+  - 失败仍输出
+  required_validation:
+  - 全量或有证明的抽样
+  - 失败阻断
+  recommended_figures:
+  - 审计表/残差图
+  transferable_tasks:
+  - 所有数值建模题
+- rule_id: MODEL-PATTERN-014
+  description: 算法模式卡：独立算法交叉验证
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.42-44
+  - B p.33
+  confidence: high
+  mandatory: false
+  scope: modeling_pattern
+  implementation_target:
+  - SKILL.md
+  - config
+  - documentation
+  - tests
+  validation_method: 按卡片的 required_validation 自动生成并执行；任一强制验证失败则该模式不得输出“已验证”。
+  rule_origin: recommended_synthesis
+  priority: P0
+  method_name: 独立算法交叉验证
+  problem_type: 关键结论需要不同误差机制复核
+  trigger_conditions:
+  - 结果高风险或易受算法假设影响
+  inputs:
+  - 主算法结果
+  - 替代算法
+  outputs:
+  - 差异与解释
+  preconditions:
+  - 替代算法不能共享全部关键实现
+  recommended_algorithm: 解析 vs 数值/不同库/朴素 vs 加速
+  alternative_algorithm: 同一函数换求解器
+  major_failure_modes:
+  - 伪独立
+  - 共享 bug
+  - 只比残差
+  required_validation:
+  - 依赖图审计
+  - 独立数据路径
+  - 容差解释
+  recommended_figures:
+  - 算法对照/收敛图
+  transferable_tasks:
+  - 优化
+  - 仿真
+  - 预测
+  - 几何
+- rule_id: MODEL-PATTERN-015
+  description: 算法模式卡：敏感性与收敛性分离
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.44-46
+  - B pp.33-34
+  confidence: high
+  mandatory: false
+  scope: modeling_pattern
+  implementation_target:
+  - SKILL.md
+  - config
+  - documentation
+  - tests
+  validation_method: 按卡片的 required_validation 自动生成并执行；任一强制验证失败则该模式不得输出“已验证”。
+  rule_origin: recommended_synthesis
+  priority: P0
+  method_name: 敏感性与收敛性分离
+  problem_type: 参数不确定性和数值步长误差是两类问题
+  trigger_conditions:
+  - 模型含假设参数和离散步长
+  inputs:
+  - 基准结果
+  - 参数扰动
+  - 步长序列
+  outputs:
+  - 响应方向
+  - 收敛阶/稳定区间
+  preconditions:
+  - 扰动范围有依据
+  recommended_algorithm: 参数 OAT/局部/全局敏感性 + 网格收敛
+  alternative_algorithm: 只改一个数字看是否变化
+  major_failure_modes:
+  - 把步长当物理参数
+  - 只报稳定不解释
+  required_validation:
+  - 阈值是否跨越
+  - 方向合理性
+  - 步长减半
+  recommended_figures:
+  - 响应图
+  - 收敛表
+  transferable_tasks:
+  - 所有数值题

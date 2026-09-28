@@ -1,0 +1,5 @@
+FN,FP,TN,TP,strategy
+12,6,12,54,nova
+12,6,12,54,fixed-early-stop
+12,6,12,54,fixed-all
+66,0,18,0,surface-metric

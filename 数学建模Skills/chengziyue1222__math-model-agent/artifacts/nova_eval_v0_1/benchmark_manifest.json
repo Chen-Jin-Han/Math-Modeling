@@ -1,0 +1,58 @@
+{
+  "benchmark": "nova_eval_v0_1",
+  "case_manifest_hash": "2a870fb8f7b8e25a42ddaab3d8a1d6213a5a59b69ba407a12c27b45a9d9f9123",
+  "challenge_set_summary": {
+    "average_decision_cost": 1.542857,
+    "average_experiment_count": 1.285714,
+    "average_time_to_decisive_evidence": 1.285714,
+    "average_wall_seconds": 0.000407,
+    "confusion_matrix": {
+      "FN": 3,
+      "FP": 1,
+      "TN": 3,
+      "TP": 14
+    },
+    "evidence_traceability_rate": 1.0,
+    "f1": 0.875,
+    "false_block_rate": 0.0,
+    "fault_detection_rate": 0.823529,
+    "gate_accuracy": 0.809524,
+    "gate_traceability_rate": 1.0,
+    "n": 21,
+    "precision": 0.933333,
+    "recall": 0.823529,
+    "selection_efficiency": 0.777778,
+    "selection_regret": "DEFERRED: no independent oracle-cost model in v0.1",
+    "top1_selection_accuracy": 1.0,
+    "unnecessary_experiment_rate": 0.0
+  },
+  "configuration_hash": "65c1e1946f598cde6c8ef4fc26f135561e811c0a1426c64a82320d5795ae4eac",
+  "experiment_registry_hash": "3d60ae62ba7ad59eca6b5b487ed95c44cf677aa2d6ef7d1aa8f0f3a56205e950",
+  "figures": [
+    "01_gate_accuracy.png",
+    "02_average_experiments.png",
+    "03_average_decision_cost.png",
+    "04_nova_top1_by_fault.png",
+    "05_false_block_rate.png",
+    "06_experiment_count_distribution.png"
+  ],
+  "generated_cases": 84,
+  "partition": "hidden",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "protocol_version": "nova_core_v0_1",
+  "python": "3.14.2 (tags/v3.14.2:df79316, Dec  5 2025, 17:18:21) [MSC v.1944 64 bit (AMD64)]",
+  "reproducibility_check": {
+    "cases_checked": 7,
+    "logical_result_match_rate": 1.0,
+    "strategy_runs_checked": 28
+  },
+  "requested_cases": 84,
+  "rule_pack_reference": "VAL-GATE-002, VAL-GATE-006, VAL-GATE-012",
+  "seed": 20260810,
+  "strategies": [
+    "nova",
+    "fixed-early-stop",
+    "fixed-all",
+    "surface-metric"
+  ]
+}

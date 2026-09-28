@@ -1,0 +1,1514 @@
+[
+  {
+    "case_id": "CASE-H-0001",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "TIME_SPLIT",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0002",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "TIME_SPLIT",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0003",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "TIME_SPLIT",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0004",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "TIME_SPLIT",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0005",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "TIME_SPLIT",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0006",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "TIME_SPLIT",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0007",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "TIME_SPLIT",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0008",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "TIME_SPLIT",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0009",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "TIME_SPLIT",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0010",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "TIME_SPLIT",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0011",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "TIME_SPLIT",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0012",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "TIME_SPLIT",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0013",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "FEATURE_LEAKAGE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0014",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "FEATURE_LEAKAGE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0015",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "FEATURE_LEAKAGE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0016",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "FEATURE_LEAKAGE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0017",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "FEATURE_LEAKAGE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0018",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "FEATURE_LEAKAGE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0019",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "FEATURE_LEAKAGE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0020",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "FEATURE_LEAKAGE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0021",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "FEATURE_LEAKAGE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0022",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "FEATURE_LEAKAGE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0023",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "FEATURE_LEAKAGE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0024",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "FEATURE_LEAKAGE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0025",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "PEAK_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0026",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "PEAK_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0027",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "PEAK_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0028",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "PEAK_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0029",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "PEAK_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0030",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "PEAK_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0031",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "PEAK_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0032",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "PEAK_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0033",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "PEAK_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0034",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "PEAK_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0035",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "PEAK_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0036",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "PEAK_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0037",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "nova"
+  },
+  {
+    "case_id": "CASE-H-0037",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0037",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0037",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0038",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "nova"
+  },
+  {
+    "case_id": "CASE-H-0038",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0038",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0038",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0039",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "nova"
+  },
+  {
+    "case_id": "CASE-H-0039",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0039",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0039",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0040",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "nova"
+  },
+  {
+    "case_id": "CASE-H-0040",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0040",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0040",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0041",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "nova"
+  },
+  {
+    "case_id": "CASE-H-0041",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0041",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0041",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0042",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "nova"
+  },
+  {
+    "case_id": "CASE-H-0042",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0042",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0042",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0043",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "nova"
+  },
+  {
+    "case_id": "CASE-H-0043",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0043",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0043",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0044",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "nova"
+  },
+  {
+    "case_id": "CASE-H-0044",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0044",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0044",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0045",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "nova"
+  },
+  {
+    "case_id": "CASE-H-0045",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0045",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0045",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0046",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "nova"
+  },
+  {
+    "case_id": "CASE-H-0046",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0046",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0046",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0047",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "nova"
+  },
+  {
+    "case_id": "CASE-H-0047",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0047",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0047",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0048",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "nova"
+  },
+  {
+    "case_id": "CASE-H-0048",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0048",
+    "expected_gate": "BLOCKED",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0048",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "BASELINE_FAILURE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0049",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "MULTI_FAULT",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0050",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "MULTI_FAULT",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0051",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "MULTI_FAULT",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0052",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "MULTI_FAULT",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0053",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "MULTI_FAULT",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0054",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "MULTI_FAULT",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0055",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "MULTI_FAULT",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0056",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "MULTI_FAULT",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0057",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "MULTI_FAULT",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0058",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "MULTI_FAULT",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0059",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "MULTI_FAULT",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0060",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "MULTI_FAULT",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0061",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "SELECTION_FAILURE",
+    "fault_type": "CLEAN",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0061",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "SELECTION_FAILURE",
+    "fault_type": "CLEAN",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0062",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "SELECTION_FAILURE",
+    "fault_type": "CLEAN",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0062",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "SELECTION_FAILURE",
+    "fault_type": "CLEAN",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0063",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "SELECTION_FAILURE",
+    "fault_type": "CLEAN",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0063",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "SELECTION_FAILURE",
+    "fault_type": "CLEAN",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0064",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "SELECTION_FAILURE",
+    "fault_type": "CLEAN",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0064",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "SELECTION_FAILURE",
+    "fault_type": "CLEAN",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0065",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "SELECTION_FAILURE",
+    "fault_type": "CLEAN",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0065",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "SELECTION_FAILURE",
+    "fault_type": "CLEAN",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0066",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "SELECTION_FAILURE",
+    "fault_type": "CLEAN",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0066",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "SELECTION_FAILURE",
+    "fault_type": "CLEAN",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0067",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "SELECTION_FAILURE",
+    "fault_type": "CLEAN",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0067",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "SELECTION_FAILURE",
+    "fault_type": "CLEAN",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0068",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "SELECTION_FAILURE",
+    "fault_type": "CLEAN",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0068",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "SELECTION_FAILURE",
+    "fault_type": "CLEAN",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0069",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "SELECTION_FAILURE",
+    "fault_type": "CLEAN",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0069",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "SELECTION_FAILURE",
+    "fault_type": "CLEAN",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0070",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "SELECTION_FAILURE",
+    "fault_type": "CLEAN",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0070",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "SELECTION_FAILURE",
+    "fault_type": "CLEAN",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0071",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "SELECTION_FAILURE",
+    "fault_type": "CLEAN",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0071",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "SELECTION_FAILURE",
+    "fault_type": "CLEAN",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0072",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "SELECTION_FAILURE",
+    "fault_type": "CLEAN",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "ALL_REQUIRED_GAPS_CLOSED",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0072",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "SELECTION_FAILURE",
+    "fault_type": "CLEAN",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0073",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "GATE_ALREADY_DECIDABLE",
+    "strategy": "nova"
+  },
+  {
+    "case_id": "CASE-H-0073",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "GATE_ALREADY_DECIDABLE",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0073",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0073",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "AMBIGUOUS_CASE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0074",
+    "expected_gate": "BLOCKED",
+    "failure_type": "AMBIGUOUS_CASE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "GATE_ALREADY_DECIDABLE",
+    "strategy": "nova"
+  },
+  {
+    "case_id": "CASE-H-0074",
+    "expected_gate": "BLOCKED",
+    "failure_type": "AMBIGUOUS_CASE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "GATE_ALREADY_DECIDABLE",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0074",
+    "expected_gate": "BLOCKED",
+    "failure_type": "AMBIGUOUS_CASE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0074",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0075",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "GATE_ALREADY_DECIDABLE",
+    "strategy": "nova"
+  },
+  {
+    "case_id": "CASE-H-0075",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "GATE_ALREADY_DECIDABLE",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0075",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0075",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "AMBIGUOUS_CASE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0076",
+    "expected_gate": "BLOCKED",
+    "failure_type": "AMBIGUOUS_CASE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "GATE_ALREADY_DECIDABLE",
+    "strategy": "nova"
+  },
+  {
+    "case_id": "CASE-H-0076",
+    "expected_gate": "BLOCKED",
+    "failure_type": "AMBIGUOUS_CASE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "GATE_ALREADY_DECIDABLE",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0076",
+    "expected_gate": "BLOCKED",
+    "failure_type": "AMBIGUOUS_CASE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0076",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0077",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "GATE_ALREADY_DECIDABLE",
+    "strategy": "nova"
+  },
+  {
+    "case_id": "CASE-H-0077",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "GATE_ALREADY_DECIDABLE",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0077",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0077",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "AMBIGUOUS_CASE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0078",
+    "expected_gate": "BLOCKED",
+    "failure_type": "AMBIGUOUS_CASE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "GATE_ALREADY_DECIDABLE",
+    "strategy": "nova"
+  },
+  {
+    "case_id": "CASE-H-0078",
+    "expected_gate": "BLOCKED",
+    "failure_type": "AMBIGUOUS_CASE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "GATE_ALREADY_DECIDABLE",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0078",
+    "expected_gate": "BLOCKED",
+    "failure_type": "AMBIGUOUS_CASE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0078",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0079",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "GATE_ALREADY_DECIDABLE",
+    "strategy": "nova"
+  },
+  {
+    "case_id": "CASE-H-0079",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "GATE_ALREADY_DECIDABLE",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0079",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0079",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "AMBIGUOUS_CASE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0080",
+    "expected_gate": "BLOCKED",
+    "failure_type": "AMBIGUOUS_CASE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "GATE_ALREADY_DECIDABLE",
+    "strategy": "nova"
+  },
+  {
+    "case_id": "CASE-H-0080",
+    "expected_gate": "BLOCKED",
+    "failure_type": "AMBIGUOUS_CASE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "GATE_ALREADY_DECIDABLE",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0080",
+    "expected_gate": "BLOCKED",
+    "failure_type": "AMBIGUOUS_CASE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0080",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0081",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "GATE_ALREADY_DECIDABLE",
+    "strategy": "nova"
+  },
+  {
+    "case_id": "CASE-H-0081",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "GATE_ALREADY_DECIDABLE",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0081",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0081",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "AMBIGUOUS_CASE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0082",
+    "expected_gate": "BLOCKED",
+    "failure_type": "AMBIGUOUS_CASE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "GATE_ALREADY_DECIDABLE",
+    "strategy": "nova"
+  },
+  {
+    "case_id": "CASE-H-0082",
+    "expected_gate": "BLOCKED",
+    "failure_type": "AMBIGUOUS_CASE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "GATE_ALREADY_DECIDABLE",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0082",
+    "expected_gate": "BLOCKED",
+    "failure_type": "AMBIGUOUS_CASE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0082",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0083",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "GATE_ALREADY_DECIDABLE",
+    "strategy": "nova"
+  },
+  {
+    "case_id": "CASE-H-0083",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "GATE_ALREADY_DECIDABLE",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0083",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "GATE_FAILURE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0083",
+    "expected_gate": "READY_FOR_REVIEW",
+    "failure_type": "AMBIGUOUS_CASE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  },
+  {
+    "case_id": "CASE-H-0084",
+    "expected_gate": "BLOCKED",
+    "failure_type": "AMBIGUOUS_CASE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "GATE_ALREADY_DECIDABLE",
+    "strategy": "nova"
+  },
+  {
+    "case_id": "CASE-H-0084",
+    "expected_gate": "BLOCKED",
+    "failure_type": "AMBIGUOUS_CASE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "GATE_ALREADY_DECIDABLE",
+    "strategy": "fixed-early-stop"
+  },
+  {
+    "case_id": "CASE-H-0084",
+    "expected_gate": "BLOCKED",
+    "failure_type": "AMBIGUOUS_CASE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "BLOCKED",
+    "stop_reason": "FIXED_CHECKLIST_COMPLETED",
+    "strategy": "fixed-all"
+  },
+  {
+    "case_id": "CASE-H-0084",
+    "expected_gate": "BLOCKED",
+    "failure_type": "EVIDENCE_FAILURE",
+    "fault_type": "BORDERLINE",
+    "predicted_gate": "READY_FOR_REVIEW",
+    "stop_reason": "SURFACE_METRIC_DECISION",
+    "strategy": "surface-metric"
+  }
+]

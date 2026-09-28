@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0",
+  "name": "ez-math-model",
+  "display_name": "EZ Math Model",
+  "version": "1.2.0",
+  "summary": "A contest-ready mathematical modeling Agent Skill for problem intake, modeling, solving, paper writing, quality audit, and packaging.",
+  "description": "Use when solving CUMCM, MCM, ICM, graduate mathematical modeling contests, or course modeling tasks that require a full modeling workflow.",
+  "author": {
+    "name": "woodfishhhh",
+    "email": "3053932588@qq.com"
+  },
+  "license": "MIT",
+  "repository": "https://github.com/woodfishhhh/EZ_math_model",
+  "homepage": "https://github.com/woodfishhhh/EZ_math_model#readme",
+  "entrypoint": "skills/ez-math-model/SKILL.md",
+  "readme": {
+    "zh-CN": "README.md",
+    "en": "README.en.md"
+  },
+  "star_map": "STAR_MAP.md",
+  "categories": [
+    "Education",
+    "Data Science",
+    "Research",
+    "Writing"
+  ],
+  "tags": [
+    "mathematical modeling",
+    "CUMCM",
+    "MCM",
+    "ICM",
+    "Python",
+    "academic writing",
+    "PaperOrchestra",
+    "data analysis"
+  ],
+  "targets": [
+    "Codex",
+    "Claude Code",
+    "Agent Skills"
+  ],
+  "requirements": {
+    "python": ">=3.10",
+    "optional_tools": [
+      "pandoc",
+      "mineru",
+      "LibreOffice",
+      "OpenAlex",
+      "Semantic Scholar"
+    ]
+  }
+}

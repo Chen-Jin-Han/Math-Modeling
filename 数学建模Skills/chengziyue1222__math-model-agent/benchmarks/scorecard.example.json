@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "case_id": "cumcm-2022-a",
+  "evaluator": "team-review",
+  "hard_gates": {
+    "source_traceability": true,
+    "reproducible_result": true,
+    "answers_all_subproblems": true,
+    "no_fabricated_evidence": true
+  },
+  "criteria": {
+    "problem_formulation": {"score": 4, "evidence": ["analysis.md"]},
+    "assumptions_and_units": {"score": 4, "evidence": ["model.md"]},
+    "data_and_parameters": {"score": 4, "evidence": ["run-manifest.json"]},
+    "model_design": {"score": 4, "evidence": ["model.md"]},
+    "solver_correctness": {"score": 4, "evidence": ["results.json"]},
+    "validation_and_robustness": {"score": 4, "evidence": ["validation.json"]},
+    "sensitivity_and_limits": {"score": 4, "evidence": ["sensitivity.json"]},
+    "communication_and_traceability": {"score": 4, "evidence": ["paper/main.pdf"]}
+  },
+  "notes": "Scores require direct evidence; the evaluator must not infer missing artifacts."
+}

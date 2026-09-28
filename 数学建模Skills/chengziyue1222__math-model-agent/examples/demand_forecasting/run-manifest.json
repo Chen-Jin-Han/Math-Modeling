@@ -1,0 +1,104 @@
+{
+  "run_id": "demand-forecast-v1",
+  "problem": {
+    "competition": "workflow-demo",
+    "year": 2026,
+    "code": "prediction",
+    "title": "Monthly demand forecasting",
+    "source": "data/monthly_demand.csv"
+  },
+  "stage": "validation",
+  "status": "succeeded",
+  "data_inputs": [
+    {
+      "path": "data/monthly_demand.csv",
+      "sha256": "43ce8768bfd60b00ed733f0c969f5967a360385698eb51f16302d4679000b2ca",
+      "bytes": 445
+    },
+    {
+      "path": "config.json",
+      "sha256": "691f231dd60d4be8745e20d1a64d973136463449b5a18e20eb9ff802d0f93486",
+      "bytes": 106
+    }
+  ],
+  "model": {
+    "name": "linear-trend-month-effects",
+    "version": "1.0.0",
+    "assumptions_path": "assumptions.md",
+    "parameter_source": "config.json"
+  },
+  "execution": {
+    "command": [
+      "python",
+      "-m",
+      "examples.demand_forecasting.solve"
+    ],
+    "deterministic": true,
+    "random_seeds": {},
+    "git_commit": "673694b6341dccd2bdfa189e5312b040566e2bb2",
+    "git_dirty": true
+  },
+  "parameters": {
+    "train_months": 24,
+    "forecast_horizon": 12,
+    "primary_metric": "mae",
+    "model_version": "1.0.0"
+  },
+  "metrics": {
+    "holdout_mae": {
+      "value": 1.416666666666681,
+      "unit": "demand units",
+      "split": "holdout"
+    },
+    "baseline_mae": {
+      "value": 24.083333333333332,
+      "unit": "demand units",
+      "split": "holdout"
+    },
+    "mae_improvement": {
+      "value": 94.11764705882347,
+      "unit": "%",
+      "split": "holdout"
+    }
+  },
+  "failed_runs": [],
+  "artifacts": [
+    {
+      "path": "results/results.json",
+      "role": "machine-readable-results",
+      "sha256": "439f66fcfe855909df95b471294887483c27fd2dad6a579591e5a3bce57c9440",
+      "bytes": 2365
+    },
+    {
+      "path": "reports/validation.json",
+      "role": "validation-report",
+      "sha256": "31d96bfd6496876e20406673ba1de0c40c7798c12b3c005950c0752b1bb71710",
+      "bytes": 188
+    },
+    {
+      "path": "figures/holdout_forecast.svg",
+      "role": "diagnostic-figure",
+      "sha256": "c89746f5e12ec23bb9f504c73821b43fa617fe85d03711e563f8cc6fa2a0e779",
+      "bytes": 37964
+    }
+  ],
+  "limitations": [
+    "Synthetic data demonstrate the workflow and do not represent a real market.",
+    "Month effects are assumed stable across the forecast horizon."
+  ],
+  "schema_version": "1.0",
+  "created_at": "2026-07-18T14:08:54.170192+00:00",
+  "parent_run_id": null,
+  "environment": {
+    "python": "3.13.9",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "dependencies": {
+      "numpy": "2.3.5",
+      "scipy": "1.16.3",
+      "matplotlib": "3.10.6",
+      "pandas": "2.3.3",
+      "scikit-learn": "1.7.2",
+      "networkx": "3.5"
+    }
+  }
+}

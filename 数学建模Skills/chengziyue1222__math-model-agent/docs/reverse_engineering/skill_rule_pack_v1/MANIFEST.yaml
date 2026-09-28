@@ -1,0 +1,76 @@
+package_version: 1.0.0
+generated_at: '2026-07-30T19:10:00+08:00'
+source_documents:
+- 国赛24年Aclaudeopus5直出(1).pdf
+- 24Afable5直出(1).pdf
+- 20260730_技能与论文资料包.zip/04_最近真实生成论文/main_v2.pdf
+- 20260730_技能与论文资料包.zip/01_当前主Skill/SKILL.md
+files:
+- path: 00_full_analysis_report.md
+  sha256: a6a788e62c76d6ff1bc27a1bf096575a7d73700a14b3485a7c03ad023886ba45
+  bytes: 8410
+- path: 01_evidence_matrix.md
+  sha256: 5eb8e419efd78cb088bfcc9cb9fe6e1a592c99cd01dcb42c115098d9ed3f7279
+  bytes: 31809
+- path: 02_layout_profile.yaml
+  sha256: 68b2870c7d62d6da139c9da4b5e03a9d2062c7b6b85a03859ed64e3967fcb802
+  bytes: 12567
+- path: 03_paper_structure_spec.yaml
+  sha256: 5efda254e6b616df2480e72b6f1ab72d0aa05e7462538e85f4af907ec557cc84
+  bytes: 9926
+- path: 04_figure_grammar.yaml
+  sha256: e342862183d01c7451c563ef4318b654b0d98bed8fd6fb0b410a8e9ad34bc74c
+  bytes: 10909
+- path: 05_table_and_numeric_rules.yaml
+  sha256: aa598edc40dc166bf3a0978bd0acb6b5ebfef0fa6ae400e159a9e2a1b2374e8f
+  bytes: 9027
+- path: 06_writing_style_rules.yaml
+  sha256: d864b84ed0087a9fecea1af67df9f5197adac0f57db2d393888b6a21b7edc97c
+  bytes: 8464
+- path: 07_modeling_pattern_cards.yaml
+  sha256: 9167c85ace3544cfb05f03a5c5c909f4894bff274b95075b79dc9649444b7696
+  bytes: 18674
+- path: 08_validation_gates.yaml
+  sha256: ecfa4e949d2c56043ecae48ad73ed6f8d04a18aadaf09c095a1173370b81fb3d
+  bytes: 7277
+- path: 09_agent_workflow.yaml
+  sha256: 1db05989d125335376f23a1eebb085b15e22ab8b7cf3868da53d369117619202
+  bytes: 7013
+- path: 10_skill_integration_requirements.md
+  sha256: d1cff860626132837be4efe50bf760b52fe3d2e3290a45a19ec08fc15475f561
+  bytes: 6997
+- path: 11_rejected_patterns.md
+  sha256: 8d8bbca5f262318c3a9ea47fd95b88614a61363f63eb9b9eaaad61fb85c07746
+  bytes: 4326
+- path: 12_acceptance_tests.yaml
+  sha256: c683d332ed168fc8649aed434ffaf8139832a838547f48bab428e96a40f9d08b
+  bytes: 10815
+dependencies:
+- PyMuPDF/pdfinfo/pdffonts for layout extraction
+- YAML parser and JSON/CSV result registry
+- LaTeX or equivalent rendering pipeline
+- Existing academic-data-visualization skill for figure generation
+rule_count_by_priority:
+  P0: 73
+  P1: 67
+  P2: 10
+  P3: 2
+rule_count_total: 152
+unresolved_items:
+- Actual full math-model repository and dirty state
+- LaTeX source for main_v2.pdf
+- Contest mandatory template/page limits
+- Permission for online reference verification
+implementation_order:
+- repository audit and baseline
+- P0 evidence/consistency gates
+- P1 template/figure/table integration
+- P2 automation and clean-room reproduction
+- P3 language/visual refinement
+expected_repository_changes:
+- new/extended modeling-paper orchestrator skill
+- style and structure configs with schemas
+- claim registry and result manifest
+- numeric/reference/figure/PDF validators
+- paper templates
+- regression and failure-injection tests

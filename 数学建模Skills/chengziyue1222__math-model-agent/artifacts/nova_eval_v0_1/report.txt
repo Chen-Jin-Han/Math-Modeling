@@ -1,0 +1,77 @@
+《智感Nova P0可信诊断评测报告 v0.1》
+
+一、评测目标
+验证可信诊断、误阻断控制、动态实验选择、最小充分证据和可追溯性。
+
+二、Case Generator
+受控合成校园逐时负荷：含时间戳、负荷、温度、日历、滞后特征与预测；故障标签仅在评测清单中。
+
+三、故障类型
+TIME_SPLIT、FEATURE_LEAKAGE、PEAK_FAILURE、BASELINE_FAILURE、MULTI_FAULT、CLEAN、BORDERLINE。
+
+四、数据集划分
+本次 final hidden 运行包含 84 个中性编号案例；DEV、CALIBRATION 和 CHALLENGE 由同一固定生成器独立生成。
+
+五、Baseline定义
+Nova Dynamic、Fixed Checklist + Early Stop、Fixed Checklist Run All、SurfaceMetricBaseline。后三者中前三种共用真实 Nova ExperimentExecutor；SurfaceMetricBaseline 不是 LLM。
+
+六、评价指标定义
+Gate Accuracy、Fault Detection、False Block、实验数、成本、Top-1、追溯率与混淆矩阵均从 raw_results.json 计算。
+
+七、Nova总体结果
+Nova Gate Accuracy=0.785714, Fault Detection=0.818182, False Block=0.0。
+
+八、Nova vs Fixed Early Stop
+平均实验数：Nova=1.285714，Fixed Early Stop=1.285714。
+
+九、Nova vs Fixed Run All
+平均实验数：Nova=1.285714，Fixed Run All=2.428571；平均成本：1.542857 vs 2.771429。
+
+十、Surface Metric baseline结果
+Surface Metric Gate Accuracy=0.214286。它只看整体 MAPE，不能冒充真实 LLM。
+
+十一、LLM baseline结果
+NOT_EXECUTED_NO_PROVIDER：只实现了适配接口，未伪造模型调用或结果。
+
+十二、按故障类型结果
+{'BASELINE_FAILURE': {'nova': {'n': 12, 'gate_accuracy': 0.0, 'top1_selection_accuracy': 1.0}, 'fixed-early-stop': {'n': 12, 'gate_accuracy': 0.0, 'top1_selection_accuracy': 0.0}, 'fixed-all': {'n': 12, 'gate_accuracy': 0.0, 'top1_selection_accuracy': 0.0}, 'surface-metric': {'n': 12, 'gate_accuracy': 0.0, 'top1_selection_accuracy': 0.0}}, 'BORDERLINE': {'nova': {'n': 12, 'gate_accuracy': 0.5, 'top1_selection_accuracy': 1.0}, 'fixed-early-stop': {'n': 12, 'gate_accuracy': 0.5, 'top1_selection_accuracy': 1.0}, 'fixed-all': {'n': 12, 'gate_accuracy': 0.5, 'top1_selection_accuracy': 1.0}, 'surface-metric': {'n': 12, 'gate_accuracy': 0.5, 'top1_selection_accuracy': 0.0}}, 'CLEAN': {'nova': {'n': 12, 'gate_accuracy': 1.0, 'top1_selection_accuracy': 1.0}, 'fixed-early-stop': {'n': 12, 'gate_accuracy': 1.0, 'top1_selection_accuracy': 0.0}, 'fixed-all': {'n': 12, 'gate_accuracy': 1.0, 'top1_selection_accuracy': 0.0}, 'surface-metric': {'n': 12, 'gate_accuracy': 1.0, 'top1_selection_accuracy': 0.0}}, 'FEATURE_LEAKAGE': {'nova': {'n': 12, 'gate_accuracy': 1.0, 'top1_selection_accuracy': 1.0}, 'fixed-early-stop': {'n': 12, 'gate_accuracy': 1.0, 'top1_selection_accuracy': 1.0}, 'fixed-all': {'n': 12, 'gate_accuracy': 1.0, 'top1_selection_accuracy': 1.0}, 'surface-metric': {'n': 12, 'gate_accuracy': 0.0, 'top1_selection_accuracy': 0.0}}, 'MULTI_FAULT': {'nova': {'n': 12, 'gate_accuracy': 1.0, 'top1_selection_accuracy': 1.0}, 'fixed-early-stop': {'n': 12, 'gate_accuracy': 1.0, 'top1_selection_accuracy': 1.0}, 'fixed-all': {'n': 12, 'gate_accuracy': 1.0, 'top1_selection_accuracy': 1.0}, 'surface-metric': {'n': 12, 'gate_accuracy': 0.0, 'top1_selection_accuracy': 0.0}}, 'PEAK_FAILURE': {'nova': {'n': 12, 'gate_accuracy': 1.0, 'top1_selection_accuracy': 1.0}, 'fixed-early-stop': {'n': 12, 'gate_accuracy': 1.0, 'top1_selection_accuracy': 1.0}, 'fixed-all': {'n': 12, 'gate_accuracy': 1.0, 'top1_selection_accuracy': 1.0}, 'surface-metric': {'n': 12, 'gate_accuracy': 0.0, 'top1_selection_accuracy': 0.0}}, 'TIME_SPLIT': {'nova': {'n': 12, 'gate_accuracy': 1.0, 'top1_selection_accuracy': 1.0}, 'fixed-early-stop': {'n': 12, 'gate_accuracy': 1.0, 'top1_selection_accuracy': 1.0}, 'fixed-all': {'n': 12, 'gate_accuracy': 1.0, 'top1_selection_accuracy': 1.0}, 'surface-metric': {'n': 12, 'gate_accuracy': 0.0, 'top1_selection_accuracy': 0.0}}}
+
+十三、动态实验选择结果
+Nova Top-1 Selection Accuracy=1.0。该指标以 evaluator 内的可接受首实验集合为 Oracle，不传入 Core。
+
+十四、最小充分证据结果
+Nova unnecessary experiment rate=0.0；Fixed Run All=0.470588。
+
+十五、False Block分析
+Nova Clean False Block Rate=0.0。Clean 不从混淆矩阵或总体统计中剔除。
+
+十六、Challenge Set结果
+独立挑战集结果：{'average_decision_cost': 1.542857, 'average_experiment_count': 1.285714, 'average_time_to_decisive_evidence': 1.285714, 'average_wall_seconds': 0.000407, 'confusion_matrix': {'FN': 3, 'FP': 1, 'TN': 3, 'TP': 14}, 'evidence_traceability_rate': 1.0, 'f1': 0.875, 'false_block_rate': 0.0, 'fault_detection_rate': 0.823529, 'gate_accuracy': 0.809524, 'gate_traceability_rate': 1.0, 'n': 21, 'precision': 0.933333, 'recall': 0.823529, 'selection_efficiency': 0.777778, 'selection_regret': 'DEFERRED: no independent oracle-cost model in v0.1', 'top1_selection_accuracy': 1.0, 'unnecessary_experiment_rate': 0.0}。该集合不参与规则调优。
+
+十七、失败案例
+保留 168 条失败/边界记录；详见 failures.json。失败分为选择、执行、证据、Gate、歧义和真值设计问题。
+
+十八、追溯性验证
+Nova Evidence Traceability=1.0，Gate Traceability=1.0。
+
+十九、稳定性与复现性
+同一输入的逻辑复跑检查：{'cases_checked': 7, 'strategy_runs_checked': 28, 'logical_result_match_rate': 1.0}。时间戳和临时 ToolResult ID 不作为一致性判据。
+
+二十、本轮真实测试结果
+产物由同一命令从头生成；单元、相关回归和全量测试结果记录于运行交付说明。
+
+二十一、生成的图表
+figures/ 下含准确率、实验数、成本、Top-1、误阻断率和实验数量分布图，全部从 raw_results.json 自动绘制。
+
+二十二、对比赛最有价值的5条真实结论
+1. 在 84 个案例中，Nova Gate Accuracy 为 0.785714。
+2. Nova 的 Clean False Block Rate 为 0.0。
+3. Nova 的首实验 Oracle 命中率为 1.0。
+4. Nova 平均执行 1.285714 个实验，Fixed Run All 为 2.428571。
+5. Evidence 与 Gate 的每一条追溯率均由输出哈希、source pointer、证据 ID 和 Rule ID 逐项复核。
+
+二十三、当前还不能宣称什么
+未使用真实校园部署数据；未执行真实 LLM baseline；未证明跨领域泛化；BASELINE_FAILURE 的 WEAKENS 证据在 v0.1 Gate 中并不自动阻断。
+
+二十四、下一阶段建议
+仅当本评测结果经审阅后，再决定是否具备进入 Nova Core HTTP API 阶段的条件；本评测不会自动开始该工作。

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Run Modeling Project"
+  short_description: "Run rapid, competition, or audited modeling workflows"
+  default_prompt: "Use $run-modeling-project in competition mode to coordinate this modeling project with appropriate evidence and handoffs."

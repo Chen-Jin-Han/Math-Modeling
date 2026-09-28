@@ -1,0 +1,58 @@
+% =========================================================
+%  AI工具使用详情.pdf 支撑材料模板
+%  依据：全国大学生数学建模竞赛人工智能工具使用规定（2026 年试行）
+%  编译：xelatex ai-usage-detail-template.tex（单次即可）
+%  ◇ 使用 AI 工具的参赛作品【必须】提交此支撑材料
+%  ◇ 文件名固定为「AI工具使用详情.pdf」；不得包含参赛者姓名、学校或赛区信息
+%  ◇ 结构照官方 CUMCMThesis example.tex 字面对齐；下方占位内容替换为真实记录
+%  ◇ 正文「AI 工具使用声明」与本文档一致为官方规定要求（第 3/5 条），参赛队提交前自行核对
+%  ◇ 填写提示（不渲染）：工具名不写"AI/大模型"等泛指；用途环节写明输入/输出/对应论文位置；
+%     提示过程可附代表性交互片段（提示句 + 回复要点）；与 ai_usage_log.md 交叉核对后再定稿
+% =========================================================
+\documentclass[11pt]{ctexart}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{booktabs,tabularx}
+\usepackage{enumitem}
+% 页码放页脚居中（ctexart 默认在页眉右侧，会与论文版式不一致）
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\begin{document}
+
+\section*{AI工具使用详情}
+
+\subsection*{工具信息}
+\noindent
+\begin{tabularx}{\textwidth}{@{}XX@{}}
+  \toprule
+  项目 & 填写内容 \\
+  \midrule
+  工具名称 & \textit{填写实际使用的产品或工具名称} \\
+  版本或型号 & \textit{填写实际版本、模型名称或可识别的型号} \\
+  使用日期 & \textit{YYYY-MM-DD 至 YYYY-MM-DD} \\
+  \bottomrule
+\end{tabularx}
+
+\subsection*{具体使用目的和环节}
+逐项说明 AI 用于语言润色、代码调试、资料整理或其他环节；不得笼统写“辅助论文”。明确其输入、输出及对应论文位置。
+
+\subsection*{主要提示方式与使用过程}
+说明主要提示策略与迭代过程，可附具有代表性的交互片段。不要包含参赛者姓名、学校或赛区信息。
+
+\subsection*{采纳、人工修改与核验}
+除语言润色外，逐项记录 AI 输出是否采纳、由谁进行何种人工修改、采用何种数据或实验复核，以及最终结论是否发生变化。
+
+\subsection*{人工核验清单}
+\begin{enumerate}[label=\arabic*)]
+  \item 核对公式推导、单位、边界条件和符号一致性；
+  \item 在独立环境中运行全部代码并复现论文表图；
+  \item 核验引用、数据来源和事实陈述；
+  \item 确认核心建模与分析由参赛队主导；
+  \item 确认论文声明与本详情文件一致。
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,103 @@
+{
+  "run_id": "supplier-allocation-v1",
+  "problem": {
+    "competition": "workflow-demo",
+    "year": 2026,
+    "code": "operations-research",
+    "title": "Minimum-cost supplier allocation",
+    "source": "data/transportation.json"
+  },
+  "stage": "validation",
+  "status": "succeeded",
+  "data_inputs": [
+    {
+      "path": "data/transportation.json",
+      "sha256": "a4f46f3834ff10e4de1c9aee14de7ec6775293e57c6b76927e28f671fd291c47",
+      "bytes": 193
+    },
+    {
+      "path": "config.json",
+      "sha256": "e8a409b870be6980c18362d8c7c15da53633039c61ad4e262c15babd28998098",
+      "bytes": 114
+    }
+  ],
+  "model": {
+    "name": "balanced-transportation-linear-program",
+    "version": "1.0.0",
+    "assumptions_path": "assumptions.md",
+    "parameter_source": "config.json"
+  },
+  "execution": {
+    "command": [
+      "python",
+      "-m",
+      "examples.supplier_allocation.solve"
+    ],
+    "deterministic": true,
+    "random_seeds": {},
+    "git_commit": "673694b6341dccd2bdfa189e5312b040566e2bb2",
+    "git_dirty": true
+  },
+  "parameters": {
+    "model_version": "1.0.0",
+    "solver": "scipy-highs-via-linear_programming",
+    "feasibility_tolerance": 1e-07
+  },
+  "metrics": {
+    "optimal_cost": {
+      "value": 1060.0,
+      "unit": "cost units",
+      "split": "full"
+    },
+    "baseline_cost": {
+      "value": 1685.0,
+      "unit": "cost units",
+      "split": "full"
+    },
+    "cost_savings": {
+      "value": 37.0919881305638,
+      "unit": "%",
+      "split": "full"
+    }
+  },
+  "failed_runs": [],
+  "artifacts": [
+    {
+      "path": "results/results.json",
+      "role": "machine-readable-results",
+      "sha256": "d0401f08fc77ea29b0ad177fa574201f2ae9e2295fd2e3527606f44dd3ab9162",
+      "bytes": 625
+    },
+    {
+      "path": "reports/validation.json",
+      "role": "validation-report",
+      "sha256": "2e811732f749a0e8cf6792d195bed02be963d3b1063e564f283df1c693985bc1",
+      "bytes": 241
+    },
+    {
+      "path": "figures/allocation_matrix.svg",
+      "role": "decision-figure",
+      "sha256": "0d8aabda081ee21afe18b853f3419c0fbe46f87edbd3a59393525636f2788ed2",
+      "bytes": 32763
+    }
+  ],
+  "limitations": [
+    "The synthetic example excludes fixed charges, integer trucks, and uncertain demand.",
+    "Linear unit costs are assumed constant over the planning period."
+  ],
+  "schema_version": "1.0",
+  "created_at": "2026-07-18T14:10:22.089798+00:00",
+  "parent_run_id": null,
+  "environment": {
+    "python": "3.13.9",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "dependencies": {
+      "numpy": "2.3.5",
+      "scipy": "1.16.3",
+      "matplotlib": "3.10.6",
+      "pandas": "2.3.3",
+      "scikit-learn": "1.7.2",
+      "networkx": "3.5"
+    }
+  }
+}

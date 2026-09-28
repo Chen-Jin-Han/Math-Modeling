@@ -1,0 +1,236 @@
+schema_version: '1.0'
+status_values:
+- pass
+- fail
+- blocked
+- needs_review
+- not_applicable
+rules:
+- rule_id: VAL-GATE-001
+  description: 题目参数、单位、对象编号和输出格式必须结构化并通过自洽检查后才能建模。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.5,10-12
+  - B pp.5,8-9
+  confidence: high
+  mandatory: true
+  scope: intake
+  implementation_target:
+  - SKILL.md
+  - config
+  - Python validator
+  - tests
+  validation_method: 参数表单位换算、对象计数、派生量重算全部 PASS。
+  rule_origin: recommended_synthesis
+  priority: P0
+- rule_id: VAL-GATE-002
+  description: 代码必须真实执行成功并生成机器可读结果、日志和环境记录；语言模型文本不得充当计算结果。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 审查报告 01_REPOSITORY_EVIDENCE.md
+  evidence_pages:
+  - A/B 代码附录与结果文件声明
+  - N/A - audit
+  confidence: high
+  mandatory: true
+  scope: execution
+  implementation_target:
+  - SKILL.md
+  - Python validator
+  - tests
+  validation_method: 存在 run manifest、exit_code=0、产物哈希和运行命令；否则 blocked。
+  rule_origin: recommended_synthesis
+  priority: P0
+- rule_id: VAL-GATE-003
+  description: 所有题面硬约束、模型不变量和边界条件必须逐项审计；任一 P0 约束失败禁止写论文最终结论。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.41-43
+  - B p.33
+  confidence: high
+  mandatory: true
+  scope: model_validation
+  implementation_target:
+  - SKILL.md
+  - config
+  - Python validator
+  - tests
+  validation_method: constraint_audit.json 中 mandatory 项全部 pass。
+  rule_origin: direct_observation
+  priority: P0
+- rule_id: VAL-GATE-004
+  description: 分支选择、首次事件和全局峰值必须有局部邻域与步长减半验证。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.20-40
+  - B pp.17-32
+  confidence: high
+  mandatory: true
+  scope: critical_search
+  implementation_target:
+  - SKILL.md
+  - Python validator
+  - tests
+  validation_method: 记录 active_branch、bracket、left/right_state、refined_grid；缺失任一关键字段 FAIL。
+  rule_origin: recommended_synthesis
+  priority: P0
+- rule_id: VAL-GATE-005
+  description: 至少一个关键结论使用真正独立的算法、库或解析关系交叉验证；共享关键函数须显式披露。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.42-44
+  - B p.33
+  confidence: high
+  mandatory: true
+  scope: cross_validation
+  implementation_target:
+  - SKILL.md
+  - Python validator
+  - tests
+  validation_method: 验证依赖图的关键实现共享比例低于配置阈值；共享时不得称“独立”。
+  rule_origin: reverse_constraint
+  priority: P0
+- rule_id: VAL-GATE-006
+  description: 数值收敛性和模型参数敏感性分别检查；结论是否跨越决策阈值必须单独报告。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.44-46
+  - B pp.33-34
+  confidence: high
+  mandatory: true
+  scope: robustness
+  implementation_target:
+  - SKILL.md
+  - Python validator
+  - tests
+  validation_method: 生成 convergence.json 与 sensitivity.json；阈值翻转则标记 unstable。
+  rule_origin: recommended_synthesis
+  priority: P0
+- rule_id: VAL-GATE-007
+  description: 摘要、正文、图、表、流程图、附件中的数字执行 quantity_id 一致性校验。
+  source_files:
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - B pp.6,20-21
+  confidence: high
+  mandatory: true
+  scope: consistency
+  implementation_target:
+  - Python validator
+  - tests
+  validation_method: 同 quantity_id 的展示值在舍入容差内一致；否则 FAIL 并定位文件/页。
+  rule_origin: reverse_constraint
+  priority: P0
+- rule_id: VAL-GATE-008
+  description: 参考文献必须存在、可核验且支撑对应论述；无法联网核验的文献标记 unresolved，不得伪造。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  evidence_pages:
+  - A pp.48-50
+  - B pp.36-37
+  confidence: high
+  mandatory: true
+  scope: references
+  implementation_target:
+  - SKILL.md
+  - Python validator
+  - tests
+  validation_method: DOI/题名/作者/年份至少三项匹配权威索引；不匹配 FAIL。
+  rule_origin: recommended_synthesis
+  priority: P0
+- rule_id: VAL-GATE-009
+  description: 图表必须绑定源数据哈希，文字可读、单位完整、黑白或色盲条件下仍可解释。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 20260730_技能与论文资料包.zip/01_当前主Skill/SKILL.md
+  evidence_pages:
+  - A/B 图表
+  - figure QA references
+  confidence: high
+  mandatory: true
+  scope: visuals
+  implementation_target:
+  - Python validator
+  - rendering pipeline
+  - tests
+  validation_method: figure_manifest + raster/OCR/颜色检查全部通过。
+  rule_origin: recommended_synthesis
+  priority: P1
+- rule_id: VAL-GATE-010
+  description: PDF 预检必须检查页面尺寸、字体嵌入、裁切、乱码、孤标题、图题分离、参考文献/附录分页和目录页码。
+  source_files:
+  - 国赛24年Aclaudeopus5直出(1).pdf
+  - 24Afable5直出(1).pdf
+  - 20260730_技能与论文资料包.zip/04_最近真实生成论文/main_v2.pdf
+  evidence_pages:
+  - A/B/C 全文
+  confidence: high
+  mandatory: true
+  scope: pdf_preflight
+  implementation_target:
+  - Python validator
+  - rendering pipeline
+  - tests
+  validation_method: render->inspect->preflight；任何 blocking issue 均阻止交付。
+  rule_origin: recommended_synthesis
+  priority: P0
+- rule_id: VAL-GATE-011
+  description: 提交包必须在干净环境一键复现关键结果，并包含代码、数据/数据合同、依赖锁、运行说明和 Manifest。
+  source_files:
+  - 审查报告 01_REPOSITORY_EVIDENCE.md
+  evidence_pages:
+  - N/A - repository audit
+  confidence: high
+  mandatory: true
+  scope: packaging
+  implementation_target:
+  - SKILL.md
+  - Python validator
+  - tests
+  - documentation
+  validation_method: 临时目录安装并运行 smoke/full profile；哈希一致或差异有解释。
+  rule_origin: recommended_synthesis
+  priority: P0
+- rule_id: VAL-GATE-012
+  description: 失败证据必须保留：不收敛、约束违反、弱基线、缺失数据或引用未核验时输出 blocked，而非自动润色成成功。
+  source_files:
+  - 审查报告 02_TECHNICAL_AUDIT.md
+  evidence_pages:
+  - N/A - repository audit
+  confidence: high
+  mandatory: true
+  scope: failure_handling
+  implementation_target:
+  - SKILL.md
+  - config
+  - Python validator
+  - tests
+  validation_method: 故障注入测试中系统返回 blocked/needs_review，且无最终结论文件。
+  rule_origin: recommended_synthesis
+  priority: P0
+gate_order:
+- VAL-GATE-001
+- VAL-GATE-002
+- VAL-GATE-003
+- VAL-GATE-004
+- VAL-GATE-005
+- VAL-GATE-006
+- VAL-GATE-007
+- VAL-GATE-008
+- VAL-GATE-009
+- VAL-GATE-010
+- VAL-GATE-011
+- VAL-GATE-012

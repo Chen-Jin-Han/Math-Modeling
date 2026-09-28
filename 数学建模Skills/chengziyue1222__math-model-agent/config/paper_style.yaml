@@ -1,0 +1,86 @@
+schema_version: "1.0"
+profile: cumcm-modeling-paper
+purpose: "Canonical defaults for competition-paper generation; a contest template may override them."
+
+page:
+  size: A4
+  columns: 1
+  margins_mm: {left: 25, right: 25, top: 25, bottom: 28}
+  page_number: bottom-center
+  running_header: none
+  structural_page_breaks: [references, appendix]
+  numbering_starts_at: 1
+  numbering_continuous: true
+  max_body_pages: 30
+  abstract_page_excluded_from_body_limit: true
+
+typography:
+  chinese_body: SimSun
+  chinese_heading: SimHei
+  latin_body: Times New Roman
+  body_pt: 12
+  line_spacing: 1.65
+  paragraph_indent_em: 2
+  title_pt: 16
+  abstract_heading_pt: 14
+  section_pt: 15
+  subsection_pt: 12
+  subsubsection_pt: 12
+  caption_pt: 10
+  appendix_code_pt: 8.5
+
+front_matter:
+  cover: false
+  abstract_on_first_page: true
+  abstract_preferred_chinese_chars: [850, 1200]
+  abstract_max_pages: 1
+  keywords: [4, 7]
+  contents: false
+  restatement_immediately_after_abstract: true
+
+delivery:
+  competition_default_format: PDF
+  competition_accepts_one_of: [PDF, DOCX]
+  audit_requires: [PDF, DOCX]
+  paper_max_bytes: 20971520
+  support_archive_max_bytes: 20971520
+  support_archive_formats: [ZIP, RAR]
+  rar_python_dependency: "rarfile>=4.5"
+  identity_dictionary: .cumcm-identities.json
+  identity_dictionary_required: true
+  identity_dictionary_must_not_ship: true
+
+tables:
+  style: three-line
+  caption_position: above
+  vertical_rules: false
+  body_max_rows: 30
+  body_max_columns: 8
+  default_significant_figures: [4, 6]
+
+figures:
+  background: white
+  palette: muted-modeling-v1
+  minimum_text_pt: 6
+  preferred_text_pt: [7, 8]
+  default_width_mm: 150
+  weak_grid: true
+  require_claim_and_evidence: true
+
+writing:
+  avoid_stock_phrases:
+    - 值得注意的是
+    - 从图中可以看出
+    - 进一步地
+    - 综上所述
+    - 具有重要意义
+    - 显著提升
+    - 有效解决
+  result_sequence: [result, pattern, mechanism, evidence, implication]
+  formula_sequence: [purpose, relation, expression, variables, computation]
+  paper_forbidden_terms:
+    - rule_id
+    - registry
+    - state machine
+    - verified JSON
+    - delivery contract

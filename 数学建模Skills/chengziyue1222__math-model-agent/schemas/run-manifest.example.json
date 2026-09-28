@@ -1,0 +1,39 @@
+{
+  "problem": {
+    "competition": "CUMCM",
+    "year": 2022,
+    "code": "A",
+    "title": "波浪能装置最大输出功率设计",
+    "source": "https://www.mcm.edu.cn/html_cn/node/388239ded4b057d37b7b8e51e33fe903.html"
+  },
+  "stage": "validation",
+  "status": "succeeded",
+  "data_inputs": ["data/clean/measurements.csv"],
+  "model": {
+    "name": "coupled-oscillator",
+    "version": "2.1.0",
+    "assumptions_path": "docs/assumptions.md",
+    "parameter_source": "data/clean/parameters.json"
+  },
+  "execution": {
+    "command": ["python", "src/solve.py", "--config", "config/model.yaml"],
+    "deterministic": false,
+    "random_seeds": {"numpy": 20220804}
+  },
+  "parameters": {"solver": "RK45", "rtol": 1e-8},
+  "metrics": {
+    "holdout_rmse": {"value": 0.041, "unit": "m", "split": "holdout"}
+  },
+  "failed_runs": [
+    {
+      "run_id": "pilot-stiff-solver",
+      "reason": "step size underflow",
+      "diagnostics_path": "diagnostics/pilot-stiff-solver.txt"
+    }
+  ],
+  "artifacts": [
+    {"path": "results/metrics.json", "role": "machine-readable-results"},
+    {"path": "figures/power_curve.png", "role": "paper-figure"}
+  ],
+  "limitations": ["Hydrodynamic coefficients are treated as time invariant."]
+}

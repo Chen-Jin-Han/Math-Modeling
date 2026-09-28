@@ -1,0 +1,102 @@
+{
+  "model": "linear-trend-month-effects",
+  "model_version": "1.0.0",
+  "train_months": 24,
+  "holdout_months": 12,
+  "coefficients": [
+    120.58333333333346,
+    1.9861111111111032,
+    7.513888888888819,
+    15.027777777777713,
+    19.541666666666615,
+    16.555555555555493,
+    10.069444444444386,
+    -0.4166666666667389,
+    -5.902777777777843,
+    -7.388888888888949,
+    -1.875000000000068,
+    5.638888888888823,
+    11.152777777777718
+  ],
+  "holdout": [
+    {
+      "month": "2026-01",
+      "actual": 167.0,
+      "prediction": 168.24999999999994,
+      "seasonal_naive": 145.0
+    },
+    {
+      "month": "2026-02",
+      "actual": 180.0,
+      "prediction": 177.74999999999986,
+      "seasonal_naive": 153.0
+    },
+    {
+      "month": "2026-03",
+      "actual": 185.0,
+      "prediction": 187.24999999999986,
+      "seasonal_naive": 165.0
+    },
+    {
+      "month": "2026-04",
+      "actual": 195.0,
+      "prediction": 193.74999999999983,
+      "seasonal_naive": 168.0
+    },
+    {
+      "month": "2026-05",
+      "actual": 194.0,
+      "prediction": 192.74999999999983,
+      "seasonal_naive": 170.0
+    },
+    {
+      "month": "2026-06",
+      "actual": 187.0,
+      "prediction": 188.24999999999983,
+      "seasonal_naive": 165.0
+    },
+    {
+      "month": "2026-07",
+      "actual": 182.0,
+      "prediction": 179.7499999999998,
+      "seasonal_naive": 155.0
+    },
+    {
+      "month": "2026-08",
+      "actual": 175.0,
+      "prediction": 176.24999999999983,
+      "seasonal_naive": 153.0
+    },
+    {
+      "month": "2026-09",
+      "actual": 177.0,
+      "prediction": 176.7499999999998,
+      "seasonal_naive": 154.0
+    },
+    {
+      "month": "2026-10",
+      "actual": 184.0,
+      "prediction": 184.2499999999998,
+      "seasonal_naive": 159.0
+    },
+    {
+      "month": "2026-11",
+      "actual": 193.0,
+      "prediction": 193.7499999999998,
+      "seasonal_naive": 171.0
+    },
+    {
+      "month": "2026-12",
+      "actual": 204.0,
+      "prediction": 201.24999999999977,
+      "seasonal_naive": 176.0
+    }
+  ],
+  "metrics": {
+    "mae": 1.416666666666681,
+    "rmse": 1.6137430609198011,
+    "mape_percent": 0.7610688459664787,
+    "baseline_mae": 24.083333333333332,
+    "mae_improvement_percent": 94.11764705882347
+  }
+}

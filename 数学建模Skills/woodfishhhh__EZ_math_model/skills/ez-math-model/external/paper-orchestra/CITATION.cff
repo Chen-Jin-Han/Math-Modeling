@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the PaperOrchestra paper it implements."
+title: "paper-orchestra: A host-agent-pluggable skill pack implementing PaperOrchestra"
+type: software
+authors:
+  - name: "ar9av"
+repository-code: "https://github.com/ar9av/paper-orchestra"
+license: MIT
+preferred-citation:
+  type: article
+  title: "PaperOrchestra: A Multi-Agent Framework for Automated AI Research Paper Writing"
+  authors:
+    - family-names: "Song"
+      given-names: "Yiwen"
+    - family-names: "Song"
+      given-names: "Yale"
+    - family-names: "Pfister"
+      given-names: "Tomas"
+    - family-names: "Yoon"
+      given-names: "Jinsung"
+  year: 2026
+  journal: "arXiv preprint arXiv:2604.05018"
+  url: "https://arxiv.org/pdf/2604.05018"

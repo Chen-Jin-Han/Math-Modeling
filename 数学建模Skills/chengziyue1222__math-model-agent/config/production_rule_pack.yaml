@@ -1,0 +1,10 @@
+# Pointers only: rule definitions remain in docs/reverse_engineering/skill_rule_pack_v1.
+rule_pack_root: docs/reverse_engineering/skill_rule_pack_v1
+canonical_manifest: MANIFEST.yaml
+pdf_profile:
+  page_width_pt: 595.28
+  page_height_pt: 841.89
+  tolerance_pt: 1.0
+  rotation: 0
+display_policy_source: 05_table_and_numeric_rules.yaml
+workflow_source: 09_agent_workflow.yaml
